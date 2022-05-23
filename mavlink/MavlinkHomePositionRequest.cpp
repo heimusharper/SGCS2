@@ -1,4 +1,9 @@
-#include "MavlinkHomePositionStreamer.h"
+#include "MavlinkHomePositionRequest.h"
+
+MavlinkHomePositionRequest::MavlinkHomePositionRequest(QObject *parent)
+    : HomePositionRequest(parent)
+{
+}
 
 mavlink_message_t MavlinkHomePositionRequest::construct() {
     return m_request;

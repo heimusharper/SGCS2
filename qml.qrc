@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>MainToolBar.qml</file>
+        <file>icons/light/index.theme</file>
+        <file>icons/light/64x64/satelites.png</file>
+        <file>icons/light/128x128/satelites.png</file>
     </qresource>
 </RCC>

@@ -6,8 +6,9 @@
 class HomePositionRequest : public QObject {
     Q_OBJECT
 public:
-    HomePositionRequest() {
-
+    HomePositionRequest(QObject *parent)
+        : QObject(parent)
+    {
     }
 
 signals:

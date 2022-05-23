@@ -1,0 +1,13 @@
+[Icon Theme]
+Name=light
+Comment=Light colors
+
+Directories=64x64,128x128
+
+[64x64]
+Size=64
+Type=Fixed
+
+[128x128]
+Size=128
+Type=Fixed

@@ -1,12 +1,9 @@
 #ifndef MAVLINKREQUEST_H
 #define MAVLINKREQUEST_H
 
-extern "C"
-{
-#include "all/mavlink.h"
-#include "all/all.h"
-}
 #include <chrono>
+#include "MavlinkStream.h"
+#include "ModeHelper.h"
 
 class MavlinkRequest
 {
@@ -30,6 +27,7 @@ protected:
     uint8_t COMPID;
     uint8_t APID;
     uint8_t APCOMP;
+    ModeHelper::APMode APMODE;
     /*!
      * \brief m_maxMessageLiveTimeMs максимальное время жизни запроса
      * 0 - для одиночных
@@ -44,6 +42,7 @@ public:
     MavlinkRequest()
         : m_requestTime(std::chrono::system_clock::now()),
         m_dirty(true),
+        m_empty(false),
         m_waitForMessage(true),
         m_maxMessageLiveTimeMs(1000)
     {
@@ -57,11 +56,12 @@ public:
      * \param apid ИД принимающего
      * \param apcomp ИД принимающего компонента
      */
-    void init(uint8_t gcsid, uint8_t compid, uint8_t apid, uint8_t apcomp) {
+    void init(uint8_t gcsid, uint8_t compid, uint8_t apid, uint8_t apcomp, ModeHelper::APMode mode) {
         GCSID = gcsid;
         COMPID = compid;
         APID = apid;
         APCOMP = apcomp;
+        APMODE = mode;
         onInit();
     }
     /*!
@@ -71,6 +71,8 @@ public:
      * если не запланированна оправкта вовсе
      */
     virtual bool ready() {
+        if (m_empty)
+            return false;
         if (m_dirty)
             return true;
         if (m_waitForMessage) {
@@ -78,6 +80,7 @@ public:
             if (m_maxMessageLiveTimeMs > 0 && m_maxMessageLiveTimeMs < UINT32_MAX) {
                 if (std::chrono::duration_cast<std::chrono::milliseconds>(end - m_firstRequestTime).count() > m_maxMessageLiveTimeMs) {
                     m_waitForMessage = false;
+                    m_empty = true; // stop
                     onError(MavlinkRequest::MessageError::MESSAGE_TIMEOUT);
                     return false;
                 }
@@ -131,7 +134,8 @@ public:
             m_responsesCount++;
         }
     }
-
+protected:
+    bool m_empty;
 private:
     /*!
      * \brief m_requestsCount кол-во отправок

@@ -3,6 +3,10 @@
 
 #include <QLocale>
 #include <QTranslator>
+#include <QIcon>
+
+#include "mavlink/MavlinkStreamer.h"
+#include "uav/UAV.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,6 +14,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+
+    QIcon::setThemeName("light");
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -22,13 +28,22 @@ int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine engine;
+
+    QScopedPointer<UAV> uavInstance(new UAV(new MavlinkStreamer()));
+    qmlRegisterSingletonInstance("Finco", 1, 0, "UAV", uavInstance.get());
+    qmlRegisterType<Connection>("Finco", 1, 0, "Connection");
+    qmlRegisterType<Sensors>("Finco", 1, 0, "Sensors");
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl)
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
+
+
     engine.load(url);
+
 
     return app.exec();
 }

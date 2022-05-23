@@ -37,12 +37,14 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Quick
     LinguistTools
     Positioning
+    Network
 )
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Core
     Quick
     LinguistTools
     Positioning
+    Network
 )
 
 set(TS_FILES SGCS2_ru_RU.ts)
@@ -51,27 +53,56 @@ set(PROJECT_SOURCES
         main.cpp
         # uav
         uav/UAV.h
+        uav/Positioning.h
+        uav/Sensors.h
 
         uav/UAV.cpp
+        uav/Positioning.cpp
+        uav/Sensors.cpp
+
+
+        connection/Connection.h
+        connection/ConnectionType.h
+        connection/UDPConnection.h
+
+        connection/Connection.cpp
+        connection/ConnectionType.cpp
+        connection/UDPConnection.cpp
+
+
 
         # streamers
 
+        streamer/HomePositionRequest.h
+        streamer/ARMRequest.h
+
         streamer/DataStreamer.h
+        streamer/MainDataStream.h
         streamer/PositionDataStream.h
-        streamer/HomePositionStreamer.h
+        streamer/SensorsDataStream.h
+
 
         streamer/DataStreamer.cpp
 
         # mavlink
+        mavlink/ModeHelper.h
         mavlink/MavlinkRequest.h
+        mavlink/MavlinkStream.h
 
         mavlink/MavlinkStreamer.h
+        mavlink/MavlinkMainDataStream.h
         mavlink/MavlinkPositionDataStream.h
-        mavlink/MavlinkHomePositionStreamer.h
+        mavlink/MavlinkHomePositionRequest.h
+        mavlink/MavlinkSensorsDataStream.h
+        mavlink/MavlinkARMRequest.h
 
         mavlink/MavlinkStreamer.cpp
+        mavlink/MavlinkMainDataStream.cpp
         mavlink/MavlinkPositionDataStream.cpp
-        mavlink/MavlinkHomePositionStreamer.cpp
+        mavlink/MavlinkHomePositionRequest.cpp
+        mavlink/MavlinkSensorsDataStream.cpp
+        mavlink/MavlinkARMRequest.cpp
+
 
         #qml
 
@@ -103,7 +134,10 @@ else()
         )
     endif()
 
-    #qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    qt5_create_translation(QM_FILES
+        #${CMAKE_SOURCE_DIR}
+        ${PROJECT_SOURCES}
+        ${TS_FILES})
 endif()
 
 target_compile_definitions(SGCS2
@@ -113,6 +147,7 @@ target_link_libraries(SGCS2
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Positioning
+    Qt${QT_VERSION_MAJOR}::Network
 )
 
 set_target_properties(SGCS2 PROPERTIES

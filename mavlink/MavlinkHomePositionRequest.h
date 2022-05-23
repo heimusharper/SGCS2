@@ -1,13 +1,13 @@
-#ifndef MAVLINKHOMEPOSITIONSTREAMER_H
-#define MAVLINKHOMEPOSITIONSTREAMER_H
-#include "../streamer/HomePositionStreamer.h"
+#ifndef MAVLINKHOMEPOSITIONREQUEST_H
+#define MAVLINKHOMEPOSITIONREQUEST_H
+#include "../streamer/HomePositionRequest.h"
 #include "MavlinkRequest.h"
 
 class MavlinkHomePositionRequest : public HomePositionRequest, public MavlinkRequest
 {
     Q_OBJECT
 public:
-    MavlinkHomePositionRequest() = default;
+    MavlinkHomePositionRequest(QObject *parent);
     virtual ~MavlinkHomePositionRequest() = default;
 
 protected:

@@ -3,7 +3,19 @@ UAV::UAV(DataStreamer *streamer, QObject *parent)
     : QObject{parent},
     m_streamer(streamer)
 {
+    m_connection = new Connection(this);
+    connect(m_connection, &Connection::onReadyData, m_streamer, &DataStreamer::onDataReceived);
+
+
+    m_positioning = new Positioning(m_streamer);
+    m_sensors = new Sensors(m_streamer);
+
     doRequestHomePosition();
+}
+
+Connection *UAV::connection() const
+{
+    return m_connection;
 }
 
 const QGeoCoordinate &UAV::homePosition() const
@@ -19,7 +31,30 @@ void UAV::setHomePosition(const QGeoCoordinate &newHomePosition)
     emit homePositionChanged();
 }
 
+Positioning *UAV::getPositioning() const
+{
+    return m_positioning;
+}
+
+Sensors *UAV::getSensors() const
+{
+    return m_sensors;
+}
+
 void UAV::doRequestHomePosition() {
     HomePositionRequest *streamer = m_streamer->createHomePositionRequest();
     connect(streamer, &HomePositionRequest::onHomePositionChanged, this, &UAV::setHomePosition);
+}
+
+int UAV::controlMode() const
+{
+    return m_controlMode;
+}
+
+void UAV::setControlMode(int newControlMode)
+{
+    if (m_controlMode == newControlMode)
+        return;
+    m_controlMode = newControlMode;
+    emit controlModeChanged();
 }
