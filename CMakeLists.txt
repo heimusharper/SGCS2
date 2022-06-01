@@ -105,6 +105,7 @@ set(PROJECT_SOURCES
 
 
         #qml
+        VideoViewV4L2Item.h VideoViewV4L2Item.cpp
 
         qml.qrc
         ${TS_FILES}

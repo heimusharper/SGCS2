@@ -8,6 +8,8 @@
 #include "mavlink/MavlinkStreamer.h"
 #include "uav/UAV.h"
 
+#include "VideoViewV4L2Item.h"
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -33,6 +35,8 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("Finco", 1, 0, "UAV", uavInstance.get());
     qmlRegisterType<Connection>("Finco", 1, 0, "Connection");
     qmlRegisterType<Sensors>("Finco", 1, 0, "Sensors");
+
+    qmlRegisterType<VideoViewV4L2Item>("Finco", 1, 0, "VideoViewV4L2Item");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
