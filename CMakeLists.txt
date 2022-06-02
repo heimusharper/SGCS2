@@ -32,19 +32,21 @@ ENDIF()
 
 
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
+find_package(QT NAMES Qt5 REQUIRED COMPONENTS
     Core
     Quick
     LinguistTools
     Positioning
     Network
+    Multimedia
 )
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
+find_package(Qt5 REQUIRED COMPONENTS
     Core
     Quick
     LinguistTools
     Positioning
     Network
+    Multimedia
 )
 
 set(TS_FILES SGCS2_ru_RU.ts)
@@ -149,6 +151,7 @@ target_link_libraries(SGCS2
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Positioning
     Qt${QT_VERSION_MAJOR}::Network
+    Qt${QT_VERSION_MAJOR}::Multimedia
 )
 
 set_target_properties(SGCS2 PROPERTIES
