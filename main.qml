@@ -33,18 +33,13 @@ ApplicationWindow {
         Item {
             id: mainComponent
 
-            Item {
+            MapView {
                 id: mapRectangle
                 anchors.fill: parent
 
-                Rectangle {
-                    id: mapObject
-                    color: "yellow"
-                    anchors.fill: parent
-                }
             }
 
-            Item {
+            /*Item {
                 id: viewsSwitchArea
                 width: 100
                 height: 50
@@ -63,7 +58,6 @@ ApplicationWindow {
                                 videoObject.parent = mapRectangle
                         }
                     }
-                    color: "red"
                 }
 
                 VideoViewV4L2Item {
@@ -71,7 +65,7 @@ ApplicationWindow {
                     //color: "green"
                     anchors.fill: parent
                 }
-            }
+            }*/
         }
     }
 }

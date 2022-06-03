@@ -7,5 +7,6 @@
         <file>icons/light/128x128/satelites.png</file>
         <file>video/videosvertextshader.frag.qsb</file>
         <file>video/videosvertextshader.vert.qsb</file>
+        <file>MapView.qml</file>
     </qresource>
 </RCC>

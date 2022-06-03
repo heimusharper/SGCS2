@@ -28,7 +28,8 @@ QSGNode *VideoViewV4L2Item::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeDat
 {
     QSGSimpleTextureNode *node = static_cast<QSGSimpleTextureNode *>(oldNode);
     if (!node || m_frames->frameDirty()) {
-        node = new QSGSimpleTextureNode();
+        if(!node)
+            node = new QSGSimpleTextureNode();
         QImage image = m_frames->getImage();
         if (!image.isNull()) {
             qDebug() << "on frame" << image.width() << image.height() << image.bytesPerLine();
