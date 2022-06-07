@@ -10,18 +10,22 @@ Item {
 
     anchors.fill: parent
 
+    Plugin {
+        id: mapPlugin
+    }
+
+    Map {
+        anchors.fill: parent
+        id: map
+        plugin: mapPlugin
+        color: "red"
+    }
+
     function setMapType (provider, type){
-        if (realMapView)
-        {
-            realMapView.destroy()
-        }
-        realMapView = Qt.createQmlObject('import QtLocation 5.12; Map { plugin: Plugin { name:"' + provider + '"} }', mapItem);
-        console.log("on load " + provider + " " + type)
-
-
-        for (var i = 0; i < realMapView.supportedMapTypes.length; i++) {
-            if (realMapView.supportedMapTypes[i].name == type) {
-                realMapView.activeMapType = realMapView.supportedMapTypes[i]
+        mapPlugin.name = provider
+        for (var i = 0; i < map.supportedMapTypes.length; i++) {
+            if (map.supportedMapTypes[i].name === type) {
+                map.activeMapType = map.supportedMapTypes[i]
             }
         }
     }
