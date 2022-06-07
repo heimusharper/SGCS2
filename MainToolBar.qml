@@ -12,6 +12,7 @@ ToolBar {
     // signals
     signal activateFlightMode()
     signal activateMissionMode()
+    signal activateBurger()
 
     Popup {
         id: outerPopup
@@ -130,6 +131,7 @@ ToolBar {
                  text: stackView.depth > 1 ? "\u25C0" : "\u2630"
                  font.pixelSize: height / 2
                  onClicked: {
+                     activateBurger()
                  }
              }
              ToolButton {

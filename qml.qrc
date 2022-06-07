@@ -5,8 +5,13 @@
         <file>icons/light/index.theme</file>
         <file>icons/light/64x64/satelites.png</file>
         <file>icons/light/128x128/satelites.png</file>
-        <file>video/videosvertextshader.frag.qsb</file>
-        <file>video/videosvertextshader.vert.qsb</file>
         <file>MapView.qml</file>
+        <file>icons/light/64x64/map.png</file>
+        <file>icons/light/128x128/map.png</file>
+        <file>MapConfigureView.qml</file>
+        <file>icons/light/64x64/configure.png</file>
+        <file>icons/light/128x128/configure.png</file>
+        <file>icons/light/64x64/help.png</file>
+        <file>icons/light/128x128/help.png</file>
     </qresource>
 </RCC>

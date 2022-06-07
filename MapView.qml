@@ -4,19 +4,27 @@ import QtLocation 5.6
 import QtPositioning 5.6
 
 Item {
-    Plugin {
-        id: mapPlugin
-        name: "osm" // "mapboxgl", "esri", ...
-        // specify plugin parameters if necessary
-        // PluginParameter {
-        //     name:
-        //     value:
-        // }
+
+    id: mapItem
+    property variant realMapView
+
+    anchors.fill: parent
+
+    function setMapType (provider, type){
+        if (realMapView)
+        {
+            realMapView.destroy()
+        }
+        realMapView = Qt.createQmlObject('import QtLocation 5.12; Map { plugin: Plugin { name:"' + provider + '"} }', mapItem);
+        console.log("on load " + provider + " " + type)
+
+
+        for (var i = 0; i < realMapView.supportedMapTypes.length; i++) {
+            if (realMapView.supportedMapTypes[i].name == type) {
+                realMapView.activeMapType = realMapView.supportedMapTypes[i]
+            }
+        }
     }
-    Map {
-        anchors.fill: parent
-        plugin: mapPlugin
-        center: QtPositioning.coordinate(59.91, 10.75) // Oslo
-        zoomLevel: 14
-    }
+
+
 }
