@@ -76,6 +76,8 @@ class VideoViewV4L2Item : public QQuickItem
 public:
     explicit VideoViewV4L2Item(QQuickItem *parent = nullptr);
 
+    Q_INVOKABLE void run(const QString &address);
+
     virtual ~VideoViewV4L2Item();
 
 private:

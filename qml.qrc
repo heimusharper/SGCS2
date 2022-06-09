@@ -18,5 +18,6 @@
         <file>svg/takeoff.svg</file>
         <file>svg/land.svg</file>
         <file>svg/rtl.svg</file>
+        <file>StreamConfigureView.qml</file>
     </qresource>
 </RCC>

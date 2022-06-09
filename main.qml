@@ -23,6 +23,13 @@ ApplicationWindow {
         }
     }
 
+    StreamConfigureView {
+        id: streamConfigureView
+        onVideoStreamAddressChanged: {
+            videoObject.run(streamConfigureView.videoStreamAddress)
+        }
+    }
+
     Item {
         id: mainComponent
 
@@ -86,7 +93,7 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: window.width * 0.66
+        width: window.width * 0.80
         height: window.height
 
 
@@ -108,17 +115,27 @@ ApplicationWindow {
                 anchors.fill: parent
                 Button {
                     id: mapBtn
-                    width: drawer.width / 3
+                    width: drawer.width / 4
                     icon.name: "map"
-                    text: qsTr("Map settings");
+                    text: qsTr("Map");
                     onClicked: {
                         stackView.push(mapConfigureView)
                         drawer.close()
                     }
                 }
                 Button {
+                    id: streamBtn
+                    width: drawer.width / 4
+                    icon.name: "stream"
+                    text: qsTr("Stream");
+                    onClicked: {
+                        stackView.push(streamConfigureView)
+                        drawer.close()
+                    }
+                }
+                Button {
                     id: configureBtn
-                    width: drawer.width / 3
+                    width: drawer.width / 4
                     icon.name: "configure"
                     text: qsTr("Configure");
                     onClicked: {
@@ -127,7 +144,7 @@ ApplicationWindow {
                 }
                 Button {
                     id: helpBtn
-                    width: drawer.width / 3
+                    width: drawer.width / 4
                     icon.name: "help"
                     text: qsTr("Help");
                     onClicked: {

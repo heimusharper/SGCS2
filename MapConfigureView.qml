@@ -58,7 +58,7 @@ Item {
             }
         }
         Button {
-            text: "Ok"
+            text: qsTr("Apply")
             onClicked: {
                 mapProvider = providerComboBox.currentText
                 mapType = mapTypesComboBox.currentText

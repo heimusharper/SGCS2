@@ -4,24 +4,33 @@ VideoViewV4L2Item::VideoViewV4L2Item(QQuickItem *parent)
     : QQuickItem{parent}
 {
     m_frames = new VideoFrameGrabber(this);
-    m_player = new QMediaPlayer(this);
-    m_player->setMuted(true);
-    m_player->setVideoOutput(m_frames);
-    m_player->setMedia(QMediaContent(QUrl("v4l2:///dev/video0")));
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, this, [this](){
         // update video
-        update();
+        if (m_player)
+            update();
     });
-    m_timer->start(1000);
+    m_timer->start(20);
     setFlag(ItemHasContents);
+}
+
+void VideoViewV4L2Item::run(const QString &address)
+{
+    if (m_player) {
+        m_player->stop();
+        m_player->deleteLater();
+    }
+    m_player = new QMediaPlayer(this);
+    m_player->setMuted(true);
+    m_player->setVideoOutput(m_frames);
+    // m_player->setMedia(QMediaContent(QUrl("v4l2:///dev/video0")));
+    m_player->setMedia(QMediaContent(QUrl(address)));
     m_player->play();
 }
 
 VideoViewV4L2Item::~VideoViewV4L2Item()
 {
-
 }
 
 QSGNode *VideoViewV4L2Item::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *updatePaintNodeData)

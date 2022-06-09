@@ -68,6 +68,7 @@ Item {
 
     // controls
     RoundButton {
+        visible: !simpleMode
         id: trackUAVButton
         width: mapItem.width / 15
         height: width
@@ -124,6 +125,7 @@ Item {
     }
     RoundButton {
         id: showAdditionalActionsButton
+        visible: !simpleMode
         width: mapItem.width / 15
         height: width
         radius: width / 2
