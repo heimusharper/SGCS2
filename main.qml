@@ -11,7 +11,7 @@ import Finco 1.0
 ApplicationWindow {
     id: window
     width: 640
-    height: 480
+    height: width * (9 / 16)
     visible: true
     title: qsTr("Hello World")
 
@@ -29,34 +29,43 @@ ApplicationWindow {
         MapView {
             id: mapRectangle
             anchors.fill: parent
-
         }
 
         Item {
+            z: mainComponent.z + 2
             id: viewsSwitchArea
-            width: 100
-            height: 50
-            Rectangle {
-                anchors.fill: parent
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (mapObject.parent == mapRectangle)
-                            mapObject.parent = viewsSwitchArea
-                        else
-                            mapObject.parent = mapRectangle
-                        if (videoObject.parent == mapRectangle)
-                            videoObject.parent = viewsSwitchArea
-                        else
-                            videoObject.parent = mapRectangle
-                    }
-                }
-            }
+
+            anchors.top: mainComponent.top
+            anchors.topMargin: 10
+            anchors.left: mainComponent.left
+            anchors.leftMargin: 10
+
+            width: mainComponent.width / 4
+            height: (mainComponent.width / 4) * (9/16)
 
             VideoViewV4L2Item {
                 id: videoObject
-                //color: "green"
+                // color: "green"
                 anchors.fill: parent
+            }
+
+            Rectangle {
+                z: viewsSwitchArea.z + 2
+                anchors.fill: parent
+                color: "transparent"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log(">>")
+                        if (mapRectangle.parent == mainComponent) {
+                            mapRectangle.parent = viewsSwitchArea
+                            videoObject.parent = mainComponent
+                        } else {
+                            videoObject.parent = viewsSwitchArea
+                            mapRectangle.parent = mainComponent
+                        }
+                    }
+                }
             }
         }
     }
