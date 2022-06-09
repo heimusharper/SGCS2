@@ -13,5 +13,7 @@
         <file>icons/light/128x128/configure.png</file>
         <file>icons/light/64x64/help.png</file>
         <file>icons/light/128x128/help.png</file>
+        <file>svg/uav.svg</file>
+        <file>svg/track_uav.svg</file>
     </qresource>
 </RCC>

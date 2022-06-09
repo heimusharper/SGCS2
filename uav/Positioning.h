@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGeoCoordinate>
 #include "../streamer/DataStreamer.h"
+#include <QDebug>
 
 class Positioning : public QObject
 {
@@ -11,6 +12,7 @@ class Positioning : public QObject
     Q_PROPERTY(QGeoCoordinate position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(QVector3D attitude READ attitude WRITE setAttitude NOTIFY attitudeChanged)
 public:
+    Positioning(QObject *parent = nullptr);
     explicit Positioning(DataStreamer *streamer, QObject *parent = nullptr);
 
     const QGeoCoordinate &position() const;

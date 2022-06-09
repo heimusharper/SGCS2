@@ -1,5 +1,11 @@
 #include "Positioning.h"
 
+Positioning::Positioning(QObject *parent)
+    : QObject{parent}
+{
+
+}
+
 Positioning::Positioning(DataStreamer *streamer, QObject *parent)
     : QObject{parent},
     m_streamer(streamer)
@@ -19,6 +25,7 @@ void Positioning::setPosition(const QGeoCoordinate &newPosition)
 {
     if (m_position == newPosition)
         return;
+    qDebug() <<"on change position" << newPosition;
     m_position = newPosition;
     emit positionChanged();
 }

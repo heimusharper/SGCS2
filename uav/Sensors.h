@@ -24,7 +24,7 @@ public:
     };
     Q_ENUMS(GpsStatus)
 
-    explicit Sensors(QObject *parent = nullptr);
+    Sensors(QObject *parent = nullptr);
     explicit Sensors(DataStreamer *streamer, QObject *parent = nullptr);
 
     int gpsStatus() const;

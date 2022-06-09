@@ -14,8 +14,8 @@ bool MavlinkPositionDataStream::processMessage(const mavlink_message_t &msg)
             mavlink_global_position_int_t pos;
             mavlink_msg_global_position_int_decode(&msg, &pos);
             QGeoCoordinate gps;
-            gps.setLatitude((qreal)pos.lat / 10.e7);
-            gps.setLongitude((qreal)pos.lon / 10.e7);
+            gps.setLatitude((qreal)pos.lat / 1.e7);
+            gps.setLongitude((qreal)pos.lon / 1.e7);
             gps.setAltitude((qreal)pos.alt / 1000.);
             emit onPositionChanged(gps);
             return true;

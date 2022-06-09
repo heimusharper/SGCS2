@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("Finco", 1, 0, "UAV", uavInstance.get());
     qmlRegisterType<Connection>("Finco", 1, 0, "Connection");
     qmlRegisterType<Sensors>("Finco", 1, 0, "Sensors");
+    qmlRegisterType<Positioning>("Finco", 1, 0, "Positioning");
 
     qmlRegisterType<VideoViewV4L2Item>("Finco", 1, 0, "VideoViewV4L2Item");
 

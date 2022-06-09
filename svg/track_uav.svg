@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="92.064148mm"
+   height="92.064148mm"
+   viewBox="0 0 92.064148 92.064148"
+   version="1.1"
+   id="svg2488"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="track_uav.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2490"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.5037598"
+     inkscape:cx="289.60742"
+     inkscape:cy="153.28246"
+     inkscape:window-width="1846"
+     inkscape:window-height="1016"
+     inkscape:window-x="1994"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="0.00014150198,92.064283"
+       orientation="-0.70710678,-0.70710678"
+       id="guide2562" />
+    <sodipodi:guide
+       position="92.064175,92.064283"
+       orientation="0.70710678,-0.70710678"
+       id="guide2564" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2485" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-52.309984,-82.617695)">
+    <path
+       id="path2538"
+       style="fill:#ffffff;stroke-width:0.999999"
+       d="M 371.6875,312.25586 A 173.97928,173.97929 0 0 0 197.70703,486.23438 173.97928,173.97929 0 0 0 371.6875,660.21484 173.97928,173.97929 0 0 0 545.66602,486.23438 173.97928,173.97929 0 0 0 371.6875,312.25586 Z m 0,38.69336 A 135.28625,135.28625 0 0 1 506.97266,486.23438 135.28625,135.28625 0 0 1 371.6875,621.52148 135.28625,135.28625 0 0 1 236.40039,486.23438 135.28625,135.28625 0 0 1 371.6875,350.94922 Z"
+       transform="scale(0.26458333)" />
+    <circle
+       style="fill:#ffffff;stroke-width:0.264583"
+       id="path2693"
+       cx="98.34214"
+       cy="128.64958"
+       r="22.676397" />
+  </g>
+</svg>

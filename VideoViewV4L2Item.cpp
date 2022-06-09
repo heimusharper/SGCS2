@@ -32,9 +32,9 @@ QSGNode *VideoViewV4L2Item::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeDat
             node = new QSGSimpleTextureNode();
         QImage image = m_frames->getImage();
         if (!image.isNull()) {
-            qDebug() << "on frame" << image.width() << image.height() << image.bytesPerLine();
+            //qDebug() << "on frame" << image.width() << image.height() << image.bytesPerLine();
             QSGTexture *texture = window()->createTextureFromImage(image, QQuickWindow::TextureIsOpaque);
-            qDebug() << texture->textureSize() << texture->textureId();
+            //qDebug() << texture->textureSize() << texture->textureId();
             // node->setSourceRect(0, 0, image.width(), image.height());
             node->setOwnsTexture(true);
             node->setRect(boundingRect());

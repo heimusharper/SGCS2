@@ -2,29 +2,94 @@ import QtQuick 2.0
 import QtQuick.Window 2.14
 import QtLocation 5.6
 import QtPositioning 5.6
+import Finco 1.0
 
 Item {
 
     id: mapItem
-    property variant realMapView
-
     anchors.fill: parent
 
-    //Plugin {
-    //    id: mapPlugin
-    //    name: "osm"
-    //}
+    function centerToUAV () {
+        if (simpleMode || trackUAV)
+            map.center = uavPosition
+    }
+
+    property variant realMapView
+    property bool simpleMode: false
+    onSimpleModeChanged: {
+        centerToUAV()
+    }
+
+    property bool trackUAV: false
+    property variant uavPosition: UAV.getPositioning().position
+    onUavPositionChanged: {
+        centerToUAV()
+    }
+
+
+    Image {
+        id: mapUAVItemComponent
+        source: "qrc:/svg/uav.svg"
+        width: mapItem.width / 15
+        height: width
+        antialiasing: true
+        smooth: true
+    }
+
+
 
     Map {
         anchors.fill: parent
         id: map
-        //plugin: mapPlugin
 
         gesture.acceptedGestures: MapGestureArea.PanGesture | MapGestureArea.FlickGesture | MapGestureArea.PinchGesture | MapGestureArea.RotationGesture | MapGestureArea.TiltGesture
         gesture.flickDeceleration: 3000
         gesture.enabled: true
+
+        gesture.onPanStarted: {
+            trackUAV = false
+        }
+
+        // UAV component
+        MapQuickItem  {
+            id: mapUAVItemComponentItem
+            anchorPoint.x: mapUAVItemComponent.width / 2
+            anchorPoint.y: mapUAVItemComponent.height / 2
+            sourceItem: mapUAVItemComponent
+            coordinate: UAV.getPositioning().position
+            rotation: UAV.getPositioning().attitude.z
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                trackUAV = false
+            }
+        }
     }
 
+    // controls
+    Image {
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: 10
+        anchors.rightMargin: 10
+        width: mapItem.width / 15
+        height: width
+
+        source: "qrc:/svg/track_uav.svg"
+        smooth: true
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                trackUAV = !trackUAV
+                if (trackUAV)
+                    centerToUAV()
+            }
+        }
+    }
+
+    // select map plugin type and source
     function setMapType (provider, type){
         var tmpMap = Qt.createQmlObject ('import QtLocation 5.12; Plugin { name:"' + provider +'"}', mapItem)
         map.plugin = tmpMap

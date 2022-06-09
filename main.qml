@@ -13,7 +13,7 @@ ApplicationWindow {
     width: 640
     height: width * (9 / 16)
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("SGCS")
 
     // predefined
     MapConfigureView {
@@ -56,12 +56,13 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        console.log(">>")
                         if (mapRectangle.parent == mainComponent) {
+                            mapRectangle.simpleMode = true
                             mapRectangle.parent = viewsSwitchArea
                             videoObject.parent = mainComponent
                         } else {
                             videoObject.parent = viewsSwitchArea
+                            mapRectangle.simpleMode = false
                             mapRectangle.parent = mainComponent
                         }
                     }
