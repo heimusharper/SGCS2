@@ -44,7 +44,6 @@ Item {
                     myArray.push(tmpMap.supportedMapTypes[i].name)
                     console.log("Founded " + tmpMap.supportedMapTypes[i].name)
                 }
-                mapProvider = textAt(currentIndex)
                 mapTypesComboBox.model = myArray
             }
         }
@@ -55,7 +54,14 @@ Item {
         ComboBox {
             id: mapTypesComboBox
             onCurrentIndexChanged: {
-                mapType = textAt(currentIndex)
+                // mapType = textAt(currentIndex)
+            }
+        }
+        Button {
+            text: "Ok"
+            onClicked: {
+                mapProvider = providerComboBox.currentText
+                mapType = mapTypesComboBox.currentText
             }
         }
     }
