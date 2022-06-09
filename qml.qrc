@@ -15,5 +15,8 @@
         <file>icons/light/128x128/help.png</file>
         <file>svg/uav.svg</file>
         <file>svg/track_uav.svg</file>
+        <file>svg/takeoff.svg</file>
+        <file>svg/land.svg</file>
+        <file>svg/rtl.svg</file>
     </qresource>
 </RCC>

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.15
 import QtQuick.Window 2.14
 import QtLocation 5.6
 import QtPositioning 5.6
@@ -26,6 +27,8 @@ Item {
         centerToUAV()
     }
 
+    property bool showAdditionalActions: false
+
 
     Image {
         id: mapUAVItemComponent
@@ -48,7 +51,9 @@ Item {
 
         gesture.onPanStarted: {
             trackUAV = false
+            showAdditionalActions = false
         }
+
 
         // UAV component
         MapQuickItem  {
@@ -59,33 +64,76 @@ Item {
             coordinate: UAV.getPositioning().position
             rotation: UAV.getPositioning().attitude.z
         }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                trackUAV = false
-            }
-        }
     }
 
     // controls
-    Image {
+    RoundButton {
+        id: trackUAVButton
+        width: mapItem.width / 15
+        height: width
+        radius: width / 2
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.topMargin: 10
         anchors.rightMargin: 10
+        icon.source: "qrc:/svg/track_uav.svg"
+        onClicked: {
+            trackUAV = !trackUAV
+            if (trackUAV)
+                centerToUAV()
+        }
+    }
+
+
+    Item {
+        id: additionalActions
+        visible: showAdditionalActions
+        anchors.right: parent.right
+        anchors.bottom: showAdditionalActionsButton.top
+        // anchors.bottomMargin: 10
+        anchors.rightMargin: 10
+        width: showAdditionalActionsButton.width
+        height: (showAdditionalActionsButton.height + 10) * additionalActionsColumn.visibleChildren.length
+
+        Column {
+            id: additionalActionsColumn
+            spacing: 10
+            anchors.fill: parent
+            RoundButton {
+                id: armButton
+                width: mapItem.width / 15
+                height: width
+                radius: width / 2
+                icon.source: "qrc:/svg/takeoff.svg"
+            }
+            RoundButton {
+                id: rtlButton
+                width: mapItem.width / 15
+                height: width
+                radius: width / 2
+                icon.source: "qrc:/svg/rtl.svg"
+            }
+            RoundButton {
+                id: landButton
+                width: mapItem.width / 15
+                height: width
+                radius: width / 2
+                icon.source: "qrc:/svg/land.svg"
+            }
+        }
+    }
+    RoundButton {
+        id: showAdditionalActionsButton
         width: mapItem.width / 15
         height: width
-
-        source: "qrc:/svg/track_uav.svg"
-        smooth: true
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                trackUAV = !trackUAV
-                if (trackUAV)
-                    centerToUAV()
-            }
+        radius: width / 2
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        anchors.rightMargin: 10
+        text: "\u03A3"
+        onClicked: {
+            showAdditionalActions = !showAdditionalActions
         }
     }
 
