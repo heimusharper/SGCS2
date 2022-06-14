@@ -10,6 +10,10 @@ public:
     explicit ConnectionType(QObject *parent = nullptr);
     virtual void connectTo() = 0;
 
+public slots:
+
+    virtual void doWriteData(const QByteArray &data) = 0;
+
 signals:
 
     void isConnected(bool connected);

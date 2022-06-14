@@ -2,6 +2,7 @@
 #define MAVLINKARMREQUEST_H
 #include "../streamer/ARMRequest.h"
 #include "MavlinkRequest.h"
+#include <QDebug>
 /*!
  * \brief The MavlinkARMRequest class
  *

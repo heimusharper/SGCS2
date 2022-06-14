@@ -37,6 +37,10 @@ public:
     int controlMode() const;
     void setControlMode(int newControlMode);
 
+    Q_INVOKABLE void doARM() const;
+    Q_INVOKABLE void doDisARM() const;
+    Q_INVOKABLE void doTakeoff() const;
+
 public slots:
 
     Q_INVOKABLE void doRequestHomePosition();

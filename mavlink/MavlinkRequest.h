@@ -44,7 +44,7 @@ public:
         m_dirty(true),
         m_empty(false),
         m_waitForMessage(true),
-        m_maxMessageLiveTimeMs(1000)
+        m_maxMessageLiveTimeMs(-1)
     {
         resetSignalValue();
     }

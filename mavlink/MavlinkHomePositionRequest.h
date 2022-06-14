@@ -2,6 +2,7 @@
 #define MAVLINKHOMEPOSITIONREQUEST_H
 #include "../streamer/HomePositionRequest.h"
 #include "MavlinkRequest.h"
+#include <QDebug>
 
 class MavlinkHomePositionRequest : public HomePositionRequest, public MavlinkRequest
 {

@@ -4,17 +4,17 @@
 <context>
     <name>MapConfigureView</name>
     <message>
-        <location filename="MapConfigureView.qml" line="38"/>
+        <location filename="MapConfigureView.qml" line="44"/>
         <source>Map provider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MapConfigureView.qml" line="57"/>
+        <location filename="MapConfigureView.qml" line="70"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MapConfigureView.qml" line="66"/>
+        <location filename="MapConfigureView.qml" line="79"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22,17 +22,17 @@
 <context>
     <name>StreamConfigureView</name>
     <message>
-        <location filename="StreamConfigureView.qml" line="22"/>
+        <location filename="StreamConfigureView.qml" line="23"/>
         <source>Stream address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StreamConfigureView.qml" line="31"/>
+        <location filename="StreamConfigureView.qml" line="33"/>
         <source>Auto connect on start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StreamConfigureView.qml" line="34"/>
+        <location filename="StreamConfigureView.qml" line="37"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>

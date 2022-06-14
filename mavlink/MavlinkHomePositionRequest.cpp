@@ -5,7 +5,9 @@ MavlinkHomePositionRequest::MavlinkHomePositionRequest(QObject *parent)
 {
 }
 
-mavlink_message_t MavlinkHomePositionRequest::construct() {
+mavlink_message_t MavlinkHomePositionRequest::construct()
+{
+    qDebug() << "request home";
     return m_request;
 }
 

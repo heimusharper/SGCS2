@@ -6,6 +6,8 @@ UAV::UAV(DataStreamer *streamer, QObject *parent)
     m_connection = new Connection(this);
     connect(m_connection, &Connection::onReadyData, m_streamer, &DataStreamer::onDataReceived);
 
+    connect(m_streamer, &DataStreamer::writeData, m_connection, &Connection::writeData);
+
 
     m_positioning = new Positioning(m_streamer);
     m_sensors = new Sensors(m_streamer);
@@ -57,4 +59,19 @@ void UAV::setControlMode(int newControlMode)
         return;
     m_controlMode = newControlMode;
     emit controlModeChanged();
+}
+
+void UAV::doARM() const
+{
+    m_streamer->createARMRequest(ARMRequest::Mode::ARM);
+}
+
+void UAV::doDisARM() const
+{
+    m_streamer->createARMRequest(ARMRequest::Mode::DISARM);
+}
+
+void UAV::doTakeoff() const
+{
+    m_streamer->createARMRequest(ARMRequest::Mode::TAKEOFF);
 }

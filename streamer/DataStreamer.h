@@ -8,6 +8,7 @@
 #include "PositionDataStream.h"
 #include "HomePositionRequest.h"
 #include "SensorsDataStream.h"
+#include "ARMRequest.h"
 
 class DataStreamer : public QObject
 {
@@ -27,9 +28,11 @@ public:
     virtual MainDataStream *getMainStream() = 0;
 
     virtual HomePositionRequest *createHomePositionRequest() = 0;
+    virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) = 0;
 
 signals:
 
+    void writeData(const QByteArray &data);
 };
 
 #endif // DATASTREAMER_H

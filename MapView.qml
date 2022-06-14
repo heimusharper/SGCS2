@@ -106,6 +106,9 @@ Item {
                 height: width
                 radius: width / 2
                 icon.source: "qrc:/svg/takeoff.svg"
+                onClicked: {
+                    UAV.doARM()
+                }
             }
             RoundButton {
                 id: rtlButton

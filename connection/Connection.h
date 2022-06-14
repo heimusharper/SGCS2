@@ -18,6 +18,7 @@ public:
 
 public slots:
     void setConnected(bool newConnected);
+    void writeData(const QByteArray &data);
 
 signals:
 

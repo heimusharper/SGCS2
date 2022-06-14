@@ -19,6 +19,13 @@ void Connection::setConnected(bool newConnected)
     emit connectedChanged();
 }
 
+void Connection::writeData(const QByteArray &data)
+{
+    if (m_connected && m_connection) {
+        m_connection->doWriteData(data);
+    }
+}
+
 void Connection::disconnectFrom()
 {
     if (m_connection) {

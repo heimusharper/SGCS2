@@ -14,6 +14,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
 
                 if (m_homePositionRequest)
                     m_homePositionRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_armRequest)
+                    m_armRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_mainDataStream)
                     m_mainDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_positionDataStream)
@@ -21,11 +23,17 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                 if (m_sensorsDataStream)
                     m_sensorsDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
             });
+
+    m_ioTimer = new QTimer(this);
+    connect(m_ioTimer, &QTimer::timeout, this, &MavlinkStreamer::tryWriteData);
+    m_ioTimer->start(50);
 }
 
 MavlinkStreamer::~MavlinkStreamer() {
     if (m_homePositionRequest)
         m_homePositionRequest->deleteLater();
+    if (m_armRequest)
+        m_armRequest->deleteLater();
 }
 
 PositionDataStream *MavlinkStreamer::getPositionDataStream()
@@ -60,6 +68,18 @@ HomePositionRequest *MavlinkStreamer::createHomePositionRequest()
     return m_homePositionRequest;
 }
 
+ARMRequest *MavlinkStreamer::createARMRequest(ARMRequest::Mode mode)
+{
+    if (m_armRequest) {
+        m_armRequest->deleteLater();
+        m_armRequest = nullptr;
+    }
+    m_armRequest = new MavlinkARMRequest(mode, this);
+    if (m_initiated)
+        m_armRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    return m_armRequest;
+}
+
 MainDataStream *MavlinkStreamer::getMainStream()
 {
     if (!m_mainDataStream) {
@@ -88,6 +108,33 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
             // rq
             if (m_homePositionRequest)
                 m_homePositionRequest->responce(msg);
+            if (m_armRequest)
+                m_armRequest->responce(msg);
         }
     }
+}
+
+void MavlinkStreamer::tryWriteData()
+{
+
+    /*if (m_mainDataStream)
+        m_mainDataStream->responce(msg);
+    if (m_positionDataStream)
+        m_positionDataStream->responce(msg);
+    if (m_sensorsDataStream)
+        m_sensorsDataStream->responce(msg);*/
+    // rq
+    if (m_homePositionRequest && m_homePositionRequest->ready())
+        transmit(m_homePositionRequest->request());
+    if (m_armRequest && m_armRequest->ready())
+        transmit(m_armRequest->request());
+}
+
+void MavlinkStreamer::transmit(const mavlink_message_t &msg)
+{
+    QByteArray out;
+    out.resize(/*mavlink_max_message_length(&msg)*/ MAVLINK_MAX_PACKET_LEN);
+    uint16_t realSize = mavlink_msg_to_send_buffer((uint8_t *)out.data(), &msg);
+    out = out.left(realSize);
+    emit writeData(out);
 }

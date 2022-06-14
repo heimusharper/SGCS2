@@ -42,3 +42,8 @@ void UDPConnection::connectTo()
     m_isHasData = false;
     m_socket->bind(QHostAddress(m_host), m_port);
 }
+
+void UDPConnection::doWriteData(const QByteArray &data)
+{
+    m_socket->writeDatagram(data, QHostAddress(m_host), m_port);
+}

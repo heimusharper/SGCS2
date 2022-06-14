@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "../streamer/DataStreamer.h"
+#include <QTimer>
 
 // streamers
 #include "MavlinkRequest.h"
@@ -10,6 +11,7 @@
 #include "MavlinkPositionDataStream.h"
 #include "MavlinkHomePositionRequest.h"
 #include "MavlinkSensorsDataStream.h"
+#include "MavlinkARMRequest.h"
 
 class MavlinkStreamer : public DataStreamer
 {
@@ -20,8 +22,10 @@ public:
 
     virtual PositionDataStream *getPositionDataStream() override;
     virtual SensorsDataStream *getSensorsStream() override;
-    virtual HomePositionRequest *createHomePositionRequest() override;
     virtual MainDataStream *getMainStream() override;
+
+    virtual HomePositionRequest *createHomePositionRequest() override;
+    virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) override;
 
 public slots:
 
@@ -35,11 +39,17 @@ private:
     uint8_t AP_COMPID = 1;
     ModeHelper::APMode AP_MODE = ModeHelper::PIXHAWK;
 
-    MavlinkHomePositionRequest *m_homePositionRequest = nullptr;
-
     MavlinkMainDataStream *m_mainDataStream = nullptr;
     MavlinkPositionDataStream *m_positionDataStream = nullptr;
     MavlinkSensorsDataStream *m_sensorsDataStream = nullptr;
+
+    MavlinkHomePositionRequest *m_homePositionRequest = nullptr;
+    MavlinkARMRequest *m_armRequest = nullptr;
+
+
+    QTimer *m_ioTimer = nullptr;
+    void tryWriteData();
+    void transmit(const mavlink_message_t &msg);
 
 signals:
 

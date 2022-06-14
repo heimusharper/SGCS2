@@ -16,6 +16,9 @@ public:
     virtual ~UDPConnection();
     virtual void connectTo() override;
 
+public slots:
+
+    virtual void doWriteData(const QByteArray &data) override;
 private:
 
     const QString m_host;
