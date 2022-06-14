@@ -141,6 +141,9 @@ Item {
 
     // select map plugin type and source
     function setMapType (provider, type){
+        Configuration.mapProviderName = provider
+        Configuration.mapTypeName = type
+
         var tmpMap = Qt.createQmlObject ('import QtLocation 5.12; Plugin { name:"' + provider +'"}', mapItem)
         map.plugin = tmpMap
 
@@ -151,6 +154,7 @@ Item {
             }
         }
     }
-
-
+    Component.onCompleted: {
+        setMapType(Configuration.mapProviderName, Configuration.mapTypeName)
+    }
 }

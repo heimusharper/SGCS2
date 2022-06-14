@@ -33,6 +33,11 @@ ApplicationWindow {
     Item {
         id: mainComponent
 
+        Rectangle {
+            anchors.fill: parent
+            color: "white"
+        }
+
         MapView {
             id: mapRectangle
             anchors.fill: parent
@@ -54,6 +59,12 @@ ApplicationWindow {
                 id: videoObject
                 // color: "green"
                 anchors.fill: parent
+                Component.onCompleted: {
+                    if (Configuration.streamAutoConnect)
+                    {
+                        videoObject.run(Configuration.streamLast)
+                    }
+                }
             }
 
             Rectangle {

@@ -4,17 +4,17 @@
 <context>
     <name>MapConfigureView</name>
     <message>
-        <location filename="MapConfigureView.qml" line="33"/>
+        <location filename="MapConfigureView.qml" line="38"/>
         <source>Map provider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MapConfigureView.qml" line="52"/>
+        <location filename="MapConfigureView.qml" line="57"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MapConfigureView.qml" line="61"/>
+        <location filename="MapConfigureView.qml" line="66"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22,17 +22,17 @@
 <context>
     <name>StreamConfigureView</name>
     <message>
-        <location filename="StreamConfigureView.qml" line="17"/>
+        <location filename="StreamConfigureView.qml" line="22"/>
         <source>Stream address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StreamConfigureView.qml" line="26"/>
+        <location filename="StreamConfigureView.qml" line="31"/>
         <source>Auto connect on start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="StreamConfigureView.qml" line="29"/>
+        <location filename="StreamConfigureView.qml" line="34"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
@@ -45,22 +45,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="120"/>
+        <location filename="main.qml" line="131"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="130"/>
+        <location filename="main.qml" line="141"/>
         <source>Stream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="140"/>
+        <location filename="main.qml" line="151"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="149"/>
+        <location filename="main.qml" line="160"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

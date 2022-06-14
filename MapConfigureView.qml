@@ -23,6 +23,17 @@ Item {
         }
         myArray.sort()
         providerComboBox.model = myArray
+        for (var j = 0; j < myArray.length; j++) {
+            if (myArray[j] === Configuration.mapProviderName) {
+                providerComboBox.currentIndex = j
+                break
+            }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "white"
     }
 
     Grid {
@@ -36,15 +47,22 @@ Item {
         ComboBox {
             id: providerComboBox
             onCurrentIndexChanged: {
-                console.log("Current index " + currentIndex)
                 var myArray = new Array
                 var tmpMap = Qt.createQmlObject ('import QtLocation 5.12; Map { plugin: Plugin { name:"' + textAt(currentIndex) +'"} }', configureRoot)
                 console.log("Find maps for " + textAt(currentIndex))
                 for (var i = 0; i < tmpMap.supportedMapTypes.length; i++) {
                     myArray.push(tmpMap.supportedMapTypes[i].name)
-                    console.log("Founded " + tmpMap.supportedMapTypes[i].name)
                 }
+                myArray.sort()
                 mapTypesComboBox.model = myArray
+                for (var j = 0; j < myArray.length; j++) {
+                    if (myArray[j] === Configuration.mapTypeName) {
+                        mapTypesComboBox.currentIndex = j
+                        console.log("on found type" + j)
+                        break
+                    }
+                    console.log("map "+ myArray[i] + "<>"+Configuration.mapTypeName+ " "+ myArray)
+                }
             }
         }
         Text {

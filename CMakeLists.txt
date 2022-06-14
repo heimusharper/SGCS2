@@ -107,6 +107,7 @@ set(PROJECT_SOURCES
 
 
         #qml
+        Configuration.h Configuration.cpp
         VideoViewV4L2Item.h VideoViewV4L2Item.cpp
 
         qml.qrc

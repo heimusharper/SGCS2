@@ -7,6 +7,7 @@
 
 #include "mavlink/MavlinkStreamer.h"
 #include "uav/UAV.h"
+#include "Configuration.h"
 
 #include "VideoViewV4L2Item.h"
 
@@ -32,7 +33,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     QScopedPointer<UAV> uavInstance(new UAV(new MavlinkStreamer()));
+    QScopedPointer<Configuration> uavConfiguration(new Configuration(new QSettings("settings.ini", QSettings::IniFormat)));
     qmlRegisterSingletonInstance("Finco", 1, 0, "UAV", uavInstance.get());
+    qmlRegisterSingletonInstance("Finco", 1, 0, "Configuration", uavConfiguration.get());
     qmlRegisterType<Connection>("Finco", 1, 0, "Connection");
     qmlRegisterType<Sensors>("Finco", 1, 0, "Sensors");
     qmlRegisterType<Positioning>("Finco", 1, 0, "Positioning");
