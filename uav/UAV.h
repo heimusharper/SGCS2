@@ -41,6 +41,11 @@ public:
     Q_INVOKABLE void doDisARM() const;
     Q_INVOKABLE void doTakeoff() const;
 
+    Q_INVOKABLE void doLand() const;
+    Q_INVOKABLE void doRTL() const;
+    Q_INVOKABLE void doGuided() const;
+    Q_INVOKABLE void doMission() const;
+
 public slots:
 
     Q_INVOKABLE void doRequestHomePosition();

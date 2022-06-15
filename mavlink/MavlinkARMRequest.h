@@ -33,6 +33,7 @@ protected:
         m_mode = mode;
         m_maxMessageLiveTimeMs = 2000;
         m_messageIntervalMs = 100;
+        m_dirty = true;
         m_state = State::UNDEFINED;
         switch (m_mode) {
         case Mode::ARM: {

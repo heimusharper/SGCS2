@@ -20,27 +20,9 @@ mavlink_message_t MavlinkARMRequest::construct()
     switch (m_state) {
     case State::WAIT_FOR_CURRENT_MODE:
     {
-        uint8_t base = 0;
+        uint8_t base = ModeHelper::getBaseMode(APMODE);
         uint32_t custom = ModeHelper::getModeARMable(APMODE);
-        switch (APMODE) {
-            case ModeHelper::APMode::ARDUPILOT_COPTER:
-            case ModeHelper::APMode::ARDUPILOT_PLANE:
-            case ModeHelper::APMode::ARDUPILOT_VTOL: {
-
-                base = base | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED | MAV_MODE_FLAG_GUIDED_ENABLED |
-                       MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED | MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
-                break;
-            }
-            case ModeHelper::APMode::PIXHAWK:
-            default: {
-
-                base = base | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED | MAV_MODE_FLAG_GUIDED_ENABLED |
-                       MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED | MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
-                break;
-            }
-        }
-
-            qDebug() << "do set mode..." << base << custom;
+        qDebug() << "do set mode..." << base << custom;
         mavlink_msg_set_mode_pack(GCSID, COMPID, &m_request, APID, base, custom);
         break;
     }
@@ -89,8 +71,6 @@ bool MavlinkARMRequest::processMessage(const mavlink_message_t &msg)
     case MAVLINK_MSG_ID_COMMAND_ACK: {
         mavlink_command_ack_t ack;
         mavlink_msg_command_ack_decode(&msg, &ack);
-        qDebug() << "ACK" << ack.command << ack.result;
-
         if (m_state == State::WAIT_FOR_CURRENT_MODE &&
             ack.command == MAVLINK_MSG_ID_SET_MODE) {
             // wait for set mode

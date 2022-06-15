@@ -13,6 +13,7 @@
 #include "MavlinkMainDataStream.h"
 #include "MavlinkARMRequest.h"
 #include "MavlinkPingRequest.h"
+#include "MavlinkManualControlRequest.h"
 
 class MavlinkStreamer : public DataStreamer
 {
@@ -27,6 +28,7 @@ public:
 
     virtual HomePositionRequest *createHomePositionRequest() override;
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) override;
+    virtual ManualControlRequest *createManualControlRequest() override;
 
 public slots:
 
@@ -46,7 +48,8 @@ private:
 
     MavlinkHomePositionRequest *m_homePositionRequest = nullptr;
     MavlinkARMRequest *m_armRequest = nullptr;
-    MavlinkPingRequest *m_ping = nullptr;
+    MavlinkPingRequest *m_pingRequest = nullptr;
+    MavlinkManualControlRequest *m_manualControlRequest = nullptr;
 
 
     QTimer *m_ioTimer = nullptr;

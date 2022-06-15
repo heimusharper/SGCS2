@@ -12,8 +12,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                 AP_MODE = mode;
                 m_initiated = true;
 
-                if (m_ping)
-                    m_ping->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_pingRequest)
+                    m_pingRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_homePositionRequest)
                     m_homePositionRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_armRequest)
@@ -24,9 +24,11 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                     m_positionDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_sensorsDataStream)
                     m_sensorsDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_manualControlRequest)
+                    m_manualControlRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
             });
 
-    m_ping = new MavlinkPingRequest();
+    m_pingRequest = new MavlinkPingRequest();
 
     m_ioTimer = new QTimer(this);
     connect(m_ioTimer, &QTimer::timeout, this, &MavlinkStreamer::tryWriteData);
@@ -38,7 +40,7 @@ MavlinkStreamer::~MavlinkStreamer() {
         m_homePositionRequest->deleteLater();
     if (m_armRequest)
         m_armRequest->deleteLater();
-    delete m_ping;
+    delete m_pingRequest;
 }
 
 PositionDataStream *MavlinkStreamer::getPositionDataStream()
@@ -85,6 +87,16 @@ ARMRequest *MavlinkStreamer::createARMRequest(ARMRequest::Mode mode)
     return m_armRequest;
 }
 
+ManualControlRequest *MavlinkStreamer::createManualControlRequest()
+{
+    if (!m_manualControlRequest) {
+        m_manualControlRequest = new MavlinkManualControlRequest(this);
+        if (m_initiated)
+            m_manualControlRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    }
+    return m_manualControlRequest;
+}
+
 MainDataStream *MavlinkStreamer::getMainStream()
 {
     if (!m_mainDataStream) {
@@ -103,11 +115,13 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
     for (int i = 0; i < data.size(); i++) {
         if (mavlink_parse_char(MAVLINK_CHANEL, data.at(i), &msg, &status) != 0)
         {
-            if (m_ping)
-                m_ping->responce(msg);
+            if (m_pingRequest)
+                m_pingRequest->responce(msg);
             //str
             if (m_mainDataStream)
                 m_mainDataStream->responce(msg);
+            if (m_manualControlRequest)
+                m_manualControlRequest->responce(msg);
             if (m_positionDataStream)
                 m_positionDataStream->responce(msg);
             if (m_sensorsDataStream)
@@ -131,13 +145,15 @@ void MavlinkStreamer::tryWriteData()
     if (m_sensorsDataStream)
         m_sensorsDataStream->responce(msg);*/
     // rq
-    if (m_ping && m_ping->ready())
-        transmit(m_ping->request());
+    if (m_pingRequest && m_pingRequest->ready())
+        transmit(m_pingRequest->request());
     if (m_initiated) {
         if (m_homePositionRequest && m_homePositionRequest->ready())
             transmit(m_homePositionRequest->request());
         if (m_armRequest && m_armRequest->ready())
             transmit(m_armRequest->request());
+        if (m_manualControlRequest && m_manualControlRequest->ready())
+            transmit(m_manualControlRequest->request());
     }
 }
 

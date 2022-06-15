@@ -36,6 +36,10 @@ protected:
      */
     uint32_t m_maxMessageLiveTimeMs;
     uint32_t m_messageIntervalMs;
+    /*!
+     * \brief m_dirty помощ для отправки, будет игнорировать таймаут для первого сообщения
+     */
+    bool m_dirty;
 public:
     /*!
      * \brief MavlinkRequest
@@ -147,10 +151,6 @@ private:
      * \brief m_responsesCount кол-во принятых
      */
     int m_responsesCount;
-    /*!
-     * \brief m_dirty помощ для отправки, будет игнорировать таймаут для первого сообщения
-     */
-    bool m_dirty;
     /*!
      * \brief m_waitForMessage находинтся в процессе ожидания соощения
      */

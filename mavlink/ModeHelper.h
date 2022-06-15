@@ -47,6 +47,29 @@ struct ModeHelper {
         UNDEFIEND
     };
 
+    static uint8_t getBaseMode(APMode type)
+    {
+        uint8_t base = 0;
+        switch (type) {
+        case ModeHelper::APMode::ARDUPILOT_COPTER:
+        case ModeHelper::APMode::ARDUPILOT_PLANE:
+        case ModeHelper::APMode::ARDUPILOT_VTOL: {
+
+            base = base | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED | MAV_MODE_FLAG_GUIDED_ENABLED |
+                   MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED | MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
+            break;
+        }
+        case ModeHelper::APMode::PIXHAWK:
+        default: {
+
+            base = base | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED | MAV_MODE_FLAG_GUIDED_ENABLED |
+                   MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED | MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
+            break;
+        }
+        }
+        return base;
+    }
+
     static uint32_t getModeARMable(APMode type)
     {
         switch (type) {
@@ -61,11 +84,87 @@ struct ModeHelper {
             union px4_custom_mode px4_mode;
             px4_mode.data = 0;
             px4_mode.main_mode = PX4_CUSTOM_MAIN_MODE_ALTCTL;
+            px4_mode.sub_mode = 0;
             return px4_mode.data;
         }
         }
     }
-
+    static uint32_t getModeLand(APMode type)
+    {
+        switch (type) {
+        case APMode::ARDUPILOT_COPTER:
+            return COPTER_MODE_LAND;
+        case APMode::ARDUPILOT_PLANE:
+            return PLANE_MODE_GUIDED;
+        case APMode::ARDUPILOT_VTOL:
+            return PLANE_MODE_QLAND;
+        case APMode::PIXHAWK:
+        default: {
+            union px4_custom_mode px4_mode;
+            px4_mode.data = 0;
+            px4_mode.main_mode = PX4_CUSTOM_MAIN_MODE_AUTO;
+            px4_mode.sub_mode = PX4_CUSTOM_SUB_MODE_AUTO_LAND;
+            return px4_mode.data;
+        }
+        }
+    }
+    static uint32_t getModeAuto(APMode type)
+    {
+        switch (type) {
+        case APMode::ARDUPILOT_COPTER:
+            return COPTER_MODE_AUTO;
+        case APMode::ARDUPILOT_PLANE:
+            return PLANE_MODE_AUTO;
+        case APMode::ARDUPILOT_VTOL:
+            return PLANE_MODE_AUTO;
+        case APMode::PIXHAWK:
+        default: {
+            union px4_custom_mode px4_mode;
+            px4_mode.data = 0;
+            px4_mode.main_mode = PX4_CUSTOM_MAIN_MODE_AUTO;
+            px4_mode.sub_mode = PX4_CUSTOM_SUB_MODE_AUTO_MISSION;
+            return px4_mode.data;
+        }
+        }
+    }
+    static uint32_t getModeRTL(APMode type)
+    {
+        switch (type) {
+        case APMode::ARDUPILOT_COPTER:
+            return COPTER_MODE_RTL;
+        case APMode::ARDUPILOT_PLANE:
+            return PLANE_MODE_RTL;
+        case APMode::ARDUPILOT_VTOL:
+            return PLANE_MODE_RTL;
+        case APMode::PIXHAWK:
+        default: {
+            union px4_custom_mode px4_mode;
+            px4_mode.data = 0;
+            px4_mode.main_mode = PX4_CUSTOM_MAIN_MODE_AUTO;
+            px4_mode.sub_mode = PX4_CUSTOM_SUB_MODE_AUTO_RTL;
+            return px4_mode.data;
+        }
+        }
+    }
+    static uint32_t getModeGuided(APMode type)
+    {
+        switch (type) {
+        case APMode::ARDUPILOT_COPTER:
+            return COPTER_MODE_GUIDED;
+        case APMode::ARDUPILOT_PLANE:
+            return PLANE_MODE_GUIDED;
+        case APMode::ARDUPILOT_VTOL:
+            return PLANE_MODE_GUIDED;
+        case APMode::PIXHAWK:
+        default: {
+            union px4_custom_mode px4_mode;
+            px4_mode.data = 0;
+            px4_mode.main_mode = PX4_CUSTOM_MAIN_MODE_OFFBOARD;
+            px4_mode.sub_mode = 0;
+            return px4_mode.data;
+        }
+        }
+    }
 };
 
 #endif // MODEHELPER_H

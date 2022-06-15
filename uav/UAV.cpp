@@ -75,3 +75,24 @@ void UAV::doTakeoff() const
 {
     m_streamer->createARMRequest(ARMRequest::Mode::TAKEOFF);
 }
+
+void UAV::doLand() const
+{
+    m_streamer->createManualControlRequest()->doLand();
+}
+
+void UAV::doRTL() const
+{
+    m_streamer->createManualControlRequest()->doRTL();
+}
+
+void UAV::doGuided() const
+{
+    if (m_positioning->position().isValid())
+        m_streamer->createManualControlRequest()->goTo(m_positioning->position());
+}
+
+void UAV::doMission() const
+{
+    m_streamer->createManualControlRequest()->doMission();
+}

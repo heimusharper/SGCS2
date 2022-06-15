@@ -116,6 +116,9 @@ Item {
                 height: width
                 radius: width / 2
                 icon.source: "qrc:/svg/rtl.svg"
+                onClicked: {
+                    UAV.doRTL()
+                }
             }
             RoundButton {
                 id: landButton
@@ -123,6 +126,9 @@ Item {
                 height: width
                 radius: width / 2
                 icon.source: "qrc:/svg/land.svg"
+                onClicked: {
+                    UAV.doLand()
+                }
             }
         }
     }

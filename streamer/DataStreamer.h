@@ -7,6 +7,7 @@
 #include "MainDataStream.h"
 #include "PositionDataStream.h"
 #include "HomePositionRequest.h"
+#include "ManualControlRequest.h"
 #include "SensorsDataStream.h"
 #include "ARMRequest.h"
 
@@ -29,6 +30,7 @@ public:
 
     virtual HomePositionRequest *createHomePositionRequest() = 0;
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) = 0;
+    virtual ManualControlRequest *createManualControlRequest() = 0;
 
 signals:
 
