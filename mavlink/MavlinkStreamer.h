@@ -7,11 +7,12 @@
 
 // streamers
 #include "MavlinkRequest.h"
-#include "MavlinkMainDataStream.h"
 #include "MavlinkPositionDataStream.h"
 #include "MavlinkHomePositionRequest.h"
 #include "MavlinkSensorsDataStream.h"
+#include "MavlinkMainDataStream.h"
 #include "MavlinkARMRequest.h"
+#include "MavlinkPingRequest.h"
 
 class MavlinkStreamer : public DataStreamer
 {
@@ -32,8 +33,8 @@ public slots:
     virtual void onDataReceived(const QByteArray &data) override;
 private:
     uint8_t MAVLINK_CHANEL = 0;
-    uint8_t GCS_ID = MAV_AUTOPILOT_ARDUPILOTMEGA;
-    uint8_t GCS_COMPID = 1;
+    uint8_t GCS_ID = 255;//MAV_AUTOPILOT_ARDUPILOTMEGA;
+    uint8_t GCS_COMPID = MAV_COMP_ID_MISSIONPLANNER;
     bool m_initiated = false;
     uint8_t AP_ID = 1;
     uint8_t AP_COMPID = 1;
@@ -45,6 +46,7 @@ private:
 
     MavlinkHomePositionRequest *m_homePositionRequest = nullptr;
     MavlinkARMRequest *m_armRequest = nullptr;
+    MavlinkPingRequest *m_ping = nullptr;
 
 
     QTimer *m_ioTimer = nullptr;

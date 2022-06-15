@@ -12,6 +12,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                 AP_MODE = mode;
                 m_initiated = true;
 
+                if (m_ping)
+                    m_ping->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_homePositionRequest)
                     m_homePositionRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_armRequest)
@@ -24,6 +26,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                     m_sensorsDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
             });
 
+    m_ping = new MavlinkPingRequest();
+
     m_ioTimer = new QTimer(this);
     connect(m_ioTimer, &QTimer::timeout, this, &MavlinkStreamer::tryWriteData);
     m_ioTimer->start(50);
@@ -34,6 +38,7 @@ MavlinkStreamer::~MavlinkStreamer() {
         m_homePositionRequest->deleteLater();
     if (m_armRequest)
         m_armRequest->deleteLater();
+    delete m_ping;
 }
 
 PositionDataStream *MavlinkStreamer::getPositionDataStream()
@@ -98,6 +103,8 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
     for (int i = 0; i < data.size(); i++) {
         if (mavlink_parse_char(MAVLINK_CHANEL, data.at(i), &msg, &status) != 0)
         {
+            if (m_ping)
+                m_ping->responce(msg);
             //str
             if (m_mainDataStream)
                 m_mainDataStream->responce(msg);
@@ -124,10 +131,14 @@ void MavlinkStreamer::tryWriteData()
     if (m_sensorsDataStream)
         m_sensorsDataStream->responce(msg);*/
     // rq
-    if (m_homePositionRequest && m_homePositionRequest->ready())
-        transmit(m_homePositionRequest->request());
-    if (m_armRequest && m_armRequest->ready())
-        transmit(m_armRequest->request());
+    if (m_ping && m_ping->ready())
+        transmit(m_ping->request());
+    if (m_initiated) {
+        if (m_homePositionRequest && m_homePositionRequest->ready())
+            transmit(m_homePositionRequest->request());
+        if (m_armRequest && m_armRequest->ready())
+            transmit(m_armRequest->request());
+    }
 }
 
 void MavlinkStreamer::transmit(const mavlink_message_t &msg)

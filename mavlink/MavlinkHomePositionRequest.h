@@ -10,6 +10,7 @@ class MavlinkHomePositionRequest : public HomePositionRequest, public MavlinkReq
 public:
     MavlinkHomePositionRequest(QObject *parent);
     virtual ~MavlinkHomePositionRequest() = default;
+    virtual bool ready() override;
 
 protected:
     virtual mavlink_message_t construct() override;
@@ -17,6 +18,7 @@ protected:
     virtual void onInit() override;
 private:
     mavlink_message_t m_request;
+    uint8_t m_gpsFixType = GPS_FIX_TYPE_NO_GPS;
 };
 
 #endif // MAVLINKHOMEPOSITIONSTREAMER_H

@@ -4,6 +4,9 @@ MavlinkARMRequest::MavlinkARMRequest(Mode mode, QObject *parent)
     : ARMRequest{mode, parent}
     , MavlinkRequest{}
 {
+    m_maxMessageLiveTimeMs = 2000;
+    m_messageIntervalMs = 100;
+
     m_state = State::UNDEFINED;
     switch (m_mode) {
     case Mode::ARM:
@@ -48,14 +51,14 @@ mavlink_message_t MavlinkARMRequest::construct()
             case ModeHelper::APMode::ARDUPILOT_VTOL: {
 
                 base = base | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED | MAV_MODE_FLAG_GUIDED_ENABLED |
-                       MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED;
+                       MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED | MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
                 break;
             }
             case ModeHelper::APMode::PIXHAWK:
             default: {
 
                 base = base | MAV_MODE_FLAG_CUSTOM_MODE_ENABLED | MAV_MODE_FLAG_GUIDED_ENABLED |
-                       MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED;
+                       MAV_MODE_FLAG_STABILIZE_ENABLED | MAV_MODE_FLAG_AUTO_ENABLED | MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
                 break;
             }
         }
@@ -102,6 +105,7 @@ bool MavlinkARMRequest::processMessage(const mavlink_message_t &msg)
     case MAVLINK_MSG_ID_COMMAND_ACK: {
         mavlink_command_ack_t ack;
         mavlink_msg_command_ack_decode(&msg, &ack);
+        qDebug() << "ACK" << ack.command << ack.result;
         if (ack.result == MAV_RESULT_ACCEPTED) {
             switch (ack.command) {
             case MAV_CMD_COMPONENT_ARM_DISARM: {

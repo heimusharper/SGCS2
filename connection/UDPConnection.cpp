@@ -25,9 +25,11 @@ UDPConnection::UDPConnection(const QString &host, int port, QObject *parent)
             }
             QByteArray data;
             data.resize(s);
-            m_socket->readDatagram(data.data(), s);
+            // QHostAddress cliAddr;
+            // uint16_t port;
+            m_socket->readDatagram(data.data(), s, &m_userHost, &m_userPort);
             emit onReadyData(data);
-            // qDebug() << "READD" << s << data.toHex();
+            // qDebug() << "READD" << s << data.toHex() << cliAddr.toString() << " p " << port;
         }
     });
 
@@ -45,5 +47,7 @@ void UDPConnection::connectTo()
 
 void UDPConnection::doWriteData(const QByteArray &data)
 {
-    m_socket->writeDatagram(data, QHostAddress(m_host), m_port);
+    qDebug() << "WRITE" << data.toHex();
+    // m_socket->write(data);
+    m_socket->writeDatagram(data, m_userHost, m_userPort);
 }

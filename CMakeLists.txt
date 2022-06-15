@@ -97,6 +97,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkHomePositionRequest.h
         mavlink/MavlinkSensorsDataStream.h
         mavlink/MavlinkARMRequest.h
+        mavlink/MavlinkPingRequest.h
 
         mavlink/MavlinkStreamer.cpp
         mavlink/MavlinkMainDataStream.cpp
@@ -104,6 +105,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkHomePositionRequest.cpp
         mavlink/MavlinkSensorsDataStream.cpp
         mavlink/MavlinkARMRequest.cpp
+        mavlink/MavlinkPingRequest.cpp
 
 
         #qml

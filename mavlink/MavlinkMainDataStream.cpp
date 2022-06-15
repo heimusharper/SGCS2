@@ -21,6 +21,7 @@ int MavlinkMainDataStream::convertUAVType(int t) const
     case MAV_TYPE_HEXAROTOR:
     case MAV_TYPE_TRICOPTER:
     case MAV_TYPE_OCTOROTOR:
+    case MAV_TYPE_QUADROTOR:
         return UavType::COPTER;
     case MAV_TYPE_FIXED_WING:
         return UavType::PLANE;
@@ -46,7 +47,7 @@ bool MavlinkMainDataStream::processMessage(const mavlink_message_t &msg)
             ModeHelper::APMode apMode = ModeHelper::APMode::PIXHAWK;
             switch (hb.autopilot) {
             case MAV_AUTOPILOT_ARDUPILOTMEGA: {
-                switch (apMode) {
+                switch (uavType) {
                 case UavType::COPTER:
                     apMode = ModeHelper::APMode::ARDUPILOT_COPTER;
                     break;

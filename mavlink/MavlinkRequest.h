@@ -23,10 +23,10 @@ protected:
 
     }
 
-    uint8_t GCSID;
-    uint8_t COMPID;
-    uint8_t APID;
-    uint8_t APCOMP;
+    uint8_t GCSID = 255;
+    uint8_t COMPID = MAV_COMP_ID_MISSIONPLANNER;
+    uint8_t APID = 0;
+    uint8_t APCOMP = 0;
     ModeHelper::APMode APMODE;
     /*!
      * \brief m_maxMessageLiveTimeMs максимальное время жизни запроса
@@ -35,6 +35,7 @@ protected:
      * 1000 - по умолчанию
      */
     uint32_t m_maxMessageLiveTimeMs;
+    uint32_t m_messageIntervalMs;
 public:
     /*!
      * \brief MavlinkRequest
@@ -44,7 +45,8 @@ public:
         m_dirty(true),
         m_empty(false),
         m_waitForMessage(true),
-        m_maxMessageLiveTimeMs(-1)
+        m_maxMessageLiveTimeMs(-1),
+        m_messageIntervalMs(500)
     {
         resetSignalValue();
     }
@@ -85,7 +87,7 @@ public:
                     return false;
                 }
             }
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(end - m_requestTime).count() > 500)
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(end - m_requestTime).count() > m_messageIntervalMs)
                 return true;
         }
         return false;

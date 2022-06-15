@@ -27,6 +27,9 @@ private:
     QUdpSocket *m_socket;
     bool m_isHasData = false;
 
+    QHostAddress m_userHost;
+    uint16_t m_userPort;
+
 signals:
 
 };
