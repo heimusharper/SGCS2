@@ -4,30 +4,7 @@ MavlinkARMRequest::MavlinkARMRequest(Mode mode, QObject *parent)
     : ARMRequest{mode, parent}
     , MavlinkRequest{}
 {
-    m_maxMessageLiveTimeMs = 2000;
-    m_messageIntervalMs = 100;
-
-    m_state = State::UNDEFINED;
-    switch (m_mode) {
-    case Mode::ARM:
-        m_state = State::WAIT_FOR_CURRENT_MODE;
-        qDebug() << "try to ARM";
-        break;
-    case Mode::DISARM:
-        m_state = State::DISARM;
-        qDebug() << "try to DisARM";
-        break;
-    case Mode::TAKEOFF:
-        m_state = State::TAKEOFF;
-        qDebug() << "try to Takeoff";
-        break;
-    case Mode::MISSION_START:
-        m_state = State::MISSION_START;
-        qDebug() << "try to Mission start";
-        break;
-    default:
-        break;
-    }
+    setMode(mode);
 }
 
 bool MavlinkARMRequest::ready()
@@ -102,10 +79,29 @@ mavlink_message_t MavlinkARMRequest::construct()
 bool MavlinkARMRequest::processMessage(const mavlink_message_t &msg)
 {
     switch (msg.msgid) {
+    case MAVLINK_MSG_ID_HEARTBEAT: {
+        mavlink_heartbeat_t hb;
+        mavlink_msg_heartbeat_decode(&msg, &hb);
+        m_baseMode = hb.base_mode;
+        m_customMode = hb.custom_mode;
+        break;
+    }
     case MAVLINK_MSG_ID_COMMAND_ACK: {
         mavlink_command_ack_t ack;
         mavlink_msg_command_ack_decode(&msg, &ack);
         qDebug() << "ACK" << ack.command << ack.result;
+
+        if (m_state == State::WAIT_FOR_CURRENT_MODE &&
+            ack.command == MAVLINK_MSG_ID_SET_MODE) {
+            // wait for set mode
+            if (ack.result == MAV_RESULT_ACCEPTED) {
+                setMode(ARMRequest::ARM, true);
+            } else {
+
+            }
+        }
+
+
         if (ack.result == MAV_RESULT_ACCEPTED) {
             switch (ack.command) {
             case MAV_CMD_COMPONENT_ARM_DISARM: {
