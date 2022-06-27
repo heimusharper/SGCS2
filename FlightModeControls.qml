@@ -6,7 +6,6 @@ Item {
     id: root
     property bool showAdditionalActions: false
 
-
     Item {
         id: additionalActions
         visible: showAdditionalActions
@@ -63,6 +62,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
         anchors.rightMargin: 10
+        font.pixelSize: height * 0.8
         text: "\u03A3"
         onClicked: {
             showAdditionalActions = !showAdditionalActions

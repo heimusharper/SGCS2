@@ -4,6 +4,7 @@ import QtQuick.Window 2.14
 import QtLocation 5.6
 import QtPositioning 5.6
 import Finco 1.0
+import QtQuick.Controls.Material 2.12
 
 Item {
 
@@ -27,6 +28,9 @@ Item {
         centerToUAV()
     }
 
+    signal mapFocused;
+
+    property bool addPointOnMapClick: false
 
 
     Image {
@@ -50,7 +54,7 @@ Item {
 
         gesture.onPanStarted: {
             trackUAV = false
-            showAdditionalActions = false
+            mapFocused()
         }
 
 
@@ -62,6 +66,43 @@ Item {
             sourceItem: mapUAVItemComponent
             coordinate: UAV.getPositioning().position
             rotation: UAV.getPositioning().attitude.z
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if (addPointOnMapClick) {
+                    console.log("clicked" + map.toCoordinate(Qt.point(mouse.x,mouse.y)))
+                    UAV.getMission().insertSimplePoint(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
+                }
+            }
+        }
+
+        MapItemView {
+            model: UAV.getMission()
+            delegate: MapQuickItem {
+                /*sourceItem: Rectangle {
+                    width: 20
+                    height: 20
+                    color: "red"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            UAV.getMission().removeOne(index)
+                        }
+                    }
+                }*/
+                sourceItem: RoundButton {
+                    width: map.width / 20
+                    height: width
+                    radius: width / 2
+                    Material.background: Material.Teal
+                    onClicked: {
+                        UAV.getMission().removeOne(index)
+                    }
+                }
+
+                coordinate: QtPositioning.coordinate(lat, lon, alt)
+            }
         }
     }
 

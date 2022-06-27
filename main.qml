@@ -16,6 +16,9 @@ ApplicationWindow {
     title: qsTr("SGCS")
     property bool missionMode : false
 
+    Material.theme: Material.System
+    Material.accent: Material.LightBlue
+
     // predefined
     MapConfigureView {
         id: mapConfigureView
@@ -33,8 +36,8 @@ ApplicationWindow {
 
     Item {
         id: mainComponent
-        function checkParents() {
-            viewsSwitchArea.checkParents()
+        function checkParents(sw) {
+            viewsSwitchArea.checkParents(sw)
         }
 
         Rectangle {
@@ -45,6 +48,10 @@ ApplicationWindow {
         MapView {
             id: mapRectangle
             anchors.fill: parent
+            onMapFocused: {
+                missionModeControls.showAdditionalActions = false
+                flightModeControls.showAdditionalActions = false
+            }
         }
 
         Item {
@@ -59,19 +66,22 @@ ApplicationWindow {
             width: mainComponent.width / 4
             height: (mainComponent.width / 4) * (9/16)
 
-            function checkParents() {
-                console.log("chekc")
-                if (mapRectangle.parent == mainComponent && !missionMode) {
-                    // map to video
-                    mapRectangle.simpleMode = true
-                    mapRectangle.parent = viewsSwitchArea
-                    videoObject.parent = mainComponent
+            function checkParents(sw) {
+                if (sw) {
+                    if (mapRectangle.parent != mainComponent) {
+                        //video to video
+                        videoObject.parent = viewsSwitchArea
+                        mapRectangle.parent = mainComponent
+                    } else {
+                        // map to video
+                        mapRectangle.parent = viewsSwitchArea
+                        videoObject.parent = mainComponent
+                    }
                 } else {
-                    //video to video
-                    videoObject.parent = viewsSwitchArea
-                    mapRectangle.simpleMode = false
-                    mapRectangle.parent = mainComponent
+                    if (missionMode && mapRectangle.parent != mainComponent)
+                        checkParents(true)
                 }
+
             }
 
             VideoViewV4L2Item {
@@ -95,7 +105,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        viewsSwitchArea.checkParents()
+                        viewsSwitchArea.checkParents(true)
                     }
                 }
             }
@@ -113,11 +123,11 @@ ApplicationWindow {
         }
         onActivateMissionMode: {
             missionMode = true;
-            mainComponent.checkParents()
+            mainComponent.checkParents(false)
         }
         onActivateFlightMode: {
             missionMode = false
-            mainComponent.checkParents()
+            mainComponent.checkParents(false)
         }
     }
 
@@ -196,10 +206,15 @@ ApplicationWindow {
         initialItem: mainComponent
     }
     MissionModeControls {
+        id: missionModeControls
         anchors.fill: parent
         visible: missionMode
+        onPointModeSet: {
+            mapRectangle.addPointOnMapClick = missionModeControls.addPointModeEnabled;
+        }
     }
     FlightModeControls {
+        id: flightModeControls
         anchors.fill: parent
         visible: !missionMode
     }

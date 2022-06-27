@@ -39,6 +39,7 @@ find_package(QT NAMES Qt5 REQUIRED COMPONENTS
     Positioning
     Network
     Multimedia
+    QuickControls2
 )
 find_package(Qt5 REQUIRED COMPONENTS
     Core
@@ -47,6 +48,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     Positioning
     Network
     Multimedia
+    QuickControls2
 )
 
 set(TS_FILES SGCS2_ru_RU.ts)
@@ -57,10 +59,12 @@ set(PROJECT_SOURCES
         uav/UAV.h
         uav/Positioning.h
         uav/Sensors.h
+        uav/Mission.h
 
         uav/UAV.cpp
         uav/Positioning.cpp
         uav/Sensors.cpp
+        uav/Mission.cpp
 
 
         connection/Connection.h
@@ -158,6 +162,7 @@ target_link_libraries(SGCS2
     Qt${QT_VERSION_MAJOR}::Positioning
     Qt${QT_VERSION_MAJOR}::Network
     Qt${QT_VERSION_MAJOR}::Multimedia
+    Qt${QT_VERSION_MAJOR}::QuickControls2
 )
 
 set_target_properties(SGCS2 PROPERTIES

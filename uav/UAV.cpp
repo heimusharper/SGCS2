@@ -11,6 +11,7 @@ UAV::UAV(DataStreamer *streamer, QObject *parent)
 
     m_positioning = new Positioning(m_streamer);
     m_sensors = new Sensors(m_streamer);
+    m_mission = new Mission(m_streamer);
 
     doRequestHomePosition();
 }
@@ -41,6 +42,11 @@ Positioning *UAV::getPositioning() const
 Sensors *UAV::getSensors() const
 {
     return m_sensors;
+}
+
+Mission *UAV::getMission() const
+{
+    return m_mission;
 }
 
 void UAV::doRequestHomePosition() {

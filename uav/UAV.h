@@ -5,6 +5,8 @@
 #include "../streamer/DataStreamer.h"
 #include "Positioning.h"
 #include "Sensors.h"
+#include "Mission.h"
+
 #include "connection/Connection.h"
 
 
@@ -33,6 +35,7 @@ public:
 
     Q_INVOKABLE Positioning *getPositioning() const;
     Q_INVOKABLE Sensors *getSensors() const;
+    Q_INVOKABLE Mission *getMission() const;
 
     int controlMode() const;
     void setControlMode(int newControlMode);
@@ -63,6 +66,9 @@ private:
 
     // sensors
     Sensors *m_sensors = nullptr;
+
+    // mission
+    Mission *m_mission = nullptr;
 
     // parameters
     QGeoCoordinate m_homePosition;
