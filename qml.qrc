@@ -19,5 +19,7 @@
         <file>svg/land.svg</file>
         <file>svg/rtl.svg</file>
         <file>StreamConfigureView.qml</file>
+        <file>MissionModeControls.qml</file>
+        <file>FlightModeControls.qml</file>
     </qresource>
 </RCC>

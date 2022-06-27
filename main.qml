@@ -14,6 +14,7 @@ ApplicationWindow {
     height: width * (9 / 16)
     visible: true
     title: qsTr("SGCS")
+    property bool missionMode : false
 
     // predefined
     MapConfigureView {
@@ -32,6 +33,9 @@ ApplicationWindow {
 
     Item {
         id: mainComponent
+        function checkParents() {
+            viewsSwitchArea.checkParents()
+        }
 
         Rectangle {
             anchors.fill: parent
@@ -55,10 +59,26 @@ ApplicationWindow {
             width: mainComponent.width / 4
             height: (mainComponent.width / 4) * (9/16)
 
+            function checkParents() {
+                console.log("chekc")
+                if (mapRectangle.parent == mainComponent && !missionMode) {
+                    // map to video
+                    mapRectangle.simpleMode = true
+                    mapRectangle.parent = viewsSwitchArea
+                    videoObject.parent = mainComponent
+                } else {
+                    //video to video
+                    videoObject.parent = viewsSwitchArea
+                    mapRectangle.simpleMode = false
+                    mapRectangle.parent = mainComponent
+                }
+            }
+
             VideoViewV4L2Item {
                 id: videoObject
                 // color: "green"
                 anchors.fill: parent
+                visible: !missionMode
                 Component.onCompleted: {
                     if (Configuration.streamAutoConnect)
                     {
@@ -71,24 +91,16 @@ ApplicationWindow {
                 z: viewsSwitchArea.z + 2
                 anchors.fill: parent
                 color: "transparent"
+                visible: !missionMode
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        if (mapRectangle.parent == mainComponent) {
-                            mapRectangle.simpleMode = true
-                            mapRectangle.parent = viewsSwitchArea
-                            videoObject.parent = mainComponent
-                        } else {
-                            videoObject.parent = viewsSwitchArea
-                            mapRectangle.simpleMode = false
-                            mapRectangle.parent = mainComponent
-                        }
+                        viewsSwitchArea.checkParents()
                     }
                 }
             }
         }
     }
-
 
     // main
 
@@ -98,6 +110,14 @@ ApplicationWindow {
                 stackView.pop()
             else
                 drawer.open()
+        }
+        onActivateMissionMode: {
+            missionMode = true;
+            mainComponent.checkParents()
+        }
+        onActivateFlightMode: {
+            missionMode = false
+            mainComponent.checkParents()
         }
     }
 
@@ -175,4 +195,13 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: mainComponent
     }
+    MissionModeControls {
+        anchors.fill: parent
+        visible: missionMode
+    }
+    FlightModeControls {
+        anchors.fill: parent
+        visible: !missionMode
+    }
+
 }

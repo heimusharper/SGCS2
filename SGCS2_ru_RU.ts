@@ -45,22 +45,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="131"/>
+        <location filename="main.qml" line="138"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="141"/>
+        <location filename="main.qml" line="148"/>
         <source>Stream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="151"/>
+        <location filename="main.qml" line="158"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="160"/>
+        <location filename="main.qml" line="167"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

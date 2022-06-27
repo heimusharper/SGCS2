@@ -63,18 +63,6 @@ ToolBar {
 
     background: Rectangle {
         color: Material.color(Material.Cyan)
-        Rectangle {
-            width:
-                (connectionButton.visible ? connectionButton.width : 0)
-                + (flightMode.visible ? flightMode.width : 0)
-                + (missionMode.visible ? missionMode.width +  buttonsLayout.spacing: 0)
-            height: parent.height
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            color: UAV.connection().connected
-                   ? Material.color(Material.LightGreen)
-                   : Material.color(Material.LightRed)
-        }
     }
 
     function getGPSText (n) {
@@ -145,18 +133,9 @@ ToolBar {
                  Layout.fillWidth: true
              }
              ToolButton {
-                 id: connectionButton
-                 visible: ! UAV.connection().connected
-                 text: "Connect"
-                 font.pixelSize: height / 2
-                 onClicked: {
-                     outerPopup.open() // connection popup
-                 }
-             }
-             ToolButton {
                  id: flightMode
                  text: "FM"
-                 visible: UAV.connection().connected
+                 // visible: UAV.connection().connected
                  font.pixelSize: height / 2
                  onClicked: {
                     toolBarRoot.activateFlightMode()
@@ -165,10 +144,25 @@ ToolBar {
              ToolButton {
                  id: missionMode
                  text: "MM"
-                 visible: UAV.connection().connected
+                 // visible: UAV.connection().connected
                  font.pixelSize: height / 2
                  onClicked: {
                      toolBarRoot.activateMissionMode()
+                 }
+             }
+             ToolButton {
+                 id: connectionButton
+                 visible: !UAV.connection().connected
+                 text: "Connect"
+                 height: buttonsLayout.height
+                 font.pixelSize: height / 2
+                 onClicked: {
+                     outerPopup.open() // connection popup
+                 }
+                 Rectangle {
+                     anchors.fill: parent
+                     anchors.margins: 0
+                     color: Material.color(Material.LightRed)
                  }
              }
          }
