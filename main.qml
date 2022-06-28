@@ -81,7 +81,6 @@ ApplicationWindow {
                     if (missionMode && mapRectangle.parent != mainComponent)
                         checkParents(true)
                 }
-
             }
 
             VideoViewV4L2Item {

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls.Material 2.12
 import QtQuick.Controls 2.15
+import Finco 1.0
 
 Item {
 
@@ -133,6 +134,7 @@ Item {
                 text: "\u2B79"
                 font.pixelSize: height * 0.8
                 onClicked: {
+                    UAV.getMission().readAll()
                 }
             }
         }

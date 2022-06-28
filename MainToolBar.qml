@@ -174,7 +174,7 @@ ToolBar {
              Rectangle {
                  id: statusLine
                  height: parent.height
-                 width: parent.width * 0.3
+                 width: parent.width * UAV.progress
                  color: Material.color(Material.LightGreen)
 
              }

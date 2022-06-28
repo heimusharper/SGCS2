@@ -26,6 +26,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                     m_sensorsDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_manualControlRequest)
                     m_manualControlRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_missionReadRequest)
+                    m_missionReadRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
             });
 
     m_pingRequest = new MavlinkPingRequest();
@@ -97,6 +99,19 @@ ManualControlRequest *MavlinkStreamer::createManualControlRequest()
     return m_manualControlRequest;
 }
 
+MissionReadRequest *MavlinkStreamer::createMissionReadRequest()
+{
+    if (m_missionReadRequest)
+    {
+        m_missionReadRequest->deleteLater();
+        m_missionReadRequest = nullptr;
+    }
+    m_missionReadRequest = new MavlinkMissionReadRequest(this);
+    if (m_initiated)
+        m_missionReadRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    return m_missionReadRequest;
+}
+
 MainDataStream *MavlinkStreamer::getMainStream()
 {
     if (!m_mainDataStream) {
@@ -131,6 +146,8 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
                 m_homePositionRequest->responce(msg);
             if (m_armRequest)
                 m_armRequest->responce(msg);
+            if (m_missionReadRequest)
+                m_missionReadRequest->responce(msg);
         }
     }
 }
@@ -154,6 +171,8 @@ void MavlinkStreamer::tryWriteData()
             transmit(m_armRequest->request());
         if (m_manualControlRequest && m_manualControlRequest->ready())
             transmit(m_manualControlRequest->request());
+        if (m_missionReadRequest && m_missionReadRequest->ready())
+            transmit(m_missionReadRequest->request());
     }
 }
 

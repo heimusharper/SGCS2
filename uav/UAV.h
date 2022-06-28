@@ -15,6 +15,7 @@ class UAV : public QObject
     Q_OBJECT
     Q_PROPERTY(QGeoCoordinate homePosition READ homePosition WRITE setHomePosition NOTIFY homePositionChanged)
     Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
+    Q_PROPERTY(float progress READ progress WRITE setProgress NOTIFY progressChanged)
 
 public:
     enum ControlMode {
@@ -49,10 +50,13 @@ public:
     Q_INVOKABLE void doGuided() const;
     Q_INVOKABLE void doMission() const;
 
+    float progress() const;
+
 public slots:
 
     Q_INVOKABLE void doRequestHomePosition();
 
+    void setProgress(float newProgress);
 private:
 
     // connection
@@ -75,10 +79,13 @@ private:
 
     int m_controlMode = (int)ControlMode::WAIT;
 
+    float m_progress;
+
 signals:
 
     void homePositionChanged();
     void controlModeChanged();
+    void progressChanged();
 };
 
 #endif // UAV_H

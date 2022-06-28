@@ -9,9 +9,11 @@ UAV::UAV(DataStreamer *streamer, QObject *parent)
     connect(m_streamer, &DataStreamer::writeData, m_connection, &Connection::writeData);
 
 
-    m_positioning = new Positioning(m_streamer);
-    m_sensors = new Sensors(m_streamer);
-    m_mission = new Mission(m_streamer);
+    m_positioning = new Positioning(m_streamer, this);
+    m_sensors = new Sensors(m_streamer, this);
+    m_mission = new Mission(m_streamer, this);
+
+    connect(m_mission, &Mission::progress, this, &UAV::setProgress);
 
     doRequestHomePosition();
 }
@@ -101,4 +103,17 @@ void UAV::doGuided() const
 void UAV::doMission() const
 {
     m_streamer->createManualControlRequest()->doMission();
+}
+
+float UAV::progress() const
+{
+    return m_progress;
+}
+
+void UAV::setProgress(float newProgress)
+{
+    if (qFuzzyCompare(m_progress, newProgress))
+        return;
+    m_progress = newProgress;
+    emit progressChanged();
 }

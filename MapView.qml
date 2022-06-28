@@ -71,7 +71,6 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if (addPointOnMapClick) {
-                    console.log("clicked" + map.toCoordinate(Qt.point(mouse.x,mouse.y)))
                     UAV.getMission().insertSimplePoint(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
                 }
             }

@@ -87,6 +87,7 @@ set(PROJECT_SOURCES
         streamer/PositionDataStream.h
         streamer/SensorsDataStream.h
         streamer/ManualControlRequest.h
+        streamer/MissionReadRequest.h
 
 
         streamer/DataStreamer.cpp
@@ -104,6 +105,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkARMRequest.h
         mavlink/MavlinkPingRequest.h
         mavlink/MavlinkManualControlRequest.h
+        mavlink/MavlinkMissionReadRequest.h
 
         mavlink/MavlinkStreamer.cpp
         mavlink/MavlinkMainDataStream.cpp
@@ -113,6 +115,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkARMRequest.cpp
         mavlink/MavlinkPingRequest.cpp
         mavlink/MavlinkManualControlRequest.cpp
+        mavlink/MavlinkMissionReadRequest.cpp
 
 
         #qml

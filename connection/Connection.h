@@ -26,7 +26,7 @@ signals:
     void onReadyData(const QByteArray &data);
 
 private:
-    bool m_connected;
+    bool m_connected = false;
 
     ConnectionType *m_connection = nullptr;
 };

@@ -5,6 +5,7 @@
 #include <QAbstractListModel>
 #include <QHash>
 #include <QGeoCoordinate>
+#include "../streamer/DataStreamer.h"
 
 class MissionItem : public QObject
 {
@@ -45,66 +46,30 @@ public:
         Altitude = Longitude + 1
         };
 
-    explicit Mission(QObject *parent = nullptr);
+    Mission(QObject *parent = nullptr);
+    explicit Mission(DataStreamer *streamer, QObject *parent = nullptr);
 
-    int rowCount(const QModelIndex&) const override
-    {
-        return m_items.size();
-    }
+    int rowCount(const QModelIndex&) const override;
 
-    QHash<int, QByteArray> roleNames() const
-    {
-        QHash<int, QByteArray> roles;
-        roles[TypeRole] = "type";
-        roles[Latitude] = "lat";
-        roles[Longitude] = "lon";
-        roles[Altitude] = "alt";
+    QHash<int, QByteArray> roleNames() const override;
+    QVariant data(const QModelIndex& index, int role) const override;
+    Q_INVOKABLE MissionItem *itemAt(int index);
 
-        return roles;
-    }
-    QVariant data(const QModelIndex& index, int role) const override
-    {
-        switch (role) {
-        case TypeRole:
-            return m_items.at(index.row())->type();
-        case Latitude:
-            return m_items.at(index.row())->position().latitude();
-        case Longitude:
-            return m_items.at(index.row())->position().longitude();
-        case Altitude:
-            return m_items.at(index.row())->position().altitude();
-        default:
-            break;
-        }
-        return QVariant();
-    }
-    Q_INVOKABLE MissionItem *itemAt(int index)
-    {
-        return m_items.at(index);
-    }
+    Q_INVOKABLE void appendSimplePoint(const QGeoCoordinate &pos);
+    Q_INVOKABLE void setSimplePoint(int index, const QGeoCoordinate &pos);
+    Q_INVOKABLE void removeOne(int index);
 
-    Q_INVOKABLE void insertSimplePoint(const QGeoCoordinate &pos)
-    {
-        beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
-        MissionItem *item = new MissionItem;
-        item->setPosition(pos);
-        m_items.push_back(item);
-        endInsertRows();
-    }
-    Q_INVOKABLE void removeOne(int index)
-    {
-        if (index < m_items.size()) {
-            beginRemoveRows(QModelIndex(), index, index);
-            m_items.takeAt(index)->deleteLater();
-            endRemoveRows();
-        }
-    }
+    Q_INVOKABLE void readAll();
 
 private:
+
+    DataStreamer *m_streamer = nullptr;
 
     QList<MissionItem*> m_items;
 
 signals:
+
+    void progress(float p);
 
 };
 

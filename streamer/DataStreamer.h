@@ -10,6 +10,7 @@
 #include "ManualControlRequest.h"
 #include "SensorsDataStream.h"
 #include "ARMRequest.h"
+#include "MissionReadRequest.h"
 
 class DataStreamer : public QObject
 {
@@ -31,6 +32,7 @@ public:
     virtual HomePositionRequest *createHomePositionRequest() = 0;
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) = 0;
     virtual ManualControlRequest *createManualControlRequest() = 0;
+    virtual MissionReadRequest *createMissionReadRequest() = 0;
 
 signals:
 
