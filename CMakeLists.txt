@@ -60,11 +60,13 @@ set(PROJECT_SOURCES
         uav/Positioning.h
         uav/Sensors.h
         uav/Mission.h
+        uav/MissionItem.h
 
         uav/UAV.cpp
         uav/Positioning.cpp
         uav/Sensors.cpp
         uav/Mission.cpp
+        uav/MissionItem.cpp
 
 
         connection/Connection.h
@@ -88,6 +90,7 @@ set(PROJECT_SOURCES
         streamer/SensorsDataStream.h
         streamer/ManualControlRequest.h
         streamer/MissionReadRequest.h
+        streamer/MissionWriteRequest.h
 
 
         streamer/DataStreamer.cpp

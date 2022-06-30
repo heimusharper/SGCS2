@@ -45,7 +45,7 @@ Item {
             anchors.fill: parent
 
             Text {
-                text: "info"
+                text: qsTr("Points:")
                 font.pixelSize: infoLine.height
             }
 

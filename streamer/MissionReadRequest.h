@@ -2,6 +2,7 @@
 #define MISSIONREADREQUEST_H
 
 #include <QObject>
+#include "../uav/MissionItem.h"
 
 class MissionReadRequest : public QObject
 {
@@ -15,14 +16,11 @@ public:
         ERR_FAILED_GET_COUNT,
         ERR_FAILED_GET_INDEX
     };
-    enum PointType {
-        SIMPLE_POINT
-    };
 
 signals:
 
     // void onError(MissionReadRequest::Errors err);
-    void onItem(uint16_t seq, MissionReadRequest::PointType type, float p1, float p2, float p3, float p4, double x, double y, double z);
+    void onItem(uint16_t seq, MissionItem *it);
     void progress(float stat);
 };
 

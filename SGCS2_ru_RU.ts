@@ -20,6 +20,14 @@
     </message>
 </context>
 <context>
+    <name>MissionModeControls</name>
+    <message>
+        <location filename="MissionModeControls.qml" line="48"/>
+        <source>Points:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StreamConfigureView</name>
     <message>
         <location filename="StreamConfigureView.qml" line="23"/>

@@ -5,35 +5,8 @@
 #include <QAbstractListModel>
 #include <QHash>
 #include <QGeoCoordinate>
+#include "MissionItem.h"
 #include "../streamer/DataStreamer.h"
-
-class MissionItem : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(int type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(QGeoCoordinate position READ position WRITE setPosition NOTIFY positionChanged)
-public:
-    enum ItemType
-    {
-        SimpleType
-    };
-    Q_ENUMS(ItemType)
-
-    int type() const;
-    void setType(int newType);
-
-    const QGeoCoordinate &position() const;
-    void setPosition(const QGeoCoordinate &newPosition);
-
-signals:
-    void typeChanged();
-
-    void positionChanged();
-
-private:
-    int m_type;
-    QGeoCoordinate m_position;
-};
 
 class Mission : public QAbstractListModel
 {
