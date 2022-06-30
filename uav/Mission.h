@@ -6,6 +6,7 @@
 #include <QHash>
 #include <QGeoCoordinate>
 #include "MissionItem.h"
+#include <QDebug>
 #include "../streamer/DataStreamer.h"
 
 class Mission : public QAbstractListModel
@@ -31,9 +32,14 @@ public:
     Q_INVOKABLE void appendSimplePoint(const QGeoCoordinate &pos);
     Q_INVOKABLE void setSimplePoint(int index, const QGeoCoordinate &pos);
     Q_INVOKABLE void removeOne(int index);
-
     Q_INVOKABLE void readAll();
+    Q_INVOKABLE void writeAll();
+    Q_INVOKABLE void clear();
 
+private slots:
+    void appendPoint(MissionItem *it);
+    void replacePoint(int index, MissionItem *it);
+    void initItem(MissionItem *it);
 private:
 
     DataStreamer *m_streamer = nullptr;

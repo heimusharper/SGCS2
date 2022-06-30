@@ -34,6 +34,22 @@ ApplicationWindow {
         }
     }
 
+    MissionEditDrawer {
+        id: missionEditView
+        onConfigureAt: {
+            missionItemEditView.itemIndex = index
+            missionEditDrawer.push(missionItemEditView)
+        }
+    }
+    MissionItemEdit {
+        id: missionItemEditView
+        onCloseMe: {
+            missionEditDrawer.pop()
+        }
+    }
+
+    property bool missionIsMain: true
+
     Item {
         id: mainComponent
         function checkParents(sw) {
@@ -45,12 +61,60 @@ ApplicationWindow {
             color: "white"
         }
 
-        MapView {
-            id: mapRectangle
+        Item {
+            id: mapRectangle;
             anchors.fill: parent
-            onMapFocused: {
-                missionModeControls.showAdditionalActions = false
-                flightModeControls.showAdditionalActions = false
+            RowLayout {
+                anchors.fill: parent
+                MapView {
+                    id: mapView
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    // anchors.fill: parent
+                    onMapFocused: {
+                        flightModeControls.showAdditionalActions = false
+                        missionModeControls.showAdditionalActions = false;
+                    }
+
+                    MissionModeControls {
+                        id: missionModeControls
+                        anchors.fill: parent
+                        visible: missionMode && missionIsMain
+
+                        onPointModeSet: {
+                            //mapRectangle.addPointOnMapClick = missionModeControls.addPointModeEnabled;
+                        }
+                    }
+                    FlightModeControls {
+                        id: flightModeControls
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        visible: !missionMode && missionIsMain
+                    }
+                    MapControls {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        visible: missionIsMain
+                        onTrackUAV: {
+                            mapView.trackUAV = !mapView.trackUAV
+                        }
+                        onZoomIn: {
+                            mapView.zoomIn()
+                        }
+                        onZoomOut: {
+                            mapView.zoomOut()
+                        }
+                    }
+
+                }
+
+                StackView {
+                    id: missionEditDrawer
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    visible: missionMode
+                    initialItem: missionEditView
+                }
             }
         }
 
@@ -72,10 +136,12 @@ ApplicationWindow {
                         //video to video
                         videoObject.parent = viewsSwitchArea
                         mapRectangle.parent = mainComponent
+                        missionIsMain = true
                     } else {
                         // map to video
                         mapRectangle.parent = viewsSwitchArea
                         videoObject.parent = mainComponent
+                        missionIsMain = false
                     }
                 } else {
                     if (missionMode && mapRectangle.parent != mainComponent)
@@ -123,10 +189,12 @@ ApplicationWindow {
         onActivateMissionMode: {
             missionMode = true;
             mainComponent.checkParents(false)
+            missionEditDrawer.visible = true
         }
         onActivateFlightMode: {
             missionMode = false
             mainComponent.checkParents(false)
+            missionEditDrawer.visible = false
         }
     }
 
@@ -204,18 +272,4 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: mainComponent
     }
-    MissionModeControls {
-        id: missionModeControls
-        anchors.fill: parent
-        visible: missionMode
-        onPointModeSet: {
-            mapRectangle.addPointOnMapClick = missionModeControls.addPointModeEnabled;
-        }
-    }
-    FlightModeControls {
-        id: flightModeControls
-        anchors.fill: parent
-        visible: !missionMode
-    }
-
 }

@@ -21,5 +21,8 @@
         <file>StreamConfigureView.qml</file>
         <file>MissionModeControls.qml</file>
         <file>FlightModeControls.qml</file>
+        <file>MissionEditDrawer.qml</file>
+        <file>MapControls.qml</file>
+        <file>MissionItemEdit.qml</file>
     </qresource>
 </RCC>

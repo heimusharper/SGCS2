@@ -64,18 +64,152 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
     case MAVLINK_MSG_ID_MISSION_ITEM_INT: {
         mavlink_mission_item_int_t item;
         mavlink_msg_mission_item_int_decode(&msg, &item);
+        if (m_state == State::SET_ACK)
+            return false;
+        qDebug() << "received point" << item.command << m_missinFull << item.param1 << item.param2 << item.param3 << item.param4;
         if (item.mission_type == MAV_MISSION_TYPE_MISSION) {
             switch (item.command) {
             case MAV_CMD_NAV_WAYPOINT:
-                emit onItem(item.seq, PointType::SIMPLE_POINT,
-                            item.param1, item.param2, item.param3, item.param4,
-                            (double)item.x / 1.e7, (double)item.y / 1.e7, (double)item.z / 1000.);
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::SIMPLE_POINT);
+                it->setPosition(QGeoCoordinate((double)item.x / 1.e7, (double)item.y / 1.e7, (double)item.z / 1000.));
+                it->setFrame(getFrame(item.frame));
+                it->setDelayOnWaypoint((int)item.param1);
+                emit onItem(item.seq, it);
                 break;
+            }
+            case MAV_CMD_NAV_TAKEOFF:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::TAKEOFF);
+                it->setPosition(QGeoCoordinate(0, 0, (double)item.z / 1000.));
+                it->setFrame(getFrame(item.frame));
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_NAV_RETURN_TO_LAUNCH:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::RTL);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_NAV_LAND:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::LAND);
+                it->setPosition(QGeoCoordinate((double)item.x / 1.e7, (double)item.y / 1.e7, 0));
+                it->setFrame(getFrame(item.frame));
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_JUMP:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::JUMP);
+                it->setJumpTo(item.param1);
+                it->setJumpRepeats(item.param2);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_CONDITION_DELAY:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::DELAY);
+                it->setDelayOnWaypoint(item.param1);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_CONDITION_DISTANCE:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::DELAY);
+                it->setDistance(item.param1);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_CHANGE_SPEED:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::SPEED);
+                it->setSpeed(item.param2);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_SET_SERVO:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::SET_SERVO);
+                it->setServo(item.param1);
+                it->setPwm(item.param2);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_SET_ROI:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::ROI);
+                it->setPosition(QGeoCoordinate((double)item.x / 1.e7, (double)item.y / 1.e7, (double)item.z / 1000.));
+                it->setFrame(getFrame(item.frame));
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_DIGICAM_CONTROL:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::CAMERA);
+                it->setZoomPosition(item.param2);
+                if ((int)item.param4 == 0) {
+                } else if ((int)item.param4 == 1) {
+                    it->setAutofocusNow(true);
+                }
+                if ((int)item.x == 0){
+                } else if ((int)item.x == 1)
+                    it->setShoot(true);
+                else if ((int)item.x == 2)
+                    it->setRecordStart(1);
+                else if ((int)item.x == 3)
+                    it->setRecordStart(-1);
+                it->setPwm(item.param2);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_MOUNT_CONTROL:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::GIMBAL);
+                it->setGimbalPitch(item.param1);
+                it->setGimbalRoll(item.param2);
+                it->setGimbalYaw(item.param3);
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_SET_CAM_TRIGG_DIST:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::TRIGGER);
+                if (item.param3 < 1) {
+                    it->setShootOnDistance(0);
+                    it->setShootOnTime(0);
+                } else {
+                    it->setShootOnDistance(item.param1);
+                    it->setShootOnTime(item.param2);
+                }
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_PARACHUTE:
+            {
+                MissionItem *it = new MissionItem;
+                it->setType((int)MissionItem::ItemType::PARACHUTE);
+                emit onItem(item.seq, it);
+            }
             default:
                 break;
             }
             // next
-            m_nextPoint++;
+            m_nextPoint = item.seq + 1;
             emit progress(m_nextPoint / m_missinFull);
             if (m_nextPoint >= m_missinFull)
             {
@@ -129,6 +263,24 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
 void MavlinkMissionReadRequest::onInit()
 {
 
+}
+
+int MavlinkMissionReadRequest::getFrame(int f)
+{
+    switch (f) {
+    case MAV_FRAME_GLOBAL:
+    case MAV_FRAME_GLOBAL_INT:
+        return (int)MissionItem::Frame::ABSOLUTE;
+    case MAV_FRAME_GLOBAL_RELATIVE_ALT:
+    case MAV_FRAME_GLOBAL_RELATIVE_ALT_INT:
+        return (int)MissionItem::Frame::RELATIVE;
+    case MAV_FRAME_GLOBAL_TERRAIN_ALT:
+    case MAV_FRAME_GLOBAL_TERRAIN_ALT_INT:
+        return (int)MissionItem::Frame::RELIEF;
+    default:
+        break;
+    }
+    return (int)MissionItem::Frame::INVALID;
 }
 
 void MavlinkMissionReadRequest::resetTimers(int interval)

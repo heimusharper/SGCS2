@@ -31,93 +31,224 @@ void MissionItem::setPosition(const QGeoCoordinate &newPosition)
     m_position = newPosition;
     emit positionChanged();
 }
-float MissionItem::property1() const
+
+int MissionItem::delayOnWaypoint() const
 {
-    return m_property1;
+    return m_delayOnWaypoint;
 }
 
-void MissionItem::setProperty1(float newProperty1)
+void MissionItem::setDelayOnWaypoint(int newDelayOnWaypoint)
 {
-    if (qFuzzyCompare(m_property1, newProperty1))
+    if (m_delayOnWaypoint == newDelayOnWaypoint)
         return;
-    m_property1 = newProperty1;
-    emit property1Changed();
+    m_delayOnWaypoint = newDelayOnWaypoint;
+    emit delayOnWaypointChanged();
 }
 
-float MissionItem::property2() const
+int MissionItem::jumpTo() const
 {
-    return m_property2;
+    return m_jumpTo;
 }
 
-void MissionItem::setProperty2(float newProperty2)
+void MissionItem::setJumpTo(int newJumpTo)
 {
-    if (qFuzzyCompare(m_property2, newProperty2))
+    if (m_jumpTo == newJumpTo)
         return;
-    m_property2 = newProperty2;
-    emit property2Changed();
+    m_jumpTo = newJumpTo;
+    emit jumpToChanged();
 }
 
-float MissionItem::property3() const
+int MissionItem::jumpRepeats() const
 {
-    return m_property3;
+    return m_jumpRepeats;
 }
 
-void MissionItem::setProperty3(float newProperty3)
+void MissionItem::setJumpRepeats(int newJumpRepeats)
 {
-    if (qFuzzyCompare(m_property3, newProperty3))
+    if (m_jumpRepeats == newJumpRepeats)
         return;
-    m_property3 = newProperty3;
-    emit property3Changed();
+    m_jumpRepeats = newJumpRepeats;
+    emit jumpRepeatsChanged();
 }
 
-float MissionItem::property4() const
+int MissionItem::distance() const
 {
-    return m_property4;
+    return m_distance;
 }
 
-void MissionItem::setProperty4(float newProperty4)
+void MissionItem::setDistance(int newDistance)
 {
-    if (qFuzzyCompare(m_property4, newProperty4))
+    if (m_distance == newDistance)
         return;
-    m_property4 = newProperty4;
-    emit property4Changed();
+    m_distance = newDistance;
+    emit distanceChanged();
 }
 
-float MissionItem::property5() const
+float MissionItem::speed() const
 {
-    return m_property5;
+    return m_speed;
 }
 
-void MissionItem::setProperty5(float newProperty5)
+void MissionItem::setSpeed(float newSpeed)
 {
-    if (qFuzzyCompare(m_property5, newProperty5))
+    if (qFuzzyCompare(m_speed, newSpeed))
         return;
-    m_property5 = newProperty5;
-    emit property5Changed();
+    m_speed = newSpeed;
+    emit speedChanged();
 }
 
-float MissionItem::property6() const
+int MissionItem::servo() const
 {
-    return m_property6;
+    return m_servo;
 }
 
-void MissionItem::setProperty6(float newProperty6)
+void MissionItem::setServo(int newServo)
 {
-    if (qFuzzyCompare(m_property6, newProperty6))
+    if (m_servo == newServo)
         return;
-    m_property6 = newProperty6;
-    emit property6Changed();
+    m_servo = newServo;
+    emit servoChanged();
 }
 
-float MissionItem::property7() const
+int MissionItem::pwm() const
 {
-    return m_property7;
+    return m_pwm;
 }
 
-void MissionItem::setProperty7(float newProperty7)
+void MissionItem::setPwm(int newPwm)
 {
-    if (qFuzzyCompare(m_property7, newProperty7))
+    if (m_pwm == newPwm)
         return;
-    m_property7 = newProperty7;
-    emit property7Changed();
+    m_pwm = newPwm;
+    emit pwmChanged();
+}
+
+int MissionItem::zoomPosition() const
+{
+    return m_zoomPosition;
+}
+
+void MissionItem::setZoomPosition(int newZoomPosition)
+{
+    if (m_zoomPosition == newZoomPosition)
+        return;
+    m_zoomPosition = newZoomPosition;
+    emit zoomPositionChanged();
+}
+
+bool MissionItem::autofocusNow() const
+{
+    return m_autofocusNow;
+}
+
+void MissionItem::setAutofocusNow(bool newAutofocusNow)
+{
+    if (m_autofocusNow == newAutofocusNow)
+        return;
+    m_autofocusNow = newAutofocusNow;
+    emit autofocusNowChanged();
+}
+
+bool MissionItem::shoot() const
+{
+    return m_shoot;
+}
+
+void MissionItem::setShoot(bool newShoot)
+{
+    if (m_shoot == newShoot)
+        return;
+    m_shoot = newShoot;
+    emit shootChanged();
+}
+
+int MissionItem::recordStart() const
+{
+    return m_recordStart;
+}
+
+void MissionItem::setRecordStart(int newRecordStart)
+{
+    if (m_recordStart == newRecordStart)
+        return;
+    m_recordStart = newRecordStart;
+    emit recordStartChanged();
+}
+
+float MissionItem::gimbalPitch() const
+{
+    return m_gimbalPitch;
+}
+
+void MissionItem::setGimbalPitch(float newGimbalPitch)
+{
+    if (qFuzzyCompare(m_gimbalPitch, newGimbalPitch))
+        return;
+    m_gimbalPitch = newGimbalPitch;
+    emit gimbalPitchChanged();
+}
+
+float MissionItem::gimbalRoll() const
+{
+    return m_gimbalRoll;
+}
+
+void MissionItem::setGimbalRoll(float newGimbalRoll)
+{
+    if (qFuzzyCompare(m_gimbalRoll, newGimbalRoll))
+        return;
+    m_gimbalRoll = newGimbalRoll;
+    emit gimbalRollChanged();
+}
+
+float MissionItem::gimbalYaw() const
+{
+    return m_gimbalYaw;
+}
+
+void MissionItem::setGimbalYaw(float newGimbalYaw)
+{
+    if (qFuzzyCompare(m_gimbalYaw, newGimbalYaw))
+        return;
+    m_gimbalYaw = newGimbalYaw;
+    emit gimbalYawChanged();
+}
+
+float MissionItem::shootOnTime() const
+{
+    return m_shootOnTime;
+}
+
+void MissionItem::setShootOnTime(float newShootOnTime)
+{
+    if (qFuzzyCompare(m_shootOnTime, newShootOnTime))
+        return;
+    m_shootOnTime = newShootOnTime;
+    emit shootOnTimeChanged();
+}
+
+float MissionItem::shootOnDistance() const
+{
+    return m_shootOnDistance;
+}
+
+void MissionItem::setShootOnDistance(float newShootOnDistance)
+{
+    if (qFuzzyCompare(m_shootOnDistance, newShootOnDistance))
+        return;
+    m_shootOnDistance = newShootOnDistance;
+    emit shootOnDistanceChanged();
+}
+
+int MissionItem::frame() const
+{
+    return m_frame;
+}
+
+void MissionItem::setFrame(int newFrame)
+{
+    if (m_frame == newFrame)
+        return;
+    m_frame = newFrame;
+    emit frameChanged();
 }

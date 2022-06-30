@@ -9,7 +9,6 @@ import QtQuick.Controls.Material 2.12
 Item {
 
     id: mapItem
-    anchors.fill: parent
 
     function centerToUAV () {
         if (simpleMode || trackUAV)
@@ -26,6 +25,18 @@ Item {
     property variant uavPosition: UAV.getPositioning().position
     onUavPositionChanged: {
         centerToUAV()
+    }
+    onTrackUAVChanged: {
+        if (trackUAV)
+            centerToUAV()
+    }
+    function zoomIn()
+    {
+        map.zoomLevel = map.zoomLevel+1
+    }
+    function zoomOut()
+    {
+        map.zoomLevel = map.zoomLevel-1
     }
 
     signal mapFocused;
@@ -104,26 +115,6 @@ Item {
             }
         }
     }
-
-    // controls
-    RoundButton {
-        visible: !simpleMode
-        id: trackUAVButton
-        width: mapItem.width / 15
-        height: width
-        radius: width / 2
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.topMargin: 10
-        anchors.rightMargin: 10
-        icon.source: "qrc:/svg/track_uav.svg"
-        onClicked: {
-            trackUAV = !trackUAV
-            if (trackUAV)
-                centerToUAV()
-        }
-    }
-
 
 
     // select map plugin type and source

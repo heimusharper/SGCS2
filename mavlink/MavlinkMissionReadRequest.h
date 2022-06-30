@@ -18,6 +18,8 @@ protected:
     virtual bool processMessage(const mavlink_message_t &msg) override;
     virtual void onInit() override;
 
+    int getFrame(int f);
+
     enum State {
         UNDEFINED,
         GET_SIZE,
