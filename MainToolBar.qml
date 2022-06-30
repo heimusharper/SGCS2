@@ -28,21 +28,29 @@ ToolBar {
 
             RadioButton {
                 text: "UDP"
+                checked: Configuration.connectionMethod === "udp"
                 onClicked: {
                     connectionStack.currentIndex = 0
                 }
             }
             RadioButton {
                 text: "Serial"
-                checked: true
+                checked: Configuration.connectionMethod === "serial"
                 onClicked: {
                     connectionStack.currentIndex = 1
                 }
             }
+            Component.onCompleted: {
+                if (Configuration.connectionMethod === "udp")
+                    connectionStack.currentIndex = 0
+                else if (Configuration.connectionMethod === "serial")
+                    connectionStack.currentIndex = 1
+                else
+                    connectionStack.currentIndex = 2
+            }
 
             StackLayout {
                 id: connectionStack
-                currentIndex: 1
                 Item {
                     implicitWidth: gridOfUDP.width
                     implicitHeight: gridOfUDP.height
@@ -61,6 +69,9 @@ ToolBar {
                             text: "Connect"
                             onClicked: {
                                 outerPopup.close();
+                                Configuration.connectionMethod = "udp"
+                                Configuration.connectionUDPHost = udpHostField.text
+                                Configuration.connectionUDPPort = udpPortField.value
                                 UAV.connection().connectToUDP(udpHostField.text, udpPortField.value);
                             }
                         }
@@ -69,7 +80,7 @@ ToolBar {
                         }
                         TextField {
                             id: udpHostField
-                            text: "192.168.88.183"
+                            text: Configuration.connectionUDPHost
                         }
 
                         Text {
@@ -78,7 +89,7 @@ ToolBar {
 
                         SpinBox {
                             id: udpPortField
-                            value: 14550
+                            value: Configuration.connectionUDPPort
                             from: 1024
                             to: 64000
                         }
@@ -103,6 +114,8 @@ ToolBar {
                             text: "Connect"
                             onClicked: {
                                 outerPopup.close();
+                                Configuration.connectionMethod = "serial"
+                                Configuration.connectionSerialPort = serialPortField.text
                                 UAV.connection().connectToUART(serialPortField.text);
                             }
                         }
@@ -111,7 +124,7 @@ ToolBar {
                         }
                         TextField {
                             id: serialPortField
-                            text: "COM1"
+                            text: Configuration.connectionSerialPort
                         }
                     }
                 }
