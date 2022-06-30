@@ -1,4 +1,6 @@
 #include "Connection.h"
+#include "UDPConnection.h"
+#include "SerialConnection.h"
 
 Connection::Connection(QObject *parent)
     : QObject{parent}
@@ -39,6 +41,16 @@ void Connection::connectToUDP(const QString &host, int port)
 {
     disconnectFrom();
     m_connection = new UDPConnection(host, port, this);
+    connect(m_connection, &ConnectionType::isConnected, this, &Connection::setConnected);
+    connect(m_connection, &ConnectionType::onReadyData, this, &Connection::onReadyData);
+
+    m_connection->connectTo();
+}
+
+void Connection::connectToUART(const QString &port)
+{
+    disconnectFrom();
+    m_connection = new SerialConnection(port, this);
     connect(m_connection, &ConnectionType::isConnected, this, &Connection::setConnected);
     connect(m_connection, &ConnectionType::onReadyData, this, &Connection::onReadyData);
 

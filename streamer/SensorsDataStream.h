@@ -9,7 +9,7 @@ class SensorsDataStream : public QObject
 public:
     enum GpsStatus {
         NA,
-        ERROR,
+        ERR,
         FIX2D,
         FIX3D,
         DGPS,
