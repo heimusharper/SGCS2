@@ -40,6 +40,7 @@ find_package(QT NAMES Qt5 REQUIRED COMPONENTS
     Network
     Multimedia
     QuickControls2
+    SerialPort
 )
 find_package(Qt5 REQUIRED COMPONENTS
     Core
@@ -49,6 +50,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     Network
     Multimedia
     QuickControls2
+    SerialPort
 )
 
 set(TS_FILES SGCS2_ru_RU.ts)
@@ -72,10 +74,12 @@ set(PROJECT_SOURCES
         connection/Connection.h
         connection/ConnectionType.h
         connection/UDPConnection.h
+        connection/SerialConnection.h
 
         connection/Connection.cpp
         connection/ConnectionType.cpp
         connection/UDPConnection.cpp
+        connection/SerialConnection.cpp
 
 
 
@@ -169,6 +173,7 @@ target_link_libraries(SGCS2
     Qt${QT_VERSION_MAJOR}::Network
     Qt${QT_VERSION_MAJOR}::Multimedia
     Qt${QT_VERSION_MAJOR}::QuickControls2
+    Qt${QT_VERSION_MAJOR}::SerialPort
 )
 
 set_target_properties(SGCS2 PROPERTIES

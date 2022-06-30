@@ -18,44 +18,115 @@ ToolBar {
         id: outerPopup
         x: parent.width - width
         y: parent.height
+        padding: 10
         modal: true
         focus: true
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-        contentItem: Rectangle {
-            Grid {
-                horizontalItemAlignment: Qt.AlignHCenter
-                verticalItemAlignment: Qt.AlignVCenter
-                columns: 2
-                spacing: 5
+        ColumnLayout {
+            anchors.fill: parent
 
-                Text {
-                    text: "UDP"
+            RadioButton {
+                text: "UDP"
+                checked: Configuration.connectionMethod === "udp"
+                onClicked: {
+                    connectionStack.currentIndex = 0
                 }
-                Button {
-                    text: "Connect"
-                    onClicked: {
-                        outerPopup.close();
-                        UAV.connection().connectToUDP(udpHostField.text, udpPortField.value);
+            }
+            RadioButton {
+                text: "Serial"
+                checked: Configuration.connectionMethod === "serial"
+                onClicked: {
+                    connectionStack.currentIndex = 1
+                }
+            }
+            Component.onCompleted: {
+                if (Configuration.connectionMethod === "udp")
+                    connectionStack.currentIndex = 0
+                else if (Configuration.connectionMethod === "serial")
+                    connectionStack.currentIndex = 1
+                else
+                    connectionStack.currentIndex = 2
+            }
+
+            StackLayout {
+                id: connectionStack
+                Item {
+                    implicitWidth: gridOfUDP.width
+                    implicitHeight: gridOfUDP.height
+                    id: udpView
+                    GridLayout {
+                        id: gridOfUDP
+                        // horizontalItemAlignment: Qt.AlignHCenter
+                        // verticalItemAlignment: Qt.AlignVCenter
+                        columns: 2
+                        // spacing: 5
+
+                        Text {
+                            text: "UDP"
+                        }
+                        Button {
+                            text: "Connect"
+                            onClicked: {
+                                outerPopup.close();
+                                Configuration.connectionMethod = "udp"
+                                Configuration.connectionUDPHost = udpHostField.text
+                                Configuration.connectionUDPPort = udpPortField.value
+                                UAV.connection().connectToUDP(udpHostField.text, udpPortField.value);
+                            }
+                        }
+                        Text {
+                            text: "Host"
+                        }
+                        TextField {
+                            id: udpHostField
+                            text: Configuration.connectionUDPHost
+                        }
+
+                        Text {
+                            text: "Port"
+                        }
+
+                        SpinBox {
+                            id: udpPortField
+                            value: Configuration.connectionUDPPort
+                            from: 1024
+                            to: 64000
+                        }
                     }
                 }
-                Text {
-                    text: "Host"
-                }
-                TextField {
-                    id: udpHostField
-                    text: "192.168.88.183"
-                }
 
-                Text {
-                    text: "Port"
-                }
+                Item {
+                    implicitWidth: gridOfSerial.width
+                    implicitHeight: gridOfSerial.height
+                    id: serialView
+                    GridLayout {
+                        id: gridOfSerial
+                        // horizontalItemAlignment: Qt.AlignHCenter
+                        // verticalItemAlignment: Qt.AlignVCenter
+                        columns: 2
+                        // spacing: 5
 
-                SpinBox {
-                    id: udpPortField
-                    value: 14550
-                    from: 1024
-                    to: 64000
+                        Text {
+                            text: "Serial"
+                        }
+                        Button {
+                            text: "Connect"
+                            onClicked: {
+                                outerPopup.close();
+                                Configuration.connectionMethod = "serial"
+                                Configuration.connectionSerialPort = serialPortField.text
+                                UAV.connection().connectToUART(serialPortField.text);
+                            }
+                        }
+                        Text {
+                            text: "Port"
+                        }
+                        TextField {
+                            id: serialPortField
+                            text: Configuration.connectionSerialPort
+                        }
+                    }
                 }
             }
         }

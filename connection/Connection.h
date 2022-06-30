@@ -2,7 +2,7 @@
 #define CONNECTION_H
 
 #include <QObject>
-#include "UDPConnection.h"
+#include "ConnectionType.h"
 
 class Connection : public QObject
 {
@@ -15,6 +15,7 @@ public:
 
     Q_INVOKABLE void disconnectFrom();
     Q_INVOKABLE void connectToUDP(const QString &host, int port);
+    Q_INVOKABLE void connectToUART(const QString &port);
 
 public slots:
     void setConnected(bool newConnected);
