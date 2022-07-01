@@ -131,7 +131,14 @@ Item {
         Configuration.mapProviderName = provider
         Configuration.mapTypeName = type
 
-        var tmpMap = Qt.createQmlObject ('import QtLocation 5.12; Plugin { name:"' + provider +'"}', mapItem)
+        var tmpMap;
+        /*if (provider === "googlemaps") {
+            var cache = 'PluginParameter {name: "googlemaps.cachefolder"; value: "cache"}'
+            console.log('import QtLocation 5.12; Plugin { name:"' + provider +'"; ' + cache + '}')
+            tmpMap = Qt.createQmlObject ('import QtLocation 5.12; Plugin { name:"' + provider +'; ' + cache + '"}', mapItem)
+        }
+        else*/
+            tmpMap = Qt.createQmlObject ('import QtLocation 5.12; Plugin { name:"' + provider +'"}', mapItem)
         map.plugin = tmpMap
 
         // mapPlugin.name = provider

@@ -13,7 +13,6 @@ ApplicationWindow {
     width: 640
     height: width * (9 / 16)
     visible: true
-    // title: qsTr("Photobase SGCS")
     property bool missionMode : false
 
     Material.theme: Material.System
@@ -25,6 +24,9 @@ ApplicationWindow {
         onMapTypeChanged: {
             mapRectangle.setMapType(mapConfigureView.mapProvider, mapConfigureView.mapType)
         }
+    }
+    AppConfigureView {
+        id: appConfigureView
     }
 
     Item {
@@ -156,19 +158,33 @@ ApplicationWindow {
                     icon.name: "map"
                     text: qsTr("Map");
                     onClicked: {
+                        appConfigureView.visible = false
+                        mapConfigureView.visible = true
                         stackView.push(mapConfigureView)
                         drawer.close()
                     }
                 }
                 Button {
-                    id: helpBtn
+                    id: appConfBtn
                     width: drawer.width / 2
+                    icon.name: "configure"
+                    text: qsTr("Configure");
+                    onClicked: {
+                        appConfigureView.visible = true
+                        mapConfigureView.visible = false
+                        stackView.push(appConfigureView)
+                        drawer.close()
+                    }
+                }
+                /*Button {
+                    id: helpBtn
+                    width: drawer.width / 3
                     icon.name: "help"
                     text: qsTr("Help");
                     onClicked: {
                         drawer.close()
                     }
-                }
+                }*/
             }
         }
     }

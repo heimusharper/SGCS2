@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 #include <QSettings>
 #include <QObject>
+#include <QDir>
 
 class Configuration : public QObject
 {
@@ -12,8 +13,12 @@ class Configuration : public QObject
     Q_PROPERTY(int connectionUDPPort READ connectionUDPPort WRITE setConnectionUDPPort NOTIFY connectionUDPPortChanged)
     Q_PROPERTY(QString connectionSerialPort READ connectionSerialPort WRITE setConnectionSerialPort NOTIFY connectionSerialPortChanged)
     Q_PROPERTY(QString connectionMethod READ connectionMethod WRITE setConnectionMethod NOTIFY connectionMethodChanged)
+
+    Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
 public:
+
     explicit Configuration(QSettings *settings, QObject *parent = nullptr);
+
     ~Configuration();
 
     void flush();
@@ -36,6 +41,11 @@ public:
     const QString &connectionMethod() const;
     void setConnectionMethod(const QString &newConnectionMethod);
 
+    Q_INVOKABLE QStringList getLanguages();
+
+    const QString &language() const;
+    void setLanguage(const QString &newLanguage);
+
 signals:
 
     void mapProviderNameChanged();
@@ -49,6 +59,8 @@ signals:
 
     void connectionMethodChanged();
 
+    void languageChanged(const QString &t);
+
 private:
 
     QSettings *m_settings = nullptr;
@@ -61,6 +73,7 @@ private:
     int m_connectionUDPPort;
     QString m_connectionSerialPort;
     QString m_connectionMethod;
+    QString m_language = "ru_RU";
 };
 
 #endif // CONFIGURATION_H

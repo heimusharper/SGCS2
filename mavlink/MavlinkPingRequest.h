@@ -18,7 +18,6 @@ protected:
 
     bool index = false;
     uint32_t m_pingSeq = 0;
-
 };
 
 #endif // MAVLINKPINGREQUEST_H

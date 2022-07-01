@@ -21,5 +21,6 @@
         <file>PhotoModeControls.qml</file>
         <file>icons/logo.ico</file>
         <file>icons/logo.png</file>
+        <file>AppConfigureView.qml</file>
     </qresource>
 </RCC>

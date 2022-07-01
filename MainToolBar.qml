@@ -27,14 +27,14 @@ ToolBar {
             anchors.fill: parent
 
             RadioButton {
-                text: "UDP"
+                text: qsTr("UDP")
                 checked: Configuration.connectionMethod === "udp"
                 onClicked: {
                     connectionStack.currentIndex = 0
                 }
             }
             RadioButton {
-                text: "Serial"
+                text: qsTr("Serial")
                 checked: Configuration.connectionMethod === "serial"
                 onClicked: {
                     connectionStack.currentIndex = 1
@@ -108,10 +108,10 @@ ToolBar {
                         // spacing: 5
 
                         Text {
-                            text: "Serial"
+                            text: qsTr("Serial")
                         }
                         Button {
-                            text: "Connect"
+                            text: qsTr("Connect")
                             onClicked: {
                                 outerPopup.close();
                                 Configuration.connectionMethod = "serial"
@@ -120,7 +120,7 @@ ToolBar {
                             }
                         }
                         Text {
-                            text: "Port"
+                            text: qsTr("Port")
                         }
                         TextField {
                             id: serialPortField
@@ -139,24 +139,24 @@ ToolBar {
     function getGPSText (n) {
         switch(n) {
         case Sensors.ERROR:
-            return "ER"
+            return qsTr("ER")
         case Sensors.FIX2D:
-            return "2D"
+            return qsTr("2D")
         case Sensors.FIX3D:
-            return "3D"
+            return qsTr("3D")
         case Sensors.DGPS:
-            return "DGPS"
+            return qsTr("DGPS")
         case Sensors.RTKFIX:
-            return "RTK FIX"
+            return qsTr("RTK FIX")
         case Sensors.RTKFLOAT:
-            return "RTK FLOAT"
+            return qsTr("RTK FLOAT")
         case Sensors.STATIC:
-            return "STATIC"
+            return qsTr("STATIC")
         case Sensors.PPP:
-            return "PPP"
+            return qsTr("PPP")
         case Sensors.NA:
         default:
-            return "NA"
+            return qsTr("NA")
         }
     }
     function getGPSColor (n) {
@@ -211,7 +211,7 @@ ToolBar {
              ToolButton {
                  id: connectionButton
                  visible: !UAV.connection().connected
-                 text: "Connect"
+                 text: qsTr("Connect")
                  height: buttonsLayout.height
                  font.pixelSize: height / 2
                  onClicked: {

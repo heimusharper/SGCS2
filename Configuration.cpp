@@ -16,6 +16,8 @@ Configuration::Configuration(QSettings *settings, QObject *parent)
 #endif
     m_connectionMethod = m_settings->value("connection/method", "udp").toString();
 
+    m_language = m_settings->value("app/language", m_language).toString();
+
 }
 
 Configuration::~Configuration()
@@ -32,6 +34,7 @@ void Configuration::flush()
     m_settings->setValue("connection/udp/port", m_connectionUDPPort);
     m_settings->setValue("connection/serial/port", m_connectionSerialPort);
     m_settings->setValue("connection/method", m_connectionMethod);
+    m_settings->setValue("app/language", m_language);
 
     m_settings->sync();
 }
@@ -112,4 +115,36 @@ void Configuration::setConnectionMethod(const QString &newConnectionMethod)
         return;
     m_connectionMethod = newConnectionMethod;
     emit connectionMethodChanged();
+}
+
+QStringList Configuration::getLanguages()
+{
+    QStringList langs;
+    auto cur = QDir::current();
+    if (cur.cd("translations"))
+    {
+        for (const QString &x : cur.entryList({"*.qm"}))
+        {
+            if (!x.contains("Photobase"))
+                continue;
+            int i = x.indexOf("_");
+            int k = x.indexOf(".qm");
+            QString trs = x.mid(i+1, k - (i+1));
+            langs.append(trs);
+        }
+    }
+    return langs;
+}
+
+const QString &Configuration::language() const
+{
+    return m_language;
+}
+
+void Configuration::setLanguage(const QString &newLanguage)
+{
+    if (m_language == newLanguage)
+        return;
+    m_language = newLanguage;
+    emit languageChanged(m_language);
 }

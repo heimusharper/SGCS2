@@ -17,7 +17,7 @@ Item {
                 width: root.width / 5
                 height: width
                 radius: width / 2
-                text: "Take picture"
+                text: qsTr("Take picture")
                 //font.pixelSize: height * 0.8
                 onClicked: {
                     UAV.getPayloadPhoto().takeShot()

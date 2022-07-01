@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU">
+<TS version="2.1" language="en_US">
 <context>
     <name>AppConfigureView</name>
     <message>
         <location filename="AppConfigureView.qml" line="17"/>
         <source>Langs</source>
-        <translation>Язык</translation>
+        <translation>Language</translation>
     </message>
     <message>
         <location filename="AppConfigureView.qml" line="31"/>
         <source>Apply</source>
-        <translation>Принять</translation>
+        <translation>Apply</translation>
     </message>
 </context>
 <context>
@@ -25,23 +25,23 @@
         <location filename="MainToolBar.qml" line="37"/>
         <location filename="MainToolBar.qml" line="111"/>
         <source>Serial</source>
-        <translation>COM</translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="114"/>
         <location filename="MainToolBar.qml" line="214"/>
         <source>Connect</source>
-        <translation>Подключить</translation>
+        <translation>Connect</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="123"/>
         <source>Port</source>
-        <translation>Порт</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="142"/>
         <source>ER</source>
-        <translation>ОШБ</translation>
+        <translation>ER</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="144"/>
@@ -61,12 +61,12 @@
     <message>
         <location filename="MainToolBar.qml" line="150"/>
         <source>RTK FIX</source>
-        <translation>RTK ФИКС</translation>
+        <translation>RTK FIX</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="152"/>
         <source>RTK FLOAT</source>
-        <translation>RTK ПЛАВ</translation>
+        <translation>RTK FLOAT</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="154"/>
@@ -81,12 +81,12 @@
     <message>
         <location filename="MainToolBar.qml" line="159"/>
         <source>NA</source>
-        <translation>НД</translation>
+        <translation>NA</translation>
     </message>
     <message>
         <location filename="MainToolBar.qml" line="205"/>
         <source>Photos: </source>
-        <translation>Фото: </translation>
+        <translation>Photos: </translation>
     </message>
 </context>
 <context>
@@ -94,17 +94,17 @@
     <message>
         <location filename="MapConfigureView.qml" line="44"/>
         <source>Map provider</source>
-        <translation>Поставщик карт</translation>
+        <translation>Map provider</translation>
     </message>
     <message>
         <location filename="MapConfigureView.qml" line="70"/>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="MapConfigureView.qml" line="79"/>
         <source>Apply</source>
-        <translation>Принять</translation>
+        <translation>Apply</translation>
     </message>
 </context>
 <context>
@@ -112,7 +112,7 @@
     <message>
         <location filename="PhotoModeControls.qml" line="20"/>
         <source>Take picture</source>
-        <translation>Сделать фото</translation>
+        <translation>Take picture</translation>
     </message>
 </context>
 <context>
@@ -120,27 +120,27 @@
     <message>
         <location filename="main.qml" line="103"/>
         <source>On time</source>
-        <translation>По времени</translation>
+        <translation>On time</translation>
     </message>
     <message>
         <location filename="main.qml" line="120"/>
         <source>On distance</source>
-        <translation>По дистанции</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="main.qml" line="136"/>
         <source>Apply</source>
-        <translation>Принять</translation>
+        <translation>Apply</translation>
     </message>
     <message>
         <location filename="main.qml" line="159"/>
         <source>Map</source>
-        <translation>Карты</translation>
+        <translation>Map</translation>
     </message>
     <message>
         <location filename="main.qml" line="171"/>
         <source>Configure</source>
-        <translation>Настройки</translation>
+        <translation>Configure</translation>
     </message>
 </context>
 </TS>

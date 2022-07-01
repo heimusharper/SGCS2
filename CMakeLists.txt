@@ -72,7 +72,10 @@ find_package(Qt5 REQUIRED COMPONENTS
     SerialPort
 )
 
-set(TS_FILES Photobase_ru_RU.ts)
+set(TS_FILES
+    Photobase_ru_RU.ts
+    Photobase_en_US.ts
+)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -192,6 +195,7 @@ else()
         #${CMAKE_SOURCE_DIR}
         ${PROJECT_SOURCES}
         ${TS_FILES})
+    message(${QM_FILES})
 endif()
 
 target_compile_definitions(Photobase
