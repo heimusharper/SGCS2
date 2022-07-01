@@ -34,6 +34,23 @@ IF (WIN32)
     set(app_icon_resource_windows "${PROJECT_SOURCE_DIR}/icons/icon.rc")
 ENDIF()
 
+
+EXECUTE_PROCESS( COMMAND
+       git describe --tags --long
+   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+   OUTPUT_VARIABLE VERSION_FULL)
+
+STRING(REGEX REPLACE "v([0-9]+)\.([0-9]+)\-([0-9]+)-([0-9a-z]+)\n"
+  "\\1;\\2;\\3;\\4" RESULT_VERSION ${VERSION_FULL})
+
+LIST (GET RESULT_VERSION 0 VERSION_MAJOR)
+LIST (GET RESULT_VERSION 1 VERSION_MINOR)
+LIST (GET RESULT_VERSION 2 VERSION_PATH)
+LIST (GET RESULT_VERSION 3 VERSION_HASH)
+
+MESSAGE(STATUS "GIT version: ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATH}-${VERSION_HASH}")
+CONFIGURE_FILE(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
+
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS
     Core
     Quick
@@ -59,6 +76,7 @@ set(TS_FILES SGCS2_ru_RU.ts)
 
 set(PROJECT_SOURCES
         main.cpp
+        version.h
         # uav
         uav/UAV.h
         uav/Positioning.h

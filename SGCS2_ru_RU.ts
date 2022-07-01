@@ -30,11 +30,6 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="main.qml" line="16"/>
-        <source>Photobase SGCS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="main.qml" line="101"/>
         <source>On time</source>
         <translation type="unfinished"></translation>

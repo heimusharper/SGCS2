@@ -13,7 +13,7 @@ ApplicationWindow {
     width: 640
     height: width * (9 / 16)
     visible: true
-    title: qsTr("Photobase SGCS")
+    // title: qsTr("Photobase SGCS")
     property bool missionMode : false
 
     Material.theme: Material.System

@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "version.h"
+
 #include <QLocale>
 #include <QTranslator>
 #include <QIcon>
@@ -21,6 +23,11 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     QIcon::setThemeName("light");
     app.setWindowIcon(QIcon(":/icons/logo.png"));
+    app.setApplicationName(QString("Photobase SGCS v%1.%2.%3-%4")
+                           .arg(SGCS2_VERSION_MAJOR)
+                           .arg(SGCS2_VERSION_MINOR)
+                           .arg(SGCS2_VERSION_PATH)
+                           .arg(SGCS2_VERSION_HASH));
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
