@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(SGCS2 VERSION 0.1 LANGUAGES CXX)
+project(Photobase VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -72,7 +72,7 @@ find_package(Qt5 REQUIRED COMPONENTS
     SerialPort
 )
 
-set(TS_FILES SGCS2_ru_RU.ts)
+set(TS_FILES Photobase_ru_RU.ts)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -158,31 +158,31 @@ set(PROJECT_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(SGCS2
+    qt_add_executable(Photobase
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET SGCS2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET Photobase APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
     if(ANDROID)
-        add_library(SGCS2 SHARED
+        add_library(Photobase SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         IF (WIN32)
-            add_executable(SGCS2
+            add_executable(Photobase
               ${PROJECT_SOURCES}
               ${app_icon_resource_windows}
             )
         ELSE()
-            add_executable(SGCS2
+            add_executable(Photobase
               ${PROJECT_SOURCES}
             )
         ENDIF()
@@ -194,9 +194,9 @@ else()
         ${TS_FILES})
 endif()
 
-target_compile_definitions(SGCS2
+target_compile_definitions(Photobase
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(SGCS2
+target_link_libraries(Photobase
   PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
@@ -207,7 +207,7 @@ target_link_libraries(SGCS2
     Qt${QT_VERSION_MAJOR}::SerialPort
 )
 
-set_target_properties(SGCS2 PROPERTIES
+set_target_properties(Photobase PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -216,6 +216,6 @@ set_target_properties(SGCS2 PROPERTIES
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(SGCS2)
-    qt_finalize_executable(SGCS2)
+    qt_import_qml_plugins(Photobase)
+    qt_finalize_executable(Photobase)
 endif()
