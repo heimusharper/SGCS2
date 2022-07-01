@@ -35,27 +35,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="97"/>
+        <location filename="main.qml" line="101"/>
         <source>On time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="114"/>
+        <location filename="main.qml" line="118"/>
         <source>On distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="130"/>
+        <location filename="main.qml" line="134"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="153"/>
+        <location filename="main.qml" line="157"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="163"/>
+        <location filename="main.qml" line="167"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

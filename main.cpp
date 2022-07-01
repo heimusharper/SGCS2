@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Material");
-
     QIcon::setThemeName("light");
+    app.setWindowIcon(QIcon(":/icons/logo.png"));
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

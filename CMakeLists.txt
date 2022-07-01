@@ -30,7 +30,9 @@ ELSE()
     INCLUDE_DIRECTORIES(${MAVLINK_INCLUDE_DIR})
 ENDIF()
 
-
+IF (WIN32)
+    set(app_icon_resource_windows "${PROJECT_SOURCE_DIR}/icons/icon.rc")
+ENDIF()
 
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS
     Core
@@ -156,9 +158,16 @@ else()
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(SGCS2
-          ${PROJECT_SOURCES}
-        )
+        IF (WIN32)
+            add_executable(SGCS2
+              ${PROJECT_SOURCES}
+              ${app_icon_resource_windows}
+            )
+        ELSE()
+            add_executable(SGCS2
+              ${PROJECT_SOURCES}
+            )
+        ENDIF()
     endif()
 
     qt5_create_translation(QM_FILES
