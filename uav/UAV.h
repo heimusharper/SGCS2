@@ -6,6 +6,7 @@
 #include "Positioning.h"
 #include "Sensors.h"
 #include "Mission.h"
+#include "PhotoPayload.h"
 
 #include "connection/Connection.h"
 
@@ -37,6 +38,7 @@ public:
     Q_INVOKABLE Positioning *getPositioning() const;
     Q_INVOKABLE Sensors *getSensors() const;
     Q_INVOKABLE Mission *getMission() const;
+    Q_INVOKABLE PhotoPayload *getPayloadPhoto() const;
 
     int controlMode() const;
     void setControlMode(int newControlMode);
@@ -73,6 +75,8 @@ private:
 
     // mission
     Mission *m_mission = nullptr;
+
+    PhotoPayload *m_photo = nullptr;
 
     // parameters
     QGeoCoordinate m_homePosition;

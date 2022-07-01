@@ -10,7 +10,7 @@
 #include "uav/UAV.h"
 #include "Configuration.h"
 
-#include "VideoViewV4L2Item.h"
+// #include "VideoViewV4L2Item.h"
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +43,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<Positioning>("Finco", 1, 0, "Positioning");
     qmlRegisterType<Mission>("Finco", 1, 0, "Mission");
     qmlRegisterType<MissionItem>("Finco", 1, 0, "MissionItem");
-    qmlRegisterType<VideoViewV4L2Item>("Finco", 1, 0, "VideoViewV4L2Item");
+    qmlRegisterType<PhotoPayload>("Finco", 1, 0, "PhotoPayload");
+    // qmlRegisterType<VideoViewV4L2Item>("Finco", 1, 0, "VideoViewV4L2Item");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

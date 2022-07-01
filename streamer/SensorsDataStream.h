@@ -2,6 +2,7 @@
 #define SENSORSSDATATREAM_H
 
 #include <QObject>
+#include <QGeoCoordinate>
 
 class SensorsDataStream : public QObject
 {

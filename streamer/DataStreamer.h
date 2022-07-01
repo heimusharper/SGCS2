@@ -9,8 +9,10 @@
 #include "HomePositionRequest.h"
 #include "ManualControlRequest.h"
 #include "SensorsDataStream.h"
+#include "PhotoModeRequest.h"
 #include "ARMRequest.h"
 #include "MissionReadRequest.h"
+#include "PhotoPayloadStream.h"
 
 class DataStreamer : public QObject
 {
@@ -33,6 +35,9 @@ public:
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) = 0;
     virtual ManualControlRequest *createManualControlRequest() = 0;
     virtual MissionReadRequest *createMissionReadRequest() = 0;
+
+    virtual PhotoModeRequest *createPhotoModeRequest(float time, float dst) = 0;
+    virtual PhotoPayloadStream *getPhotoPayloadStream() = 0;
 
 signals:
 

@@ -2,6 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU">
 <context>
+    <name>MainToolBar</name>
+    <message>
+        <location filename="MainToolBar.qml" line="205"/>
+        <source>Photos: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MapConfigureView</name>
     <message>
         <location filename="MapConfigureView.qml" line="44"/>
@@ -20,47 +28,34 @@
     </message>
 </context>
 <context>
-    <name>StreamConfigureView</name>
-    <message>
-        <location filename="StreamConfigureView.qml" line="23"/>
-        <source>Stream address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="StreamConfigureView.qml" line="33"/>
-        <source>Auto connect on start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="StreamConfigureView.qml" line="37"/>
-        <source>Apply</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>main</name>
     <message>
         <location filename="main.qml" line="16"/>
-        <source>SGCS</source>
+        <source>Photobase SGCS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="160"/>
+        <location filename="main.qml" line="97"/>
+        <source>On time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="114"/>
+        <source>On distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="130"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="153"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="170"/>
-        <source>Stream</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.qml" line="180"/>
-        <source>Configure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.qml" line="189"/>
+        <location filename="main.qml" line="163"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

@@ -5,8 +5,6 @@ Configuration::Configuration(QSettings *settings, QObject *parent)
 {
     m_mapProviderName = m_settings->value("map/provider_name", "googlemaps").toString();
     m_mapTypeName = m_settings->value("map/type_name", "Satelite").toString();
-    m_streamLast = m_settings->value("stream/last_stream", "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4").toString();
-    m_streamAutoConnect = m_settings->value("stream/autoconnect", true).toBool();
 
     // connection
     m_connectionUDPHost = m_settings->value("connection/udp/host", QString("127.0.0.1")).toString();
@@ -30,8 +28,6 @@ void Configuration::flush()
 {
     m_settings->setValue("map/provider_name", m_mapProviderName);
     m_settings->setValue("map/type_name", m_mapTypeName);
-    m_settings->setValue("stream/last_stream", m_streamLast);
-    m_settings->setValue("stream/autoconnect", m_streamAutoConnect);
     m_settings->setValue("connection/udp/host", m_connectionUDPHost);
     m_settings->setValue("connection/udp/port", m_connectionUDPPort);
     m_settings->setValue("connection/serial/port", m_connectionSerialPort);
@@ -64,32 +60,6 @@ void Configuration::setMapTypeName(const QString &newMapTypeName)
         return;
     m_mapTypeName = newMapTypeName;
     emit mapTypeNameChanged();
-}
-
-const QString &Configuration::streamLast() const
-{
-    return m_streamLast;
-}
-
-void Configuration::setStreamLast(const QString &newLastStream)
-{
-    if (m_streamLast == newLastStream)
-        return;
-    m_streamLast = newLastStream;
-    emit streamLastChanged();
-}
-
-bool Configuration::streamAutoConnect() const
-{
-    return m_streamAutoConnect;
-}
-
-void Configuration::setStreamAutoConnect(bool newStreamAutoConnect)
-{
-    if (m_streamAutoConnect == newStreamAutoConnect)
-        return;
-    m_streamAutoConnect = newStreamAutoConnect;
-    emit streamAutoConnectChanged();
 }
 
 const QString &Configuration::connectionUDPHost() const

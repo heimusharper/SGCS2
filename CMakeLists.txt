@@ -62,11 +62,13 @@ set(PROJECT_SOURCES
         uav/Positioning.h
         uav/Sensors.h
         uav/Mission.h
+        uav/PhotoPayload.h
 
         uav/UAV.cpp
         uav/Positioning.cpp
         uav/Sensors.cpp
         uav/Mission.cpp
+        uav/PhotoPayload.cpp
 
 
         connection/Connection.h
@@ -92,6 +94,8 @@ set(PROJECT_SOURCES
         streamer/SensorsDataStream.h
         streamer/ManualControlRequest.h
         streamer/MissionReadRequest.h
+        streamer/PhotoModeRequest.h
+        streamer/PhotoPayloadStream.h
 
 
         streamer/DataStreamer.cpp
@@ -110,6 +114,8 @@ set(PROJECT_SOURCES
         mavlink/MavlinkPingRequest.h
         mavlink/MavlinkManualControlRequest.h
         mavlink/MavlinkMissionReadRequest.h
+        mavlink/MavlinkPhotoModeRequest.h
+        mavlink/MavlinkPhotoPayloadStream.h
 
         mavlink/MavlinkStreamer.cpp
         mavlink/MavlinkMainDataStream.cpp
@@ -120,11 +126,12 @@ set(PROJECT_SOURCES
         mavlink/MavlinkPingRequest.cpp
         mavlink/MavlinkManualControlRequest.cpp
         mavlink/MavlinkMissionReadRequest.cpp
+        mavlink/MavlinkPhotoModeRequest.cpp
+        mavlink/MavlinkPhotoPayloadStream.cpp
 
 
         #qml
         Configuration.h Configuration.cpp
-        VideoViewV4L2Item.h VideoViewV4L2Item.cpp
 
         qml.qrc
         ${TS_FILES}

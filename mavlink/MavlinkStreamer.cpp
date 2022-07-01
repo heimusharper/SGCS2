@@ -28,7 +28,11 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                     m_manualControlRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_missionReadRequest)
                     m_missionReadRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
-            });
+                if (m_photoModeRequest)
+                    m_photoModeRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_photoPayloadStream)
+                    m_photoPayloadStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    });
 
     m_pingRequest = new MavlinkPingRequest();
 
@@ -112,6 +116,29 @@ MissionReadRequest *MavlinkStreamer::createMissionReadRequest()
     return m_missionReadRequest;
 }
 
+PhotoModeRequest *MavlinkStreamer::createPhotoModeRequest(float time, float dst)
+{
+    if (m_photoModeRequest)
+    {
+        m_photoModeRequest->deleteLater();
+        m_photoModeRequest = nullptr;
+    }
+    m_photoModeRequest = new MavlinkPhotoModeRequest(time, dst, this);
+    if (m_initiated)
+        m_photoModeRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    return m_photoModeRequest;
+}
+
+PhotoPayloadStream *MavlinkStreamer::getPhotoPayloadStream()
+{
+    if (!m_photoPayloadStream) {
+        m_photoPayloadStream = new MavlinkPhotoPayloadStream(this);
+        if (m_initiated)
+            m_photoPayloadStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    }
+    return m_photoPayloadStream;
+}
+
 MainDataStream *MavlinkStreamer::getMainStream()
 {
     if (!m_mainDataStream) {
@@ -148,6 +175,10 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
                 m_armRequest->responce(msg);
             if (m_missionReadRequest)
                 m_missionReadRequest->responce(msg);
+            if (m_photoModeRequest)
+                m_photoModeRequest->responce(msg);
+            if (m_photoPayloadStream)
+                m_photoPayloadStream->responce(msg);
         }
     }
 }
@@ -173,6 +204,10 @@ void MavlinkStreamer::tryWriteData()
             transmit(m_manualControlRequest->request());
         if (m_missionReadRequest && m_missionReadRequest->ready())
             transmit(m_missionReadRequest->request());
+        if (m_photoModeRequest && m_photoModeRequest->ready())
+            transmit(m_photoModeRequest->request());
+        if (m_photoPayloadStream && m_photoPayloadStream->ready())
+            transmit(m_photoPayloadStream->request());
     }
 }
 

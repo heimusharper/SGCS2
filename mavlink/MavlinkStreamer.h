@@ -15,6 +15,8 @@
 #include "MavlinkPingRequest.h"
 #include "MavlinkManualControlRequest.h"
 #include "MavlinkMissionReadRequest.h"
+#include "MavlinkPhotoModeRequest.h"
+#include "MavlinkPhotoPayloadStream.h"
 
 class MavlinkStreamer : public DataStreamer
 {
@@ -31,6 +33,8 @@ public:
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) override;
     virtual ManualControlRequest *createManualControlRequest() override;
     virtual MissionReadRequest *createMissionReadRequest() override;
+    virtual PhotoModeRequest *createPhotoModeRequest(float time, float dst) override;
+    virtual PhotoPayloadStream *getPhotoPayloadStream() override;
 
 public slots:
 
@@ -53,6 +57,9 @@ private:
     MavlinkPingRequest *m_pingRequest = nullptr;
     MavlinkManualControlRequest *m_manualControlRequest = nullptr;
     MavlinkMissionReadRequest *m_missionReadRequest = nullptr;
+    MavlinkPhotoModeRequest *m_photoModeRequest = nullptr;
+    MavlinkPhotoPayloadStream *m_photoPayloadStream = nullptr;
+
 
 
     QTimer *m_ioTimer = nullptr;

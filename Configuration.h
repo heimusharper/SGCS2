@@ -8,8 +8,6 @@ class Configuration : public QObject
     Q_OBJECT
     Q_PROPERTY(QString mapProviderName READ mapProviderName WRITE setMapProviderName NOTIFY mapProviderNameChanged)
     Q_PROPERTY(QString mapTypeName READ mapTypeName WRITE setMapTypeName NOTIFY mapTypeNameChanged)
-    Q_PROPERTY(QString streamLast READ streamLast WRITE setStreamLast NOTIFY streamLastChanged)
-    Q_PROPERTY(bool streamAutoConnect READ streamAutoConnect WRITE setStreamAutoConnect NOTIFY streamAutoConnectChanged)
     Q_PROPERTY(QString connectionUDPHost READ connectionUDPHost WRITE setConnectionUDPHost NOTIFY connectionUDPHostChanged)
     Q_PROPERTY(int connectionUDPPort READ connectionUDPPort WRITE setConnectionUDPPort NOTIFY connectionUDPPortChanged)
     Q_PROPERTY(QString connectionSerialPort READ connectionSerialPort WRITE setConnectionSerialPort NOTIFY connectionSerialPortChanged)
@@ -25,12 +23,6 @@ public:
 
     const QString &mapTypeName() const;
     void setMapTypeName(const QString &newMapTypeName);
-
-    const QString &streamLast() const;
-    void setStreamLast(const QString &newLastStream);
-
-    bool streamAutoConnect() const;
-    void setStreamAutoConnect(bool newStreamAutoConnect);
 
     const QString &connectionUDPHost() const;
     void setConnectionUDPHost(const QString &newConnectionUDPHost);
@@ -49,10 +41,6 @@ signals:
     void mapProviderNameChanged();
     void mapTypeNameChanged();
 
-    void streamLastChanged();
-
-    void streamAutoConnectChanged();
-
     void connectionUDPHostChanged();
 
     void connectionUDPPortChanged();
@@ -69,10 +57,6 @@ private:
     QString m_mapProviderName;
     QString m_mapTypeName;
 
-    // streaming
-
-    QString m_streamLast;
-    bool m_streamAutoConnect;
     QString m_connectionUDPHost;
     int m_connectionUDPPort;
     QString m_connectionSerialPort;

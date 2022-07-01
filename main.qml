@@ -13,7 +13,7 @@ ApplicationWindow {
     width: 640
     height: width * (9 / 16)
     visible: true
-    title: qsTr("SGCS")
+    title: qsTr("Photobase SGCS")
     property bool missionMode : false
 
     Material.theme: Material.System
@@ -24,13 +24,6 @@ ApplicationWindow {
         id: mapConfigureView
         onMapTypeChanged: {
             mapRectangle.setMapType(mapConfigureView.mapProvider, mapConfigureView.mapType)
-        }
-    }
-
-    StreamConfigureView {
-        id: streamConfigureView
-        onVideoStreamAddressChanged: {
-            videoObject.run(streamConfigureView.videoStreamAddress)
         }
     }
 
@@ -52,61 +45,9 @@ ApplicationWindow {
                 missionModeControls.showAdditionalActions = false
                 flightModeControls.showAdditionalActions = false
             }
-        }
-
-        Item {
-            z: mainComponent.z + 2
-            id: viewsSwitchArea
-
-            anchors.top: mainComponent.top
-            anchors.topMargin: 10
-            anchors.left: mainComponent.left
-            anchors.leftMargin: 10
-
-            width: mainComponent.width / 4
-            height: (mainComponent.width / 4) * (9/16)
-
-            function checkParents(sw) {
-                if (sw) {
-                    if (mapRectangle.parent != mainComponent) {
-                        //video to video
-                        videoObject.parent = viewsSwitchArea
-                        mapRectangle.parent = mainComponent
-                    } else {
-                        // map to video
-                        mapRectangle.parent = viewsSwitchArea
-                        videoObject.parent = mainComponent
-                    }
-                } else {
-                    if (missionMode && mapRectangle.parent != mainComponent)
-                        checkParents(true)
-                }
-            }
-
-            VideoViewV4L2Item {
-                id: videoObject
-                // color: "green"
+            PhotoModeControls {
+                id: photoModeControls
                 anchors.fill: parent
-                visible: !missionMode
-                Component.onCompleted: {
-                    if (Configuration.streamAutoConnect)
-                    {
-                        videoObject.run(Configuration.streamLast)
-                    }
-                }
-            }
-
-            Rectangle {
-                z: viewsSwitchArea.z + 2
-                anchors.fill: parent
-                color: "transparent"
-                visible: !missionMode
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        viewsSwitchArea.checkParents(true)
-                    }
-                }
             }
         }
     }
@@ -133,20 +74,76 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: window.width * 0.80
+        width: (window.width > window.height) ? window.width * 0.6 : window.width
         height: window.height
 
-
-        Column {
-            anchors.fill: parent
+        ColumnLayout {
             // spacer
-            Item {// spacer item
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Rectangle { anchors.fill: parent; color: "#ffaaaa" } // to visualize the spacer
-            }
+            GridLayout {
+                property var onTime: UAV.getPayloadPhoto().onTime
+                property var onDistance: UAV.getPayloadPhoto().onDistance
+                onOnTimeChanged: {
+                    onTimeCheck.checked = onTime > 0
+                    onTimeBox.value = onTime
+                    onTimeBg.color = "lightgreen"
+                }
+                onOnDistanceChanged: {
+                    onDistanceCheck.checked = onDistance > 0
+                    onDistanceBox.value = onDistance
+                    onDistBg.color = "lightgreen"
+                }
 
+                // Layout.fillWidth: true
+                // Layout.fillHeight: true
+                columns: 2
+                CheckBox {
+                    id: onTimeCheck;
+                    text: qsTr("On time")
+                }
+                SpinBox {
+                    id: onTimeBox
+                    onValueChanged: {
+                        onTimeBg.color = "lightblue"
+                    }
+
+                    background: Rectangle {
+                        id: onTimeBg
+                        anchors.fill: parent
+                        color: "red"
+                    }
+                }
+
+                CheckBox {
+                    id: onDistanceCheck
+                    text: qsTr("On distance")
+                }
+                SpinBox {
+                    id: onDistanceBox
+                    onValueChanged: {
+                        onDistBg.color = "lightblue"
+                    }
+
+                    background: Rectangle {
+                        id: onDistBg
+                        anchors.fill: parent
+                        color: "red"
+                    }
+                }
+
+                Button {
+                    text: qsTr("Apply")
+                    onClicked: {
+
+                        UAV.getPayloadPhoto().commit((onTimeCheck.checked) ? onTimeBox.value : 0,
+                                                     (onTimeCheck.checked) ? onDistanceBox.value : 0)
+                    }
+                }
+                Text {
+
+                }
+            }
         }
+
         Item {
             anchors.bottom: parent.bottom
             width:  parent.width
@@ -155,7 +152,7 @@ ApplicationWindow {
                 anchors.fill: parent
                 Button {
                     id: mapBtn
-                    width: drawer.width / 4
+                    width: drawer.width / 2
                     icon.name: "map"
                     text: qsTr("Map");
                     onClicked: {
@@ -164,27 +161,8 @@ ApplicationWindow {
                     }
                 }
                 Button {
-                    id: streamBtn
-                    width: drawer.width / 4
-                    icon.name: "stream"
-                    text: qsTr("Stream");
-                    onClicked: {
-                        stackView.push(streamConfigureView)
-                        drawer.close()
-                    }
-                }
-                Button {
-                    id: configureBtn
-                    width: drawer.width / 4
-                    icon.name: "configure"
-                    text: qsTr("Configure");
-                    onClicked: {
-                        drawer.close()
-                    }
-                }
-                Button {
                     id: helpBtn
-                    width: drawer.width / 4
+                    width: drawer.width / 2
                     icon.name: "help"
                     text: qsTr("Help");
                     onClicked: {
@@ -203,19 +181,6 @@ ApplicationWindow {
         height: 200
         anchors.fill: parent
         initialItem: mainComponent
-    }
-    MissionModeControls {
-        id: missionModeControls
-        anchors.fill: parent
-        visible: missionMode
-        onPointModeSet: {
-            mapRectangle.addPointOnMapClick = missionModeControls.addPointModeEnabled;
-        }
-    }
-    FlightModeControls {
-        id: flightModeControls
-        anchors.fill: parent
-        visible: !missionMode
     }
 
 }

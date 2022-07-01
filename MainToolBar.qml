@@ -200,26 +200,13 @@ ToolBar {
                  icon.name: "satelites"
                  icon.color: getGPSColor(UAV.getSensors().gpsStatus)
              }
+             ToolButton {
+                 id: photos
+                 text: qsTr("Photos: ") + UAV.getPayloadPhoto().fullCount
+                 font.pixelSize: height / 2
+             }
              Item {
                  Layout.fillWidth: true
-             }
-             ToolButton {
-                 id: flightMode
-                 text: "FM"
-                 // visible: UAV.connection().connected
-                 font.pixelSize: height / 2
-                 onClicked: {
-                    toolBarRoot.activateFlightMode()
-                 }
-             }
-             ToolButton {
-                 id: missionMode
-                 text: "MM"
-                 // visible: UAV.connection().connected
-                 font.pixelSize: height / 2
-                 onClicked: {
-                     toolBarRoot.activateMissionMode()
-                 }
              }
              ToolButton {
                  id: connectionButton

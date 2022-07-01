@@ -77,7 +77,7 @@ Item {
         }
 
         MapItemView {
-            model: UAV.getMission()
+            model: UAV.getPayloadPhoto()
             delegate: MapQuickItem {
                 /*sourceItem: Rectangle {
                     width: 20
