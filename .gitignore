@@ -75,3 +75,5 @@ Thumbs.db
 #mavlink
 thirdparty/c_library_v2
 
+
+/version.h
