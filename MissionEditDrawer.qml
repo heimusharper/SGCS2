@@ -10,6 +10,7 @@ import Finco 1.0
 Item {
 
     signal configureAt(var index)
+    signal addOperationOn(var index)
 
     function getItemName(type)
     {
@@ -107,7 +108,7 @@ Item {
     }
 
     ColumnLayout {
-        anchors.fill: parent
+        anchors.fill: parent        
         ListView {
             id: missionList
             Layout.fillHeight: true
@@ -115,17 +116,24 @@ Item {
 
             Component {
                 id: compDelegate
-                Item {
+                Rectangle {
                     width: missionList.width
-                    height: missionIndex.height
+                    height: rmItem.height
+
                     Rectangle {
                         anchors.fill: parent
                         color: missionList.currentIndex === index ? "lightsteelblue" : "white"
                     }
 
-                    Text {
-                        id: missionIndex
-                        text: index + ": " + getItemName(type) + " " + getItemAdditional(type, index)
+                    ColumnLayout {
+                        id: textItems
+                        Text {
+                            id: missionIndex
+                            text: index + ": " + getItemName(type)
+                        }
+                        Text {
+                            text: getItemAdditional(type, index)
+                        }
                     }
 
                     MouseArea {
@@ -140,6 +148,67 @@ Item {
                             configureAt(index)
                         }
                     }
+
+                    Rectangle {
+                        id: rmItem
+                        height: textItems.childrenRect.height
+                        anchors.right: parent.right
+                        width: height
+                        color: Material.color(Material.Red)
+                        visible: missionList.currentIndex === index
+                        Text {
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            text: qsTr("RM")
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                UAV.getMission().removeOne(index)
+                            }
+                        }
+                    }
+                    Rectangle {
+                        id: edItem
+                        height: textItems.childrenRect.height
+                        anchors.right: rmItem.left
+                        width: height
+                        color: Material.color(Material.LightBlue)
+                        visible: missionList.currentIndex === index
+                        Text {
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            text: qsTr("ED")
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                configureAt(index)
+                            }
+                        }
+                    }
+                    Rectangle {
+                        id: addItem
+                        height: textItems.childrenRect.height
+                        anchors.right: edItem.left
+                        width: height
+                        color: Material.color(Material.LightGreen)
+                        visible: missionList.currentIndex === index
+                        Text {
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            text: qsTr("AD")
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                addOperationOn(index)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -151,22 +220,6 @@ Item {
 
             model: UAV.getMission()
             focus: true
-        }
-        RowLayout {
-            Button {
-                text: qsTr("Add operation")
-                onClicked: {
-
-                }
-            }
-            Button {
-                text: qsTr("Edit")
-                onClicked: configureAt(missionList.currentIndex)
-            }
-            Button {
-                text: qsTr("Delete")
-                onClicked: UAV.getMission().removeOne(missionList.currentIndex)
-            }
         }
     }
 

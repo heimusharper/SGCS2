@@ -81,8 +81,8 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if (addPointOnMapClick) {
-                    UAV.getMission().insertSimplePoint(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
+                if (addPointOnMapClick && !simpleMode) {
+                    UAV.getMission().appendSimplePoint(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
                 }
             }
         }

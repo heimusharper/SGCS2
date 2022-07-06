@@ -23,6 +23,6 @@
         <file>FlightModeControls.qml</file>
         <file>MissionEditDrawer.qml</file>
         <file>MapControls.qml</file>
-        <file>MissionItemEdit.qml</file>
+        <file>MissionSimplePointItemEdit.qml</file>
     </qresource>
 </RCC>

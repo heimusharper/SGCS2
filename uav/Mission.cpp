@@ -48,6 +48,8 @@ QVariant Mission::data(const QModelIndex &index, int role) const
 
 MissionItem *Mission::itemAt(int index)
 {
+    if (m_items.size() <= index)
+        return nullptr;
     return m_items.at(index);
 }
 
@@ -55,19 +57,26 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
 {
     beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
     MissionItem *item = new MissionItem;
-    initItem(item);
+    item->setType((int)MissionItem::ItemType::SIMPLE_POINT);
     item->setPosition(pos);
+    item->setDelayOnWaypoint(-1);
+    item->setFrame((int)m_lastFrame);
     m_items.push_back(item);
+    initItem(item);
     endInsertRows();
 }
 
-void Mission::setSimplePoint(int index, const QGeoCoordinate &pos)
+void Mission::setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int frame)
 {
-    if (index >= m_items.size())
+    if (index >= m_items.size()) {
         appendSimplePoint(pos);
-    else {
+        setSimplePoint(index, pos, wait, frame);
+    } else {
         auto obj = m_items.at(index);
         obj->setPosition(pos);
+        obj->setDelayOnWaypoint(wait);
+        obj->setFrame(frame);
+        m_lastFrame = (MissionItem::Frame)frame;
         QModelIndex topLeft = createIndex(index, 0);
         QModelIndex bottomRight = createIndex(index, 0);
         emit dataChanged( topLeft, bottomRight );

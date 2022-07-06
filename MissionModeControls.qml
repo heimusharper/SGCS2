@@ -11,17 +11,9 @@ Item {
     property bool addPointModeEnabled: true
     property int buttonsSize: 30
 
-    signal pointModeSet()
-
     width: mcl.childrenRect.width
     height: mcl.childrenRect.height
 
-    Component.onCompleted: {
-        pointModeSet()
-    }
-    onAddPointModeEnabledChanged: {
-        pointModeSet()
-    }
     onVisibleChanged: {
         if (!visible) {
             addPointModeEnabled = false;
@@ -53,7 +45,6 @@ Item {
                 text: qsTr("Points:")
                 font.pixelSize: infoLine.height
             }
-
         }
     }
 
@@ -67,7 +58,7 @@ Item {
 
         RowLayout {
             id: mcl
-            ColumnLayout {
+            /*ColumnLayout {
 
                 RoundButton {
                     id: uploadButton
@@ -113,6 +104,18 @@ Item {
                 text: "..."
                 onCheckedChanged: {
                     showAdditionalActions = !showAdditionalActions
+                }
+            }*/
+            RoundButton {
+                id: uploadButton
+                //width: buttonsSize
+                height: buttonsSize
+                radius: 10
+                text: qsTr("Add")
+                checkable: true
+                checked: addPointModeEnabled
+                onClicked: {
+                    UAV.getMission().writeAll()
                 }
             }
         }

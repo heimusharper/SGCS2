@@ -30,7 +30,7 @@ public:
     Q_INVOKABLE MissionItem *itemAt(int index);
 
     Q_INVOKABLE void appendSimplePoint(const QGeoCoordinate &pos);
-    Q_INVOKABLE void setSimplePoint(int index, const QGeoCoordinate &pos);
+    Q_INVOKABLE void setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int frame);
     Q_INVOKABLE void removeOne(int index);
     Q_INVOKABLE void readAll();
     Q_INVOKABLE void writeAll();
@@ -45,6 +45,8 @@ private:
     DataStreamer *m_streamer = nullptr;
 
     QList<MissionItem*> m_items;
+
+    MissionItem::Frame m_lastFrame = MissionItem::Frame::RELATIVE;
 
 signals:
 

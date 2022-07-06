@@ -10,7 +10,7 @@ import Finco 1.0
 
 ApplicationWindow {
     id: window
-    width: 640
+    width: 1024
     height: width * (9 / 16)
     visible: true
     title: qsTr("SGCS")
@@ -37,12 +37,15 @@ ApplicationWindow {
     MissionEditDrawer {
         id: missionEditView
         onConfigureAt: {
-            missionItemEditView.itemIndex = index
-            missionEditDrawer.push(missionItemEditView)
+            missionISimplePointtemEditView.updateContent(index)
+            missionEditDrawer.push(missionISimplePointtemEditView)
+        }
+        onAddOperationOn: {
+            // TODO: implement add operation
         }
     }
-    MissionItemEdit {
-        id: missionItemEditView
+    MissionSimplePointItemEdit {
+        id: missionISimplePointtemEditView
         onCloseMe: {
             missionEditDrawer.pop()
         }
@@ -70,6 +73,7 @@ ApplicationWindow {
                     id: mapView
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    addPointOnMapClick: missionModeControls.addPointModeEnabled;
                     // anchors.fill: parent
                     onMapFocused: {
                         flightModeControls.showAdditionalActions = false
@@ -80,10 +84,9 @@ ApplicationWindow {
                         id: missionModeControls
                         anchors.fill: parent
                         visible: missionMode && missionIsMain
-
-                        onPointModeSet: {
-                            //mapRectangle.addPointOnMapClick = missionModeControls.addPointModeEnabled;
-                        }
+                        //onAddPointModeEnabledChanged: {
+                        //    mapRectangle.addPointOnMapClick = addPointModeEnabled
+                        // }
                     }
                     FlightModeControls {
                         id: flightModeControls
@@ -108,12 +111,36 @@ ApplicationWindow {
 
                 }
 
-                StackView {
-                    id: missionEditDrawer
-                    Layout.fillWidth: true
+                Item {
                     Layout.fillHeight: true
+                    Layout.fillWidth: true
                     visible: missionMode
-                    initialItem: missionEditView
+                    ColumnLayout {
+                        anchors.fill: parent
+                        RowLayout {
+
+                            Button {
+                                text: qsTr("Points")
+                                onClicked: {
+                                    while (missionEditDrawer.depth > 1) {
+                                        missionEditDrawer.pop()
+                                    }
+                                }
+                            }
+                            Button {
+                                text: qsTr("Extended")
+                            }
+                            Button {
+                                text: qsTr("Load")
+                            }
+                        }
+                        StackView {
+                            id: missionEditDrawer
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            initialItem: missionEditView
+                        }
+                    }
                 }
             }
         }
