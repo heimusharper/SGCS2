@@ -6,6 +6,7 @@ import QtLocation 5.12
 import QtPositioning 5.12
 import QtQuick.Controls.Material 2.12
 import Finco 1.0
+import QtGraphicalEffects 1.13
 
 
 ApplicationWindow {
@@ -170,9 +171,22 @@ ApplicationWindow {
             }
         }
 
-        Item {
+        Rectangle {
             z: mainComponent.z + 2
             id: viewsSwitchArea
+            layer.enabled: true
+            layer.effect: OpacityMask {
+                maskSource: Item {
+                    width: viewsSwitchArea.width
+                    height: viewsSwitchArea.height
+                    Rectangle {
+                        anchors.centerIn: parent
+                        width: viewsSwitchArea.width
+                        height: viewsSwitchArea.height
+                        radius: 10
+                    }
+                }
+            }
 
             anchors.top: mainComponent.top
             anchors.topMargin: 10
