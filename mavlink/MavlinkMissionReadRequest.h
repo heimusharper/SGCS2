@@ -12,6 +12,7 @@ public:
     explicit MavlinkMissionReadRequest(QObject *parent = nullptr);
     virtual ~MavlinkMissionReadRequest();
     virtual bool ready() override;
+    virtual void stop() override;
 
 protected:
     virtual mavlink_message_t construct() override;

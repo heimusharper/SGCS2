@@ -52,6 +52,10 @@ ApplicationWindow {
         }
     }
 
+    MissionLoadDrawer {
+        id: missionLoadView
+    }
+
     property bool missionIsMain: true
 
     Item {
@@ -133,6 +137,12 @@ ApplicationWindow {
                             }
                             Button {
                                 text: qsTr("Load")
+                                onClicked: {
+                                    while (missionEditDrawer.depth > 1) {
+                                        missionEditDrawer.pop()
+                                    }
+                                    missionEditDrawer.push(missionLoadView)
+                                }
                             }
                         }
                         StackView {
@@ -174,6 +184,7 @@ ApplicationWindow {
         Rectangle {
             z: mainComponent.z + 2
             id: viewsSwitchArea
+            visible: !missionMode
             layer.enabled: true
             layer.effect: OpacityMask {
                 maskSource: Item {
@@ -232,7 +243,6 @@ ApplicationWindow {
                 z: viewsSwitchArea.z + 2
                 anchors.fill: parent
                 color: "transparent"
-                visible: !missionMode
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {

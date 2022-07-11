@@ -177,6 +177,29 @@
     </message>
 </context>
 <context>
+    <name>MissionLoadDrawer</name>
+    <message>
+        <location filename="MissionLoadDrawer.qml" line="16"/>
+        <source>Upload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionLoadDrawer.qml" line="23"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionLoadDrawer.qml" line="30"/>
+        <source>Open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionLoadDrawer.qml" line="37"/>
+        <source>Save to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MissionModeControls</name>
     <message>
         <location filename="MissionModeControls.qml" line="45"/>
@@ -243,67 +266,67 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="main.qml" line="16"/>
+        <location filename="main.qml" line="17"/>
         <source>SGCS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="123"/>
+        <location filename="main.qml" line="128"/>
         <source>Points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="131"/>
+        <location filename="main.qml" line="136"/>
         <source>Extended</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="134"/>
+        <location filename="main.qml" line="139"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="145"/>
+        <location filename="main.qml" line="156"/>
         <source>Altitude:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="158"/>
+        <location filename="main.qml" line="169"/>
         <source>Frame:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="161"/>
+        <location filename="main.qml" line="172"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="161"/>
+        <location filename="main.qml" line="172"/>
         <source>Relief</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="161"/>
+        <location filename="main.qml" line="172"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="280"/>
+        <location filename="main.qml" line="304"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="290"/>
+        <location filename="main.qml" line="314"/>
         <source>Stream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="300"/>
+        <location filename="main.qml" line="324"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="309"/>
+        <location filename="main.qml" line="333"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

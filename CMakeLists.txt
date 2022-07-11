@@ -113,6 +113,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkPingRequest.h
         mavlink/MavlinkManualControlRequest.h
         mavlink/MavlinkMissionReadRequest.h
+        mavlink/MavlinkMissionWriteRequest.h
 
         mavlink/MavlinkStreamer.cpp
         mavlink/MavlinkMainDataStream.cpp
@@ -123,6 +124,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkPingRequest.cpp
         mavlink/MavlinkManualControlRequest.cpp
         mavlink/MavlinkMissionReadRequest.cpp
+        mavlink/MavlinkMissionWriteRequest.cpp
 
 
         #qml

@@ -47,7 +47,7 @@ public:
         TRIGGER,
         PARACHUTE
     };
-    Q_ENUMS(ItemType)
+    Q_ENUM(ItemType)
     enum class Frame : int
     {
         RELATIVE,
@@ -55,7 +55,7 @@ public:
         ABSOLUTE,
         INVALID
     };
-    Q_ENUMS(Frame)
+    Q_ENUM(Frame)
 
     int type() const;
     void setType(int newType);

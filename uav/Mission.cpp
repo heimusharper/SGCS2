@@ -55,14 +55,27 @@ MissionItem *Mission::itemAt(int index)
 
 void Mission::appendSimplePoint(const QGeoCoordinate &pos)
 {
-    beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
-    MissionItem *item = new MissionItem;
-    item->setType((int)MissionItem::ItemType::SIMPLE_POINT);
-    item->setPosition(pos);
-    item->setDelayOnWaypoint(-1);
-    item->setFrame(m_defaultFrame);
-    m_items.push_back(item);
-    initItem(item);
+    if (m_items.size() == 0)
+    {
+        beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 1);
+        {
+            MissionItem *item = new MissionItem;
+            item->setType((int)MissionItem::ItemType::TAKEOFF);
+            item->setPosition(QGeoCoordinate(0, 0, pos.altitude()));
+            m_items.push_back(item);
+            initItem(item);
+        }
+    } else
+        beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
+    {
+        MissionItem *item = new MissionItem;
+        item->setType((int)MissionItem::ItemType::SIMPLE_POINT);
+        item->setPosition(pos);
+        item->setDelayOnWaypoint(-1);
+        item->setFrame(m_defaultFrame);
+        m_items.push_back(item);
+        initItem(item);
+    }
     endInsertRows();
 }
 
@@ -110,7 +123,20 @@ void Mission::readAll()
 
 void Mission::writeAll()
 {
+    if (m_streamer)
+    {
+        auto request = m_streamer->createMissionWriteRequest();
+        request->set(m_items);
+        /* connect(request, &MissionReadRequest::onError, this, [this](MissionReadRequest::Errors err){
 
+        });*/
+        /*connect(request, &MissionWriteRequest::onItem, this, [this](int index, MissionItem *it) {
+            if (index == 0)
+                clear();
+            replacePoint(index, it);
+        });*/
+        connect(request, &MissionWriteRequest::progress, this, &Mission::progress);
+    }
 }
 
 void Mission::clear()
@@ -127,7 +153,18 @@ void Mission::clear()
 
 void Mission::appendPoint(MissionItem *it)
 {
-    beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
+    if (m_items.size() == 0)
+    {
+        beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 1);
+        {
+            MissionItem *item = new MissionItem;
+            item->setType((int)MissionItem::ItemType::TAKEOFF);
+            item->setPosition(QGeoCoordinate(0, 0, 10));
+            m_items.push_back(item);
+            initItem(item);
+        }
+    } else
+        beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
     m_items.push_back(it);
     initItem(it);
     endInsertRows();

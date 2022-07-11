@@ -17,6 +17,8 @@ public:
         ERR_FAILED_GET_INDEX
     };
 
+    virtual void stop() = 0;
+
 signals:
 
     // void onError(MissionReadRequest::Errors err);

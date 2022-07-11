@@ -18,6 +18,11 @@ bool MavlinkMissionReadRequest::ready()
     return MavlinkRequest::ready();
 }
 
+void MavlinkMissionReadRequest::stop()
+{
+    m_state = State::UNDEFINED;
+}
+
 mavlink_message_t MavlinkMissionReadRequest::construct()
 {
     mavlink_message_t request;
@@ -83,7 +88,7 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
             {
                 MissionItem *it = new MissionItem;
                 it->setType((int)MissionItem::ItemType::TAKEOFF);
-                it->setPosition(QGeoCoordinate(0, 0, (double)item.z / 1000.));
+                it->setPosition(QGeoCoordinate(0, 0, (double)item.z));
                 it->setFrame(getFrame(item.frame));
                 emit onItem(item.seq, it);
                 break;
@@ -124,7 +129,7 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
             case MAV_CMD_CONDITION_DISTANCE:
             {
                 MissionItem *it = new MissionItem;
-                it->setType((int)MissionItem::ItemType::DELAY);
+                it->setType((int)MissionItem::ItemType::DISTANCE);
                 it->setDistance(item.param1);
                 emit onItem(item.seq, it);
                 break;
@@ -171,7 +176,7 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
                     it->setRecordStart(1);
                 else if ((int)item.x == 3)
                     it->setRecordStart(-1);
-                it->setPwm(item.param2);
+                // it->setRecordStart(item.param2);
                 emit onItem(item.seq, it);
                 break;
             }

@@ -28,6 +28,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                     m_manualControlRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_missionReadRequest)
                     m_missionReadRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_missionWriteRequest)
+                    m_missionWriteRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
             });
 
     m_pingRequest = new MavlinkPingRequest();
@@ -106,10 +108,27 @@ MissionReadRequest *MavlinkStreamer::createMissionReadRequest()
         m_missionReadRequest->deleteLater();
         m_missionReadRequest = nullptr;
     }
+    if (m_missionWriteRequest)
+        m_missionWriteRequest->stop();
     m_missionReadRequest = new MavlinkMissionReadRequest(this);
     if (m_initiated)
         m_missionReadRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
     return m_missionReadRequest;
+}
+
+MissionWriteRequest *MavlinkStreamer::createMissionWriteRequest()
+{
+    if (m_missionWriteRequest)
+    {
+        m_missionWriteRequest->deleteLater();
+        m_missionWriteRequest = nullptr;
+    }
+    if (m_missionReadRequest)
+        m_missionReadRequest->stop();
+    m_missionWriteRequest = new MavlinkMissionWriteRequest(this);
+    if (m_initiated)
+        m_missionWriteRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    return m_missionWriteRequest;
 }
 
 MainDataStream *MavlinkStreamer::getMainStream()
@@ -148,6 +167,8 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
                 m_armRequest->responce(msg);
             if (m_missionReadRequest)
                 m_missionReadRequest->responce(msg);
+            if (m_missionWriteRequest)
+                m_missionWriteRequest->responce(msg);
         }
     }
 }
@@ -173,6 +194,8 @@ void MavlinkStreamer::tryWriteData()
             transmit(m_manualControlRequest->request());
         if (m_missionReadRequest && m_missionReadRequest->ready())
             transmit(m_missionReadRequest->request());
+        if (m_missionWriteRequest && m_missionWriteRequest->ready())
+            transmit(m_missionWriteRequest->request());
     }
 }
 
