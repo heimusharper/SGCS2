@@ -71,14 +71,14 @@ Item {
             var delay = UAV.getMission().itemAt(index).delayOnWaypoint
             return "[" + UAV.getMission().itemAt(index).position.latitude.toFixed(6) + "; " +
                 UAV.getMission().itemAt(index).position.longitude.toFixed(6) + "; " +
-                UAV.getMission().itemAt(index).position.altitude.toFixed(1) + "] " + qsTr("wait") +
-                " " + ((delay < 0) ? qsTr("no") : delay) + " " + qsTr("frame") + ": " +
+                UAV.getMission().itemAt(index).position.altitude.toFixed(1) + "]; " + qsTr("wait:") +
+                " " + ((delay < 0) ? qsTr("no") : delay) + "; " + qsTr("frame") + ": " +
                     getItemFrameName(UAV.getMission().itemAt(index).frame)
         }
         case MissionItem.TAKEOFF:
             return qsTr("Takeoff")
         case MissionItem.RTL:
-            break;
+            return qsTr("RTL")
         case MissionItem.LAND:
             return qsTr("Land")
         case MissionItem.JUMP:

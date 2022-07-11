@@ -52,6 +52,7 @@
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="24"/>
+        <location filename="MissionEditDrawer.qml" line="81"/>
         <source>RTL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -145,7 +146,8 @@
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="74"/>
-        <source>wait</source>
+        <source>wait:</source>
+        <oldsource>wait</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -190,32 +192,32 @@
 <context>
     <name>MissionSimplePointItemEdit</name>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="31"/>
+        <location filename="MissionSimplePointItemEdit.qml" line="34"/>
         <source>Latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="55"/>
+        <location filename="MissionSimplePointItemEdit.qml" line="48"/>
         <source>Longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="68"/>
+        <location filename="MissionSimplePointItemEdit.qml" line="60"/>
         <source>Altitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="81"/>
+        <location filename="MissionSimplePointItemEdit.qml" line="73"/>
         <source>Wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="95"/>
+        <location filename="MissionSimplePointItemEdit.qml" line="87"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="107"/>
+        <location filename="MissionSimplePointItemEdit.qml" line="99"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -261,22 +263,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="255"/>
+        <location filename="main.qml" line="145"/>
+        <source>Altitude:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="158"/>
+        <source>Frame:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="161"/>
+        <source>Relative</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="161"/>
+        <source>Relief</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="161"/>
+        <source>Absolute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="280"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="265"/>
+        <location filename="main.qml" line="290"/>
         <source>Stream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="275"/>
+        <location filename="main.qml" line="300"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="284"/>
+        <location filename="main.qml" line="309"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

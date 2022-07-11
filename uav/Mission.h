@@ -12,6 +12,8 @@
 class Mission : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(int defaultAltitude READ defaultAltitude WRITE setDefaultAltitude NOTIFY defaultAltitudeChanged)
+    Q_PROPERTY(int defaultFrame READ defaultFrame WRITE setDefaultFrame NOTIFY defaultFrameChanged)
 public:
     enum ItemRole {
         TypeRole = Qt::UserRole + 1,
@@ -36,6 +38,12 @@ public:
     Q_INVOKABLE void writeAll();
     Q_INVOKABLE void clear();
 
+    int defaultAltitude() const;
+    void setDefaultAltitude(int newDefaultAltitude);
+
+    int defaultFrame() const;
+    void setDefaultFrame(int newDefaultFrame);
+
 private slots:
     void appendPoint(MissionItem *it);
     void replacePoint(int index, MissionItem *it);
@@ -46,12 +54,16 @@ private:
 
     QList<MissionItem*> m_items;
 
-    MissionItem::Frame m_lastFrame = MissionItem::Frame::RELATIVE;
+    int m_defaultAltitude = 100;
+
+    int m_defaultFrame = (int)MissionItem::Frame::RELATIVE;
 
 signals:
 
     void progress(float p);
 
+    void defaultAltitudeChanged();
+    void defaultFrameChanged();
 };
 
 #endif // MISSION_H

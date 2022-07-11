@@ -82,7 +82,11 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if (addPointOnMapClick && !simpleMode) {
-                    UAV.getMission().appendSimplePoint(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
+                    var pos = map.toCoordinate(Qt.point(
+                                         mouse.x,
+                                         mouse.y))
+                    pos.altitude = UAV.getMission().defaultAltitude
+                    UAV.getMission().appendSimplePoint(pos)
                 }
             }
         }

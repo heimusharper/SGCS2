@@ -50,9 +50,9 @@ public:
     Q_ENUMS(ItemType)
     enum class Frame : int
     {
-        ABSOLUTE,
         RELATIVE,
         RELIEF,
+        ABSOLUTE,
         INVALID
     };
     Q_ENUMS(Frame)

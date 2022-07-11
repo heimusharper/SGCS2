@@ -140,6 +140,31 @@ ApplicationWindow {
                             Layout.fillWidth: true
                             initialItem: missionEditView
                         }
+                        RowLayout {
+                            Text {
+                                text: qsTr("Altitude:")
+                            }
+                            SpinBox {
+                                id: altitudeSet
+                                to: 16000
+                                from: -500
+                                editable: true
+                                value: UAV.getMission().defaultAltitude
+                                onValueModified: {
+                                    UAV.getMission().defaultAltitude = value
+                                }
+                            }
+                            Text {
+                                text: qsTr("Frame:")
+                            }
+                            ComboBox {
+                                model: [qsTr("Relative"), qsTr("Relief"), qsTr("Absolute")]
+                                currentIndex: UAV.getMission().defaultFrame
+                                onCurrentIndexChanged: {
+                                    UAV.getMission().defaultFrame = currentIndex
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -55,7 +55,6 @@ Item {
                     top: 360
                     decimals: 6
                 }
-
             }
             Text {
                 text: qsTr("Altitude")

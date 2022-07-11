@@ -60,7 +60,7 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
     item->setType((int)MissionItem::ItemType::SIMPLE_POINT);
     item->setPosition(pos);
     item->setDelayOnWaypoint(-1);
-    item->setFrame((int)m_lastFrame);
+    item->setFrame(m_defaultFrame);
     m_items.push_back(item);
     initItem(item);
     endInsertRows();
@@ -76,7 +76,6 @@ void Mission::setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int
         obj->setPosition(pos);
         obj->setDelayOnWaypoint(wait);
         obj->setFrame(frame);
-        m_lastFrame = (MissionItem::Frame)frame;
         QModelIndex topLeft = createIndex(index, 0);
         QModelIndex bottomRight = createIndex(index, 0);
         emit dataChanged( topLeft, bottomRight );
@@ -181,3 +180,29 @@ void Mission::initItem(MissionItem *it)
     connect(it, &MissionItem::frameChanged, this, changes);
 }
 
+
+int Mission::defaultAltitude() const
+{
+    return m_defaultAltitude;
+}
+
+void Mission::setDefaultAltitude(int newDefaultAltitude)
+{
+    if (m_defaultAltitude == newDefaultAltitude)
+        return;
+    m_defaultAltitude = newDefaultAltitude;
+    emit defaultAltitudeChanged();
+}
+
+int Mission::defaultFrame() const
+{
+    return m_defaultFrame;
+}
+
+void Mission::setDefaultFrame(int newDefaultFrame)
+{
+    if (m_defaultFrame == newDefaultFrame)
+        return;
+    m_defaultFrame = newDefaultFrame;
+    emit defaultFrameChanged();
+}
