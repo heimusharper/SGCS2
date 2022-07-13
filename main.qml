@@ -125,24 +125,73 @@ ApplicationWindow {
                         RowLayout {
 
                             Button {
+                                id: selectMissionModePoints
                                 text: qsTr("Points")
-                                onClicked: {
-                                    while (missionEditDrawer.depth > 1) {
-                                        missionEditDrawer.pop()
+                                checkable: true
+                                checked: true
+
+                                onCheckedChanged: {
+                                    if (selectMissionModePoints.checked) {
+                                        while (missionEditDrawer.depth > 1) {
+                                            missionEditDrawer.pop()
+                                        }
+                                        selectMissionModeExtended.checked = false
+                                        selectMissionModeLoad.checked = false
                                     }
                                 }
+                                background: Rectangle {
+                                            border.width: 2
+                                            color: selectMissionModePoints.checked ?
+                                                       Material.color(Material.LightGreen) :
+                                                       Material.color(Material.Grey)
+                                            radius: 4
+                                        }
                             }
                             Button {
+                                id: selectMissionModeExtended
                                 text: qsTr("Extended")
+                                checkable: true
+
+                                onCheckedChanged: {
+                                    if (selectMissionModeExtended.checked) {
+                                        //while (missionEditDrawer.depth > 1) {
+                                        //    missionEditDrawer.pop()
+                                        //}
+                                        selectMissionModePoints.checked = false
+                                        selectMissionModeLoad.checked = false
+                                    }
+                                }
+
+                                background: Rectangle {
+                                            border.width: 2
+                                            color: selectMissionModeExtended.checked ?
+                                                       Material.color(Material.LightGreen) :
+                                                       Material.color(Material.Grey)
+                                            radius: 4
+                                        }
                             }
                             Button {
+                                id: selectMissionModeLoad
                                 text: qsTr("Load")
+                                checkable: true
+
                                 onClicked: {
-                                    while (missionEditDrawer.depth > 1) {
-                                        missionEditDrawer.pop()
+                                    if (selectMissionModeLoad.checked) {
+                                        while (missionEditDrawer.depth > 1) {
+                                            missionEditDrawer.pop()
+                                        }
+                                        missionEditDrawer.push(missionLoadView)
+                                        selectMissionModePoints.checked = false
+                                        selectMissionModeExtended.checked = false
                                     }
-                                    missionEditDrawer.push(missionLoadView)
                                 }
+                                background: Rectangle {
+                                            border.width: 2
+                                            color: selectMissionModeLoad.checked ?
+                                                       Material.color(Material.LightGreen) :
+                                                       Material.color(Material.Grey)
+                                            radius: 4
+                                        }
                             }
                         }
                         StackView {

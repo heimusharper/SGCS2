@@ -68,7 +68,6 @@ set(PROJECT_SOURCES
         uav/Positioning.cpp
         uav/Sensors.cpp
         uav/Mission.cpp
-        uav/MissionItem.cpp
 
 
         connection/Connection.h

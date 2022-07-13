@@ -12,18 +12,13 @@ public:
         : QObject(parent)
     {
     }
-    enum Errors {
-        ERR_FAILED_GET_COUNT,
-        ERR_FAILED_GET_INDEX
-    };
-
     virtual void stop() = 0;
 
 signals:
 
-    // void onError(MissionReadRequest::Errors err);
-    void onItem(uint16_t seq, MissionItem *it);
-    void progress(float stat);
+    void onItem(uint16_t seq, const MissionItem &it);
+    void progress(float stat, bool err);
+    void onError(const QString &err);
 };
 
 #endif // MISSIONREADREQUEST_H

@@ -14,7 +14,7 @@ public:
     virtual ~MavlinkMissionWriteRequest();
     virtual bool ready() override;
 
-    virtual void set(const QList<MissionItem *> &items) override;
+    virtual void set(const QList<MissionItem> &items) override;
     virtual void stop() override;
 
 protected:
@@ -31,8 +31,8 @@ protected:
     uint16_t m_nextPoint = 0;
     bool m_useInt = false;
 
-    int getFrame(int f);
-    int getFrameInt(int f);
+    int getFrame(MissionItem::Frame f);
+    int getFrameInt(MissionItem::Frame f);
 
     void resetTimers(int interval = 100);
 

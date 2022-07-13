@@ -10,16 +10,9 @@ class MavlinkRequest
 
 protected:
 
-    enum class MessageError : int {
-        MESSAGE_TIMEOUT
-    };
-
     virtual mavlink_message_t construct() = 0;
     virtual bool processMessage(const mavlink_message_t &msg) = 0;
     virtual void onInit() {
-
-    }
-    virtual void onError(const MavlinkRequest::MessageError error) {
 
     }
 
@@ -87,7 +80,6 @@ public:
                 if (std::chrono::duration_cast<std::chrono::milliseconds>(end - m_firstRequestTime).count() > m_maxMessageLiveTimeMs) {
                     m_waitForMessage = false;
                     m_empty = true; // stop
-                    onError(MavlinkRequest::MessageError::MESSAGE_TIMEOUT);
                     return false;
                 }
             }

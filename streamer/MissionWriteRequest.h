@@ -17,11 +17,12 @@ public:
 
     }
 
-    virtual void set(const QList<MissionItem*> &it) = 0;
+    virtual void set(const QList<MissionItem> &it) = 0;
     virtual void stop() = 0;
 
 signals:
-    void progress(float stat);
+    void progress(float stat, bool err);
+    void onError(const QString &err);
 };
 
 #endif // MISSIONWRITEREQUEST_H

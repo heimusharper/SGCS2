@@ -22,9 +22,14 @@ QHash<int, QByteArray> Mission::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TypeRole] = "type";
+    roles[param1] = "param1";
+    roles[param2] = "param2";
+    roles[param3] = "param3";
+    roles[param4] = "param4";
     roles[Latitude] = "lat";
     roles[Longitude] = "lon";
     roles[Altitude] = "alt";
+    roles[PosFrame] = "frame";
 
     return roles;
 }
@@ -33,24 +38,27 @@ QVariant Mission::data(const QModelIndex &index, int role) const
 {
     switch (role) {
     case TypeRole:
-        return m_items.at(index.row())->type();
+        return (int)m_items.at(index.row()).type;
+    case param1:
+        return m_items.at(index.row()).param_1;
+    case param2:
+        return m_items.at(index.row()).param_2;
+    case param3:
+        return m_items.at(index.row()).param_3;
+    case param4:
+        return m_items.at(index.row()).param_4;
     case Latitude:
-        return m_items.at(index.row())->position().latitude();
+        return m_items.at(index.row()).param_x;
     case Longitude:
-        return m_items.at(index.row())->position().longitude();
+        return m_items.at(index.row()).param_y;
     case Altitude:
-        return m_items.at(index.row())->position().altitude();
+        return m_items.at(index.row()).param_z;
+    case PosFrame:
+        return (int)m_items.at(index.row()).frame;
     default:
         break;
     }
     return QVariant();
-}
-
-MissionItem *Mission::itemAt(int index)
-{
-    if (m_items.size() <= index)
-        return nullptr;
-    return m_items.at(index);
 }
 
 void Mission::appendSimplePoint(const QGeoCoordinate &pos)
@@ -59,22 +67,24 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
     {
         beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 1);
         {
-            MissionItem *item = new MissionItem;
-            item->setType((int)MissionItem::ItemType::TAKEOFF);
-            item->setPosition(QGeoCoordinate(0, 0, pos.altitude()));
+            MissionItem item;
+            item.type = MissionItem::ItemType::TAKEOFF;
+            item.param_x = 0;
+            item.param_y = 0;
+            item.param_z = pos.altitude();
             m_items.push_back(item);
-            initItem(item);
         }
     } else
         beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
     {
-        MissionItem *item = new MissionItem;
-        item->setType((int)MissionItem::ItemType::SIMPLE_POINT);
-        item->setPosition(pos);
-        item->setDelayOnWaypoint(-1);
-        item->setFrame(m_defaultFrame);
+        MissionItem item;
+        item.type = MissionItem::ItemType::SIMPLE_POINT;
+        item.param_x = pos.latitude();
+        item.param_y = pos.longitude();
+        item.param_z = pos.altitude();
+        item.param_1 = -1;
+        item.frame = (MissionItem::Frame)m_defaultFrame;
         m_items.push_back(item);
-        initItem(item);
     }
     endInsertRows();
 }
@@ -86,9 +96,11 @@ void Mission::setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int
         setSimplePoint(index, pos, wait, frame);
     } else {
         auto obj = m_items.at(index);
-        obj->setPosition(pos);
-        obj->setDelayOnWaypoint(wait);
-        obj->setFrame(frame);
+        obj.param_x = pos.latitude();
+        obj.param_y = pos.longitude();
+        obj.param_z = pos.altitude();
+        obj.param_1 = wait;
+        obj.frame = (MissionItem::Frame)frame;
         QModelIndex topLeft = createIndex(index, 0);
         QModelIndex bottomRight = createIndex(index, 0);
         emit dataChanged( topLeft, bottomRight );
@@ -99,7 +111,7 @@ void Mission::removeOne(int index)
 {
     if (index < m_items.size()) {
         beginRemoveRows(QModelIndex(), index, index);
-        m_items.takeAt(index)->deleteLater();
+        m_items.takeAt(index);
         endRemoveRows();
     }
 }
@@ -109,15 +121,13 @@ void Mission::readAll()
     if (m_streamer)
     {
         auto request = m_streamer->createMissionReadRequest();
-        /* connect(request, &MissionReadRequest::onError, this, [this](MissionReadRequest::Errors err){
-
-        });*/
-        connect(request, &MissionReadRequest::onItem, this, [this](int index, MissionItem *it) {
+        connect(request, &MissionReadRequest::onItem, this, [this](int index, const MissionItem &it) {
             if (index == 0)
                 clear();
             replacePoint(index, it);
         });
-        connect(request, &MissionReadRequest::progress, this, &Mission::progress);
+        connect(request, &MissionReadRequest::progress, this, &Mission::progressRead);
+        connect(request, &MissionReadRequest::onError, this, &Mission::setLastError);
     }
 }
 
@@ -127,15 +137,8 @@ void Mission::writeAll()
     {
         auto request = m_streamer->createMissionWriteRequest();
         request->set(m_items);
-        /* connect(request, &MissionReadRequest::onError, this, [this](MissionReadRequest::Errors err){
-
-        });*/
-        /*connect(request, &MissionWriteRequest::onItem, this, [this](int index, MissionItem *it) {
-            if (index == 0)
-                clear();
-            replacePoint(index, it);
-        });*/
-        connect(request, &MissionWriteRequest::progress, this, &Mission::progress);
+        connect(request, &MissionWriteRequest::progress, this, &Mission::progressWrite);
+        connect(request, &MissionWriteRequest::onError, this, &Mission::setLastError);
     }
 }
 
@@ -144,77 +147,51 @@ void Mission::clear()
     if (m_items.isEmpty())
         return;
     beginRemoveRows(QModelIndex(), 0, m_items.size());
-    while (!m_items.empty())
-    {
-        m_items.takeFirst()->deleteLater();
-    }
+    m_items.clear();
     endRemoveRows();
 }
 
-void Mission::appendPoint(MissionItem *it)
+void Mission::appendPoint(const MissionItem &it)
 {
     if (m_items.size() == 0)
     {
         beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 1);
         {
-            MissionItem *item = new MissionItem;
-            item->setType((int)MissionItem::ItemType::TAKEOFF);
-            item->setPosition(QGeoCoordinate(0, 0, 10));
+            MissionItem item;
+            item.type = MissionItem::ItemType::TAKEOFF;
+            item.param_x = 0;
+            item.param_y = 0;
+            item.param_z = 0;
             m_items.push_back(item);
-            initItem(item);
         }
     } else
         beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
     m_items.push_back(it);
-    initItem(it);
     endInsertRows();
 }
 
-void Mission::replacePoint(int index, MissionItem *it)
+void Mission::replacePoint(int index, const MissionItem &it)
 {
     if (index >= m_items.size())
         appendPoint(it);
     else {
-        auto obj = m_items.at(index);
         m_items.replace(index, it);
-        initItem(it);
-        obj->deleteLater();
         QModelIndex topLeft = createIndex(index, 0);
         QModelIndex bottomRight = createIndex(index, 0);
         emit dataChanged( topLeft, bottomRight );
     }
 }
 
-void Mission::initItem(MissionItem *it)
+void Mission::progressRead(float p, bool err)
 {
-    auto changes = [this, it](){
-        int index = m_items.indexOf(it);
-        if (index >= 0) {
-            QModelIndex topLeft = createIndex(index, 0);
-            QModelIndex bottomRight = createIndex(index, 0);
-            emit dataChanged(topLeft, bottomRight);
-            qDebug() << "on update " << index;
-        }
-    };
-    connect(it, &MissionItem::typeChanged, this, changes);
-    connect(it, &MissionItem::positionChanged, this, changes);
-    connect(it, &MissionItem::delayOnWaypointChanged, this, changes);
-    connect(it, &MissionItem::jumpToChanged, this, changes);
-    connect(it, &MissionItem::jumpRepeatsChanged, this, changes);
-    connect(it, &MissionItem::distanceChanged, this, changes);
-    connect(it, &MissionItem::speedChanged, this, changes);
-    connect(it, &MissionItem::servoChanged, this, changes);
-    connect(it, &MissionItem::pwmChanged, this, changes);
-    connect(it, &MissionItem::zoomPositionChanged, this, changes);
-    connect(it, &MissionItem::autofocusNowChanged, this, changes);
-    connect(it, &MissionItem::shootChanged, this, changes);
-    connect(it, &MissionItem::recordStartChanged, this, changes);
-    connect(it, &MissionItem::gimbalPitchChanged, this, changes);
-    connect(it, &MissionItem::gimbalRollChanged, this, changes);
-    connect(it, &MissionItem::gimbalYawChanged, this, changes);
-    connect(it, &MissionItem::shootOnTimeChanged, this, changes);
-    connect(it, &MissionItem::shootOnDistanceChanged, this, changes);
-    connect(it, &MissionItem::frameChanged, this, changes);
+    emit progress(p);
+    setReadErrorState(err);
+}
+
+void Mission::progressWrite(float p, bool err)
+{
+    emit progress(p);
+    setWriteErrorState(err);
 }
 
 
@@ -242,4 +219,43 @@ void Mission::setDefaultFrame(int newDefaultFrame)
         return;
     m_defaultFrame = newDefaultFrame;
     emit defaultFrameChanged();
+}
+
+bool Mission::writeErrorState() const
+{
+    return m_writeErrorState;
+}
+
+void Mission::setWriteErrorState(bool newWriteErrorState)
+{
+    if (m_writeErrorState == newWriteErrorState)
+        return;
+    m_writeErrorState = newWriteErrorState;
+    emit writeErrorStateChanged();
+}
+
+bool Mission::readErrorState() const
+{
+    return m_readErrorState;
+}
+
+void Mission::setReadErrorState(bool newReadErrorState)
+{
+    if (m_readErrorState == newReadErrorState)
+        return;
+    m_readErrorState = newReadErrorState;
+    emit readErrorStateChanged();
+}
+
+const QString &Mission::lastError() const
+{
+    return m_lastError;
+}
+
+void Mission::setLastError(const QString &newLastError)
+{
+    if (m_lastError == newLastError)
+        return;
+    m_lastError = newLastError;
+    emit lastErrorChanged();
 }

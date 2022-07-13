@@ -18,41 +18,41 @@ bool MavlinkMissionWriteRequest::ready()
     return MavlinkRequest::ready();
 }
 
-void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
+void MavlinkMissionWriteRequest::set(const QList<MissionItem> &items)
 {
     int seq = 0;
     for (auto x : items)
     {
         mavlink_message_t request_int;
         mavlink_message_t request;
-        switch (x->type()) {
-        case (int)MissionItem::ItemType::SIMPLE_POINT: {
+        switch (x.type) {
+        case MissionItem::ItemType::SIMPLE_POINT: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
-                                              seq, getFrameInt(x->frame()),
-                                              MAV_CMD_NAV_WAYPOINT, false, true, x->delayOnWaypoint(), 0, 0, 0,
-                                              (int32_t)(x->position().latitude() * 1.e7),
-                                              (int32_t)(x->position().longitude() * 1.e7),
-                                              (float)(x->position().altitude() * 1000.), MAV_MISSION_TYPE_MISSION);
+                                              seq, getFrameInt(x.frame),
+                                              MAV_CMD_NAV_WAYPOINT, false, true, x.param_1, 0, 0, 0,
+                                              (int32_t)(x.param_x * 1.e7),
+                                              (int32_t)(x.param_y * 1.e7),
+                                              (float)(x.param_z * 1000.), MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
-                                          seq, getFrame(x->frame()),
-                                          MAV_CMD_NAV_WAYPOINT, false, true, x->delayOnWaypoint(), 0, 0, 0,
-                                          (float)x->position().latitude(),
-                                          (float)x->position().longitude(),
-                                          (float)x->position().altitude(), MAV_MISSION_TYPE_MISSION);
+                                          seq, getFrame(x.frame),
+                                          MAV_CMD_NAV_WAYPOINT, false, true, x.param_1, 0, 0, 0,
+                                          (float)x.param_x,
+                                          (float)x.param_y,
+                                          (float)x.param_z, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::TAKEOFF: {
+        case MissionItem::ItemType::TAKEOFF: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
-                                              seq, getFrameInt(x->frame()),
+                                              seq, getFrameInt(x.frame),
                                               MAV_CMD_NAV_TAKEOFF, false, true, 0, 0, 0, 0, 0, 0,
-                                              (float)x->position().altitude(), MAV_MISSION_TYPE_MISSION);
+                                              (float)x.param_z, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
-                                              seq, getFrame(x->frame()),
+                                              seq, getFrame(x.frame),
                                               MAV_CMD_NAV_TAKEOFF, false, true, 0, 0, 0, 0, 0, 0,
-                                              (float)x->position().altitude(), MAV_MISSION_TYPE_MISSION);
+                                              (float)x.param_z, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::RTL: {
+        case MissionItem::ItemType::RTL: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_NAV_RETURN_TO_LAUNCH, false, true, 0, 0, 0,
@@ -63,138 +63,130 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
                                               0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::LAND: {
+        case MissionItem::ItemType::LAND: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
-                                              seq, getFrameInt(x->frame()),
+                                              seq, getFrameInt(x.frame),
                                               MAV_CMD_NAV_LAND, false, true, 0, 0, 0, 0,
-                                              (int32_t)(x->position().latitude() * 1.e7),
-                                              (int32_t)(x->position().longitude() * 1.e7),
+                                              (int32_t)(x.param_x * 1.e7),
+                                              (int32_t)(x.param_y * 1.e7),
                                               0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
-                                              seq, getFrame(x->frame()),
+                                              seq, getFrame(x.frame),
                                               MAV_CMD_NAV_LAND, false, true, 0, 0, 0, 0,
-                                              x->position().latitude(),
-                                              x->position().longitude(),
+                                              x.param_x,
+                                              x.param_y,
                                               0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::JUMP: {
+        case MissionItem::ItemType::JUMP: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_JUMP, false, true, x->jumpTo(), x->jumpRepeats(),
+                                              MAV_CMD_DO_JUMP, false, true, x.param_1, x.param_2,
                                               0, 0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_JUMP, false, true, x->jumpTo(), x->jumpRepeats(),
+                                              MAV_CMD_DO_JUMP, false, true, x.param_1, x.param_2,
                                               0, 0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::DELAY: {
+        case MissionItem::ItemType::DELAY: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_CONDITION_DELAY, false, true, x->delayOnWaypoint(), 0, 0,
+                                              MAV_CMD_CONDITION_DELAY, false, true, x.param_1, 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_CONDITION_DELAY, false, true, x->delayOnWaypoint(), 0, 0,
+                                              MAV_CMD_CONDITION_DELAY, false, true, x.param_1, 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::DISTANCE: {
+        case MissionItem::ItemType::DISTANCE: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_CONDITION_DISTANCE, false, true, x->distance(), 0, 0,
+                                              MAV_CMD_CONDITION_DISTANCE, false, true, x.param_1, 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_CONDITION_DISTANCE, false, true, x->distance(), 0, 0,
+                                              MAV_CMD_CONDITION_DISTANCE, false, true, x.param_1, 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::SPEED: {
+        case MissionItem::ItemType::SPEED: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_CHANGE_SPEED, false, true, 1, x->speed(), 0,
+                                              MAV_CMD_DO_CHANGE_SPEED, false, true, 1, x.param_1, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_CHANGE_SPEED, false, true, 1, x->speed(), 0,
+                                              MAV_CMD_DO_CHANGE_SPEED, false, true, 1, x.param_1, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::SET_SERVO: {
+        case MissionItem::ItemType::SET_SERVO: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_SET_SERVO, false, true, x->servo(), x->pwm(), 0,
+                                              MAV_CMD_DO_SET_SERVO, false, true, x.param_1, x.param_2, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_SET_SERVO, false, true, x->servo(), x->pwm(), 0,
+                                              MAV_CMD_DO_SET_SERVO, false, true, x.param_1, x.param_2, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::ROI: {
+        case MissionItem::ItemType::ROI: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
-                                              seq, getFrameInt(x->frame()),
+                                              seq, getFrameInt(x.frame),
                                               MAV_CMD_DO_SET_ROI, false, true, 0, 0, 0, 0,
-                                              (int32_t)(x->position().latitude() * 1.e7),
-                                              (int32_t)(x->position().longitude() * 1.e7),
-                                              (float)(x->position().altitude() * 1000.), MAV_MISSION_TYPE_MISSION);
+                                              (int32_t)(x.param_x * 1.e7),
+                                              (int32_t)(x.param_y * 1.e7),
+                                              (float)(x.param_z * 1000.), MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
-                                              seq, getFrame(x->frame()),
+                                              seq, getFrame(x.frame),
                                               MAV_CMD_DO_SET_ROI, false, true, 0, 0, 0, 0,
-                                              x->position().latitude(),
-                                              x->position().longitude(),
-                                              x->position().altitude(), MAV_MISSION_TYPE_MISSION);
+                                              x.param_x,
+                                              x.param_y,
+                                              x.param_z, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::CAMERA: {
-            int i = 0;
-            if (x->recordStart() == 1)
-                i = 2;
-            else if (x->recordStart() == -1)
-                i = 3;
-            else if (x->shoot())
-                i = 1;
-
+        case MissionItem::ItemType::CAMERA: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_DIGICAM_CONTROL, false, true, 0, x->zoomPosition(),
-                                              0, 0, i, 0, 0.f, MAV_MISSION_TYPE_MISSION);
+                                              MAV_CMD_DO_DIGICAM_CONTROL, false, true, 0, x.param_2,
+                                              0, 0, x.param_x, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_DIGICAM_CONTROL, false, true, 0, x->zoomPosition(),
-                                              0, 0, i, 0, 0.f, MAV_MISSION_TYPE_MISSION);
+                                              MAV_CMD_DO_DIGICAM_CONTROL, false, true, 0, x.param_2,
+                                              0, 0, x.param_x, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::GIMBAL: {
+        case MissionItem::ItemType::GIMBAL: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_MOUNT_CONTROL, false, true, x->gimbalPitch(),
-                                              x->gimbalRoll(), x->gimbalYaw(), 0, 0, 0,
+                                              MAV_CMD_DO_MOUNT_CONTROL, false, true, x.param_1,
+                                              x.param_2, x.param_3, 0, 0, 0,
                                               0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
-                                              MAV_CMD_DO_MOUNT_CONTROL, false, true, x->gimbalPitch(),
-                                              x->gimbalRoll(), x->gimbalYaw(), 0, 0, 0,
+                                              MAV_CMD_DO_MOUNT_CONTROL, false, true, x.param_1,
+                                              x.param_2, x.param_3, 0, 0, 0,
                                               0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::TRIGGER: {
-            int pt = (x->shootOnDistance() < 1 && x->shootOnTime() < 1) ? 0 : 1;
+        case MissionItem::ItemType::TRIGGER: {
+            int pt = (x.param_1 < 1 && x.param_2 < 1) ? 0 : 1;
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_SET_CAM_TRIGG_DIST, false, true,
-                                              x->shootOnDistance(), x->shootOnTime(), pt,
+                                              x.param_1, x.param_2, pt,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_SET_CAM_TRIGG_DIST, false, true,
-                                              x->shootOnDistance(), x->shootOnTime(), pt,
+                                              x.param_1, x.param_2, pt,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
-        case (int)MissionItem::ItemType::PARACHUTE: {
+        case MissionItem::ItemType::PARACHUTE: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_PARACHUTE, false, true, 1, 0, 0,
@@ -262,7 +254,7 @@ bool MavlinkMissionWriteRequest::processMessage(const mavlink_message_t &msg)
         if (i.mission_type == MAV_MISSION_TYPE_MISSION)
         {
             m_nextPoint = i.seq;
-            emit progress(m_nextPoint / m_mission.size());
+            emit progress(m_nextPoint / m_mission.size(), false);
             m_state = State::SET_NEXT;
             m_useInt = false;
             resetTimers(100);
@@ -277,7 +269,7 @@ bool MavlinkMissionWriteRequest::processMessage(const mavlink_message_t &msg)
         if (i.mission_type == MAV_MISSION_TYPE_MISSION)
         {
             m_nextPoint = i.seq;
-            emit progress(m_nextPoint / m_mission.size());
+            emit progress(m_nextPoint / m_mission.size(), false);
             m_state = State::SET_NEXT;
             m_useInt = true;
             resetTimers(100);
@@ -291,13 +283,69 @@ bool MavlinkMissionWriteRequest::processMessage(const mavlink_message_t &msg)
         mavlink_msg_mission_ack_decode(&msg, &ack);
         if (ack.mission_type == MAV_MISSION_TYPE_MISSION)
         {
+            if (m_state == State::SET_SIZE || m_state == State::SET_NEXT) {
+                switch (ack.type) {
+                case MAV_MISSION_ERROR:
+                    if (m_state == State::SET_SIZE)
+                        emit onError(tr("Undefined error while write mission size"));
+                    else
+                        emit onError(tr("Undefined error while write mission item"));
+                    break;
+                case MAV_MISSION_UNSUPPORTED_FRAME:
+                    emit onError(tr("Unsupported frame"));
+                    break;
+                case MAV_MISSION_UNSUPPORTED:
+                    emit onError(tr("Mission operation is unsupported"));
+                    break;
+                case MAV_MISSION_NO_SPACE:
+                    emit onError(tr("Mission out of space"));
+                    break;
+                case MAV_MISSION_INVALID:
+                    emit onError(tr("Mission item %1 has invalid parameter").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM1:
+                    emit onError(tr("Mission item %1 has invalid parameter 1").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM2:
+                    emit onError(tr("Mission item %1 has invalid parameter 2").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM3:
+                    emit onError(tr("Mission item %1 has invalid parameter 3").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM4:
+                    emit onError(tr("Mission item %1 has invalid parameter 4").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM5_X:
+                    emit onError(tr("Mission item %1 has invalid parameter 5/latitude").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM6_Y:
+                    emit onError(tr("Mission item %1 has invalid parameter 6/longitude").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_PARAM7:
+                    emit onError(tr("Mission item %1 has invalid parameter 7/altitude").arg(m_nextPoint));
+                    break;
+                case MAV_MISSION_INVALID_SEQUENCE:
+                    emit onError(tr("Invalid sequence while write mission"));
+                    break;
+                case MAV_MISSION_DENIED:
+                    emit onError(tr("Mission denied"));
+                    break;
+                //case MAV_MISSION_OPERATION_CANCELLED:
+                //    emit onError(tr("Mission write canceled"));
+                //    break;
+                default:
+                    break;
+                }
+            }
             qDebug() << "mission ack " << ack.type;
-            if (ack.type == MAV_MISSION_ACCEPTED) {
+            if (ack.type == MAV_RESULT_IN_PROGRESS) {
+                // continue
+            } else if (ack.type == MAV_MISSION_ACCEPTED) {
                 // done
-                emit progress(1.);
+                emit progress(1., false);
                 m_state = State::UNDEFINED;
             } else {
-                emit progress(0.);
+                emit progress(0., true);
                 m_state = State::UNDEFINED;
                 // failure
             }
@@ -314,14 +362,14 @@ void MavlinkMissionWriteRequest::onInit()
 
 }
 
-int MavlinkMissionWriteRequest::getFrame(int f)
+int MavlinkMissionWriteRequest::getFrame(MissionItem::Frame f)
 {
     switch (f) {
-    case (int)MissionItem::Frame::ABSOLUTE:
+    case MissionItem::Frame::ABSOLUTE:
         return MAV_FRAME_GLOBAL;
-    case (int)MissionItem::Frame::RELATIVE:
+    case MissionItem::Frame::RELATIVE:
         return MAV_FRAME_GLOBAL_RELATIVE_ALT;
-    case (int)MissionItem::Frame::RELIEF:
+    case MissionItem::Frame::RELIEF:
         return MAV_FRAME_GLOBAL_TERRAIN_ALT;
     default:
         break;
@@ -329,14 +377,14 @@ int MavlinkMissionWriteRequest::getFrame(int f)
     return MAV_FRAME_MISSION;
 }
 
-int MavlinkMissionWriteRequest::getFrameInt(int f)
+int MavlinkMissionWriteRequest::getFrameInt(MissionItem::Frame f)
 {
     switch (f) {
-    case (int)MissionItem::Frame::ABSOLUTE:
+    case MissionItem::Frame::ABSOLUTE:
         return MAV_FRAME_GLOBAL_INT;
-    case (int)MissionItem::Frame::RELATIVE:
+    case MissionItem::Frame::RELATIVE:
         return MAV_FRAME_GLOBAL_RELATIVE_ALT_INT;
-    case (int)MissionItem::Frame::RELIEF:
+    case MissionItem::Frame::RELIEF:
         return MAV_FRAME_GLOBAL_TERRAIN_ALT_INT;
     default:
         break;

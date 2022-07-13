@@ -19,7 +19,7 @@ protected:
     virtual bool processMessage(const mavlink_message_t &msg) override;
     virtual void onInit() override;
 
-    int getFrame(int f);
+    MissionItem::Frame getFrame(int f);
 
     enum State {
         UNDEFINED,
@@ -30,6 +30,7 @@ protected:
     State m_state = UNDEFINED;
     uint16_t m_nextPoint = 0;
     uint16_t m_missinFull = 0;
+    uint16_t m_onReceived = -1;
 
     void resetTimers(int interval = 100);
 signals:
