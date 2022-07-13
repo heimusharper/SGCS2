@@ -90,32 +90,32 @@ Item {
                 }
             }
         }
-
+        MapPolyline {
+            id: line
+            path: UAV.getMission().mapPath
+            line.width: 2
+            line.color: 'red'
+        }
         MapItemView {
             model: UAV.getMission()
             delegate: MapQuickItem {
-                /*sourceItem: Rectangle {
-                    width: 20
-                    height: 20
-                    color: "red"
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            UAV.getMission().removeOne(index)
-                        }
-                    }
-                }*/
+                anchorPoint.x: roundMapItem.width/2
+                anchorPoint.y: roundMapItem.height/2
+
                 sourceItem: RoundButton {
+                    id: roundMapItem
                     width: map.width / 20
                     height: width
                     radius: width / 2
                     Material.background: Material.Teal
+                    visible: operation === 0
+                    text: index
                     onClicked: {
                         UAV.getMission().removeOne(index)
                     }
                 }
 
-                coordinate: QtPositioning.coordinate(lat, lon, alt)
+                coordinate: pos
             }
         }
     }

@@ -9,7 +9,9 @@ import Finco 1.0
 
 Item {
 
-    signal configureAt(var index)
+    signal configureAt(var index, var item_type, var param1, var param2,
+                       var param3, var param4, var param5, var param6, var param7,
+                       var frame)
     signal addOperationOn(var index)
 
     function getItemName(type)
@@ -93,8 +95,8 @@ Item {
                                 {
                                 case Mission.SIMPLE_POINT: {
                                     var delay = param1
-                                    return "[" + lat.toFixed(6) + "; " + lon.toFixed(6) + "; " +
-                                            alt.toFixed(1) + "]; " + qsTr("wait:") +
+                                    return "[" + pos.latitude.toFixed(6) + "; " + pos.longitude.toFixed(6) + "; " +
+                                            pos.altitude.toFixed(1) + "]; " + qsTr("wait:") +
                                             " " + ((delay < 0) ? qsTr("no") : delay) + "; " +
                                             qsTr("frame") + ": " +
                                             getItemFrameName(frame)
@@ -139,10 +141,10 @@ Item {
                             missionList.currentIndex = index
                         }
                         onDoubleClicked: {
-                            configureAt(index)
+                            configureAt(index, type, param1, param2, param3, param4, param5, param6, param7, frame)
                         }
                         onPressAndHold: {
-                            configureAt(index)
+                            configureAt(index, type, param1, param2, param3, param4, param5, param6, param7, frame)
                         }
                     }
 
@@ -182,7 +184,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                configureAt(index)
+                                configureAt(index, type, param1, param2, param3, param4, param5, param6, param7, frame)
                             }
                         }
                     }

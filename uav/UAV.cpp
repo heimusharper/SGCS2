@@ -14,6 +14,7 @@ UAV::UAV(DataStreamer *streamer, QObject *parent)
     m_mission = new Mission(m_streamer, this);
 
     connect(m_mission, &Mission::progress, this, &UAV::setProgress);
+    connect(this, &UAV::homePositionChanged, m_mission, &Mission::setHome);
 
     doRequestHomePosition();
 }
@@ -33,7 +34,7 @@ void UAV::setHomePosition(const QGeoCoordinate &newHomePosition)
     if (m_homePosition == newHomePosition)
         return;
     m_homePosition = newHomePosition;
-    emit homePositionChanged();
+    emit homePositionChanged(m_homePosition);
 }
 
 Positioning *UAV::getPositioning() const

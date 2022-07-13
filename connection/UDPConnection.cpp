@@ -47,7 +47,7 @@ void UDPConnection::connectTo()
 
 void UDPConnection::doWriteData(const QByteArray &data)
 {
-    qDebug() << "WRITE" << data.toHex();
+    // qDebug() << "WRITE" << data.toHex();
     // m_socket->write(data);
     m_socket->writeDatagram(data, m_userHost, m_userPort);
 }

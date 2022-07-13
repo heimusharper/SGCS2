@@ -11,16 +11,12 @@ Item {
 
     property int itemIndex: -1
     signal closeMe()
-    function updateContent(index) {
+    function updateContent(index, lat, lon, alt, wait, frame) {
         itemIndex = index
-        pointLatitudeField.text = Number(UAV.getMission().itemAt(itemIndex).position.latitude)
-            .toLocaleString(Qt.locale(), 'f', 6)
-        pointLongitudeField.text = Number(UAV.getMission().itemAt(itemIndex).position.longitude)
-            .toLocaleString(Qt.locale(), 'f', 6)
-        pointAltitudeField.text = Number(UAV.getMission().itemAt(itemIndex).position.altitude)
-            .toLocaleString(Qt.locale(), 'f', 2)
-        pointWaitField.text = Number(UAV.getMission().itemAt(itemIndex).wait)
-            .toLocaleString(Qt.locale(), 'f', 0)
+        pointLatitudeField.text = Number(lat).toLocaleString(Qt.locale(), 'f', 6)
+        pointLongitudeField.text = Number(lon).toLocaleString(Qt.locale(), 'f', 6)
+        pointAltitudeField.text = Number(alt).toLocaleString(Qt.locale(), 'f', 2)
+        pointWaitField.text = Number(wait).toLocaleString(Qt.locale(), 'f', 0)
     }
 
     ColumnLayout {

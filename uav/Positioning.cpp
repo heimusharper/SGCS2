@@ -25,7 +25,7 @@ void Positioning::setPosition(const QGeoCoordinate &newPosition)
 {
     if (m_position == newPosition)
         return;
-    qDebug() <<"on change position" << newPosition;
+    //qDebug() <<"on change position" << newPosition;
     m_position = newPosition;
     emit positionChanged();
 }

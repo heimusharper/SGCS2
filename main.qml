@@ -38,8 +38,15 @@ ApplicationWindow {
     MissionEditDrawer {
         id: missionEditView
         onConfigureAt: {
-            missionISimplePointtemEditView.updateContent(index)
-            missionEditDrawer.push(missionISimplePointtemEditView)
+            switch (item_type) {
+                case Mission.SIMPLE_POINT: {
+                    missionISimplePointtemEditView.updateContent(index,
+                                                                 param5, param6, param7,
+                                                                 param1, frame)
+                    missionEditDrawer.push(missionISimplePointtemEditView)
+                    break;
+                }
+            }
         }
         onAddOperationOn: {
             // TODO: implement add operation

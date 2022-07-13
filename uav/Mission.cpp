@@ -26,11 +26,12 @@ QHash<int, QByteArray> Mission::roleNames() const
     roles[param2] = "param2";
     roles[param3] = "param3";
     roles[param4] = "param4";
-    roles[Latitude] = "lat";
-    roles[Longitude] = "lon";
-    roles[Altitude] = "alt";
+    roles[param5] = "param5";
+    roles[param6] = "param6";
+    roles[param7] = "param7";
+    roles[Pos] = "pos";
     roles[PosFrame] = "frame";
-
+    roles[operation] = "operation";
     return roles;
 }
 
@@ -47,14 +48,45 @@ QVariant Mission::data(const QModelIndex &index, int role) const
         return m_items.at(index.row()).param_3;
     case param4:
         return m_items.at(index.row()).param_4;
-    case Latitude:
+    case param5:
         return m_items.at(index.row()).param_x;
-    case Longitude:
+    case param6:
         return m_items.at(index.row()).param_y;
-    case Altitude:
+    case param7:
         return m_items.at(index.row()).param_z;
+    case Pos: {
+        if (m_items.at(index.row()).type == MissionItem::ItemType::SIMPLE_POINT) {
+            return QVariant::fromValue(QGeoCoordinate(m_items.at(index.row()).param_x,
+                                                      m_items.at(index.row()).param_y,
+                                                      m_items.at(index.row()).param_z));
+        }else {
+            for (int i = index.row(); i > 0; i++) {
+                if (m_items.at(i).type == MissionItem::ItemType::SIMPLE_POINT) {
+                    return QVariant::fromValue(QGeoCoordinate(m_items.at(i).param_x,
+                                                              m_items.at(i).param_y,
+                                                              m_items.at(i).param_z));
+                }
+            }
+        }
+        return QVariant::fromValue(m_home);
+    }
     case PosFrame:
         return (int)m_items.at(index.row()).frame;
+    case operation:
+    {
+        if (m_items.at(index.row()).type == MissionItem::ItemType::SIMPLE_POINT)
+            return 0;
+        else {
+            int index_op = 0;
+            for (int i = index.row(); i > 0; i++) {
+                if (m_items.at(i).type != MissionItem::ItemType::SIMPLE_POINT)
+                    index_op++;
+                else
+                    return index_op;
+            }
+        }
+        return -1;
+    }
     default:
         break;
     }
@@ -87,6 +119,7 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
         m_items.push_back(item);
     }
     endInsertRows();
+    updateTrack();
 }
 
 void Mission::setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int frame)
@@ -101,9 +134,12 @@ void Mission::setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int
         obj.param_z = pos.altitude();
         obj.param_1 = wait;
         obj.frame = (MissionItem::Frame)frame;
+        m_items.replace(index, obj);
         QModelIndex topLeft = createIndex(index, 0);
         QModelIndex bottomRight = createIndex(index, 0);
         emit dataChanged( topLeft, bottomRight );
+        if (obj.type == MissionItem::ItemType::SIMPLE_POINT)
+            updateTrack();
     }
 }
 
@@ -111,8 +147,10 @@ void Mission::removeOne(int index)
 {
     if (index < m_items.size()) {
         beginRemoveRows(QModelIndex(), index, index);
-        m_items.takeAt(index);
+        auto it = m_items.takeAt(index);
         endRemoveRows();
+        if (it.type == MissionItem::ItemType::SIMPLE_POINT)
+            updateTrack();
     }
 }
 
@@ -149,6 +187,7 @@ void Mission::clear()
     beginRemoveRows(QModelIndex(), 0, m_items.size());
     m_items.clear();
     endRemoveRows();
+    updateTrack();
 }
 
 void Mission::appendPoint(const MissionItem &it)
@@ -168,6 +207,8 @@ void Mission::appendPoint(const MissionItem &it)
         beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
     m_items.push_back(it);
     endInsertRows();
+    if (it.type == MissionItem::ItemType::SIMPLE_POINT)
+        updateTrack();
 }
 
 void Mission::replacePoint(int index, const MissionItem &it)
@@ -179,6 +220,8 @@ void Mission::replacePoint(int index, const MissionItem &it)
         QModelIndex topLeft = createIndex(index, 0);
         QModelIndex bottomRight = createIndex(index, 0);
         emit dataChanged( topLeft, bottomRight );
+        if (it.type == MissionItem::ItemType::SIMPLE_POINT)
+            updateTrack();
     }
 }
 
@@ -258,4 +301,33 @@ void Mission::setLastError(const QString &newLastError)
         return;
     m_lastError = newLastError;
     emit lastErrorChanged();
+}
+
+void Mission::updateTrack()
+{
+    QVariantList mapPath;
+    for (const auto &pt : m_items) {
+        if (pt.type == MissionItem::ItemType::SIMPLE_POINT) {
+            mapPath.push_back(QVariant::fromValue(QGeoCoordinate(pt.param_x, pt.param_y, pt.param_z)));
+        }
+    }
+    setMapPath(mapPath);
+}
+
+const QVariantList &Mission::mapPath() const
+{
+    return m_mapPath;
+}
+
+void Mission::setMapPath(const QVariantList &newMapPath)
+{
+    if (m_mapPath == newMapPath)
+        return;
+    m_mapPath = newMapPath;
+    emit mapPathChanged();
+}
+
+void Mission::setHome(const QGeoCoordinate &newHome)
+{
+    m_home = newHome;
 }

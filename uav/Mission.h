@@ -18,6 +18,8 @@ class Mission : public QAbstractListModel
     Q_PROPERTY(bool writeErrorState READ writeErrorState NOTIFY writeErrorStateChanged)
     Q_PROPERTY(bool readErrorState READ readErrorState NOTIFY readErrorStateChanged)
     Q_PROPERTY(QString lastError READ lastError NOTIFY lastErrorChanged)
+    Q_PROPERTY(QVariantList mapPath READ mapPath NOTIFY mapPathChanged)
+
 public:
     enum ItemRole {
         TypeRole = Qt::UserRole + 1,
@@ -25,10 +27,12 @@ public:
         param2 = param1 + 1,
         param3 = param2 + 1,
         param4 = param3 + 1,
-        Latitude = param4 + 1,
-        Longitude = Latitude + 1,
-        Altitude = Longitude + 1,
-        PosFrame = Altitude + 1
+        param5 = param4 + 1,
+        param6 = param5 + 1,
+        param7 = param6 + 1,
+        Pos = param7 + 1,
+        PosFrame = Pos + 1,
+        operation = PosFrame + 1
         };
 
     enum class ItemType : int
@@ -85,6 +89,12 @@ public:
 
     const QString &lastError() const;
 
+    const QVariantList &mapPath() const;
+    void setMapPath(const QVariantList &newMapPath);
+
+public slots:
+    void setHome(const QGeoCoordinate &newHome);
+
 private slots:
     void appendPoint(const MissionItem &it);
     void replacePoint(int index, const MissionItem &it);
@@ -94,6 +104,8 @@ private slots:
     void setWriteErrorState(bool newWriteErrorState);
     void setReadErrorState(bool newReadErrorState);
     void setLastError(const QString &newLastError);
+
+    void updateTrack();
 private:
 
     DataStreamer *m_streamer = nullptr;
@@ -110,6 +122,10 @@ private:
 
     QString m_lastError;
 
+    QVariantList m_mapPath;
+
+    QGeoCoordinate m_home;
+
 signals:
 
     void progress(float p);
@@ -119,6 +135,7 @@ signals:
     void writeErrorStateChanged();
     void readErrorStateChanged();
     void lastErrorChanged();
+    void mapPathChanged();
 };
 
 #endif // MISSION_H
