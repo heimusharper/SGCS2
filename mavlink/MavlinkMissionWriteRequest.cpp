@@ -23,54 +23,54 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
     int seq = 0;
     for (auto x : items)
     {
-        mavlink_message_t request;
         mavlink_message_t request_int;
+        mavlink_message_t request;
         switch (x->type()) {
         case (int)MissionItem::ItemType::SIMPLE_POINT: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, getFrameInt(x->frame()),
                                               MAV_CMD_NAV_WAYPOINT, false, true, x->delayOnWaypoint(), 0, 0, 0,
                                               (int32_t)(x->position().latitude() * 1.e7),
                                               (int32_t)(x->position().longitude() * 1.e7),
                                               (float)(x->position().altitude() * 1000.), MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
-                                              seq, getFrame(x->frame()),
-                                              MAV_CMD_NAV_WAYPOINT, false, true, x->delayOnWaypoint(), 0, 0, 0,
-                                              x->position().latitude(),
-                                              x->position().longitude(),
-                                              x->position().altitude(), MAV_MISSION_TYPE_MISSION);
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
+                                          seq, getFrame(x->frame()),
+                                          MAV_CMD_NAV_WAYPOINT, false, true, x->delayOnWaypoint(), 0, 0, 0,
+                                          (float)x->position().latitude(),
+                                          (float)x->position().longitude(),
+                                          (float)x->position().altitude(), MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::TAKEOFF: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, getFrameInt(x->frame()),
                                               MAV_CMD_NAV_TAKEOFF, false, true, 0, 0, 0, 0, 0, 0,
                                               (float)x->position().altitude(), MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, getFrame(x->frame()),
                                               MAV_CMD_NAV_TAKEOFF, false, true, 0, 0, 0, 0, 0, 0,
                                               (float)x->position().altitude(), MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::RTL: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_NAV_RETURN_TO_LAUNCH, false, true, 0, 0, 0,
                                               0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_NAV_RETURN_TO_LAUNCH, false, true, 0, 0, 0,
                                               0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::LAND: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, getFrameInt(x->frame()),
                                               MAV_CMD_NAV_LAND, false, true, 0, 0, 0, 0,
                                               (int32_t)(x->position().latitude() * 1.e7),
                                               (int32_t)(x->position().longitude() * 1.e7),
                                               0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, getFrame(x->frame()),
                                               MAV_CMD_NAV_LAND, false, true, 0, 0, 0, 0,
                                               x->position().latitude(),
@@ -79,68 +79,68 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
             break;
         }
         case (int)MissionItem::ItemType::JUMP: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_JUMP, false, true, x->jumpTo(), x->jumpRepeats(),
                                               0, 0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_JUMP, false, true, x->jumpTo(), x->jumpRepeats(),
                                               0, 0, 0, 0, 0, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::DELAY: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_CONDITION_DELAY, false, true, x->delayOnWaypoint(), 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_CONDITION_DELAY, false, true, x->delayOnWaypoint(), 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::DISTANCE: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_CONDITION_DISTANCE, false, true, x->distance(), 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_CONDITION_DISTANCE, false, true, x->distance(), 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::SPEED: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_CHANGE_SPEED, false, true, 1, x->speed(), 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_CHANGE_SPEED, false, true, 1, x->speed(), 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::SET_SERVO: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_SET_SERVO, false, true, x->servo(), x->pwm(), 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_SET_SERVO, false, true, x->servo(), x->pwm(), 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::ROI: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, getFrameInt(x->frame()),
                                               MAV_CMD_DO_SET_ROI, false, true, 0, 0, 0, 0,
                                               (int32_t)(x->position().latitude() * 1.e7),
                                               (int32_t)(x->position().longitude() * 1.e7),
                                               (float)(x->position().altitude() * 1000.), MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, getFrame(x->frame()),
                                               MAV_CMD_DO_SET_ROI, false, true, 0, 0, 0, 0,
                                               x->position().latitude(),
@@ -157,23 +157,23 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
             else if (x->shoot())
                 i = 1;
 
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_DIGICAM_CONTROL, false, true, 0, x->zoomPosition(),
                                               0, 0, i, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_DIGICAM_CONTROL, false, true, 0, x->zoomPosition(),
                                               0, 0, i, 0, 0.f, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case (int)MissionItem::ItemType::GIMBAL: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_MOUNT_CONTROL, false, true, x->gimbalPitch(),
                                               x->gimbalRoll(), x->gimbalYaw(), 0, 0, 0,
                                               0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_MOUNT_CONTROL, false, true, x->gimbalPitch(),
                                               x->gimbalRoll(), x->gimbalYaw(), 0, 0, 0,
@@ -182,12 +182,12 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
         }
         case (int)MissionItem::ItemType::TRIGGER: {
             int pt = (x->shootOnDistance() < 1 && x->shootOnTime() < 1) ? 0 : 1;
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_SET_CAM_TRIGG_DIST, false, true,
                                               x->shootOnDistance(), x->shootOnTime(), pt,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_SET_CAM_TRIGG_DIST, false, true,
                                               x->shootOnDistance(), x->shootOnTime(), pt,
@@ -195,11 +195,11 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
             break;
         }
         case (int)MissionItem::ItemType::PARACHUTE: {
-            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request, APID, APCOMP,
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_PARACHUTE, false, true, 1, 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
-            mavlink_msg_mission_item_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                               seq, MAV_FRAME_MISSION,
                                               MAV_CMD_DO_PARACHUTE, false, true, 1, 0, 0,
                                               0, 0, 0, 0.f, MAV_MISSION_TYPE_MISSION);
@@ -208,8 +208,8 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem*> &items)
         default:
             break;
         }
-        m_mission.append(request);
         m_mission_int.append(request_int);
+        m_mission.append(request);
         seq++;
     }
     if (!m_mission.isEmpty()){
