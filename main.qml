@@ -49,11 +49,19 @@ ApplicationWindow {
             }
         }
         onAddOperationOn: {
-            // TODO: implement add operation
+            missionIOperationSelectEditView.itemIndex = index
+            missionEditDrawer.push(missionIOperationSelectEditView)
         }
     }
     MissionSimplePointItemEdit {
         id: missionISimplePointtemEditView
+        onCloseMe: {
+            missionEditDrawer.pop()
+        }
+    }
+
+    MissionSelectOperationItemEdit {
+        id: missionIOperationSelectEditView
         onCloseMe: {
             missionEditDrawer.pop()
         }

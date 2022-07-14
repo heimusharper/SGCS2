@@ -122,6 +122,25 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
     updateTrack();
 }
 
+void Mission::appendOperationAt(int at, int type, float p1, float p2, float p3, float p4, float p5, float p6, float p7, int frame)
+{
+    if (at < m_items.size()) {
+        beginInsertRows(QModelIndex(), at, at);
+        MissionItem item;
+        item.type = (MissionItem::ItemType)type;
+        item.frame = (MissionItem::Frame)frame;
+        item.param_1 = p1;
+        item.param_2 = p2;
+        item.param_3 = p3;
+        item.param_4 = p4;
+        item.param_x = p5;
+        item.param_y = p6;
+        item.param_z = p7;
+        m_items.insert(at + 1, item);
+        endInsertRows();
+    }
+}
+
 void Mission::setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int frame)
 {
     if (index >= m_items.size()) {

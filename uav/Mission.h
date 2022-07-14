@@ -71,7 +71,12 @@ public:
     QVariant data(const QModelIndex& index, int role) const override;
 
     Q_INVOKABLE void appendSimplePoint(const QGeoCoordinate &pos);
+    Q_INVOKABLE void appendOperationAt(int at, int type, float p1, float p2, float p3,
+                                       float p4, float p5, float p6, float p7, int frame);
+
+
     Q_INVOKABLE void setSimplePoint(int index, const QGeoCoordinate &pos, int wait, int frame);
+
     Q_INVOKABLE void removeOne(int index);
     Q_INVOKABLE void readAll();
     Q_INVOKABLE void writeAll();

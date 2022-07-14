@@ -196,138 +196,138 @@
 <context>
     <name>MissionEditDrawer</name>
     <message>
-        <location filename="MissionEditDrawer.qml" line="20"/>
-        <source>Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="MissionEditDrawer.qml" line="22"/>
-        <location filename="MissionEditDrawer.qml" line="103"/>
-        <source>Takeoff</source>
+        <source>Point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="24"/>
         <location filename="MissionEditDrawer.qml" line="105"/>
-        <source>RTL</source>
+        <source>Takeoff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="26"/>
         <location filename="MissionEditDrawer.qml" line="107"/>
-        <source>Land</source>
+        <source>RTL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="28"/>
         <location filename="MissionEditDrawer.qml" line="109"/>
-        <source>Junmp</source>
+        <source>Land</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="30"/>
         <location filename="MissionEditDrawer.qml" line="111"/>
-        <source>Wait delay</source>
+        <source>Junmp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="32"/>
         <location filename="MissionEditDrawer.qml" line="113"/>
-        <source>Wait distance</source>
+        <source>Wait delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="34"/>
         <location filename="MissionEditDrawer.qml" line="115"/>
-        <source>Speed</source>
+        <source>Wait distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="36"/>
         <location filename="MissionEditDrawer.qml" line="117"/>
-        <source>Servo</source>
+        <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="38"/>
         <location filename="MissionEditDrawer.qml" line="119"/>
-        <source>ROI</source>
+        <source>Servo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="40"/>
         <location filename="MissionEditDrawer.qml" line="121"/>
-        <source>Camera</source>
+        <source>ROI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="42"/>
-        <location filename="MissionEditDrawer.qml" line="44"/>
         <location filename="MissionEditDrawer.qml" line="123"/>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionEditDrawer.qml" line="44"/>
+        <location filename="MissionEditDrawer.qml" line="46"/>
         <location filename="MissionEditDrawer.qml" line="125"/>
+        <location filename="MissionEditDrawer.qml" line="127"/>
         <source>Gimbal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="46"/>
-        <location filename="MissionEditDrawer.qml" line="127"/>
+        <location filename="MissionEditDrawer.qml" line="48"/>
+        <location filename="MissionEditDrawer.qml" line="129"/>
         <source>Trigger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="48"/>
+        <location filename="MissionEditDrawer.qml" line="50"/>
         <source>Parachute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="50"/>
-        <location filename="MissionEditDrawer.qml" line="63"/>
+        <location filename="MissionEditDrawer.qml" line="52"/>
+        <location filename="MissionEditDrawer.qml" line="65"/>
         <source>Undefined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="57"/>
+        <location filename="MissionEditDrawer.qml" line="59"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="59"/>
+        <location filename="MissionEditDrawer.qml" line="61"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="61"/>
+        <location filename="MissionEditDrawer.qml" line="63"/>
         <source>Relief</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="97"/>
+        <location filename="MissionEditDrawer.qml" line="99"/>
         <source>wait:</source>
         <oldsource>wait</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="98"/>
+        <location filename="MissionEditDrawer.qml" line="100"/>
         <source>no</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="99"/>
+        <location filename="MissionEditDrawer.qml" line="101"/>
         <source>frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="160"/>
+        <location filename="MissionEditDrawer.qml" line="162"/>
         <source>RM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="180"/>
+        <location filename="MissionEditDrawer.qml" line="182"/>
         <source>ED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="200"/>
+        <location filename="MissionEditDrawer.qml" line="202"/>
         <source>AD</source>
         <translation type="unfinished"></translation>
     </message>
@@ -369,34 +369,155 @@
     </message>
 </context>
 <context>
-    <name>MissionSimplePointItemEdit</name>
+    <name>MissionSelectOperationItemEdit</name>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="34"/>
-        <source>Latitude</source>
+        <location filename="MissionSelectOperationItemEdit.qml" line="149"/>
+        <source>RTL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="48"/>
-        <source>Longitude</source>
+        <location filename="MissionSelectOperationItemEdit.qml" line="149"/>
+        <source>Land</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="60"/>
-        <source>Altitude</source>
+        <location filename="MissionSelectOperationItemEdit.qml" line="149"/>
+        <source>Jump</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="73"/>
-        <source>Wait</source>
+        <location filename="MissionSelectOperationItemEdit.qml" line="150"/>
+        <source>Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="87"/>
+        <location filename="MissionSelectOperationItemEdit.qml" line="42"/>
+        <location filename="MissionSelectOperationItemEdit.qml" line="150"/>
+        <source>Distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="22"/>
+        <source>To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="32"/>
+        <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="52"/>
+        <location filename="MissionSelectOperationItemEdit.qml" line="150"/>
+        <source>Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="63"/>
+        <location filename="MissionSelectOperationItemEdit.qml" line="151"/>
+        <source>Servo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="70"/>
+        <source>PWM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="82"/>
+        <source>Lat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="89"/>
+        <source>Lon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="96"/>
+        <source>Alt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="108"/>
+        <source>Roll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="115"/>
+        <source>Pitch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="122"/>
+        <source>Yaw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="151"/>
+        <source>ROI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="151"/>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="152"/>
+        <source>Gimbal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="152"/>
+        <source>Trigger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="152"/>
+        <source>Parachute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSelectOperationItemEdit.qml" line="206"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionSimplePointItemEdit.qml" line="99"/>
+        <location filename="MissionSelectOperationItemEdit.qml" line="225"/>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MissionSimplePointItemEdit</name>
+    <message>
+        <location filename="MissionSimplePointItemEdit.qml" line="30"/>
+        <source>Latitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSimplePointItemEdit.qml" line="44"/>
+        <source>Longitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSimplePointItemEdit.qml" line="56"/>
+        <source>Altitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSimplePointItemEdit.qml" line="69"/>
+        <source>Wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSimplePointItemEdit.qml" line="83"/>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionSimplePointItemEdit.qml" line="95"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -427,62 +548,62 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="129"/>
+        <location filename="main.qml" line="144"/>
         <source>Points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="152"/>
+        <location filename="main.qml" line="167"/>
         <source>Extended</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="175"/>
+        <location filename="main.qml" line="190"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="205"/>
+        <location filename="main.qml" line="220"/>
         <source>Altitude:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="218"/>
+        <location filename="main.qml" line="233"/>
         <source>Frame:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="221"/>
+        <location filename="main.qml" line="236"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="221"/>
+        <location filename="main.qml" line="236"/>
         <source>Relief</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="221"/>
+        <location filename="main.qml" line="236"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="353"/>
+        <location filename="main.qml" line="368"/>
         <source>Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="363"/>
+        <location filename="main.qml" line="378"/>
         <source>Stream</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="373"/>
+        <location filename="main.qml" line="388"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="382"/>
+        <location filename="main.qml" line="397"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>

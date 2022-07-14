@@ -25,5 +25,6 @@
         <file>MapControls.qml</file>
         <file>MissionSimplePointItemEdit.qml</file>
         <file>MissionLoadDrawer.qml</file>
+        <file>MissionSelectOperationItemEdit.qml</file>
     </qresource>
 </RCC>

@@ -65,6 +65,50 @@ Item {
         return qsTr("Undefined")
     }
 
+    function getAdditional(type, frame, p1, p2, p3, p4, p5, p6, p7)
+    {
+        {
+            switch (type)
+            {
+            case Mission.SIMPLE_POINT: {
+                var delay = p1
+                return "[" + p5.toFixed(6) + "; " + p6.toFixed(6) + "; " +
+                        p7.toFixed(1) + "]; " + qsTr("wait:") +
+                        " " + ((delay < 0) ? qsTr("no") : delay) + "; " +
+                        qsTr("frame") + ": " +
+                        getItemFrameName(frame)
+            }
+            case Mission.TAKEOFF:
+                return ""
+            case Mission.RTL:
+                return ""
+            case Mission.LAND:
+                return "[" + p5.toFixed(6) + "; " + p6.toFixed(6) + "]"
+            case Mission.JUMP:
+                return qsTr("To") + " " + p1
+            case Mission.DELAY:
+                return qsTr("Wait") + " " + p1 + qsTr("sec.")
+            case Mission.DISTANCE:
+                return qsTr("Distance") + " " + p1 + qsTr("m")
+            case Mission.SPEED:
+                return qsTr("Speed") + " " + p2 + qsTr("m/s")
+            case Mission.SET_SERVO:
+                return qsTr("Servo") + " " + p1 + " " + qsTr("PWM") + p2
+            case Mission.ROI:
+                return "[" + p5.toFixed(6) + "; " + p6.toFixed(6) + "; " + p7.toFixed(1) + "]"
+            case Mission.CAMERA:
+                return ""
+            case Mission.GIMBAL:
+                return qsTr("Pitch") + " " + p1 + "; " + qsTr("Roll") + " " + p2 + "; " + qsTr("Yaw") + " " + p3
+            case Mission.TRIGGER:
+                return qsTr("Distance") + " " + p1 + "; " + qsTr("Time") + " " + p2
+            case Mission.PARACHUTE:
+                break;
+            }
+            return ""
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent        
         ListView {
@@ -90,48 +134,8 @@ Item {
                             text: index + ": " + getItemName(type)
                         }
                         Text {
-                            text: {
-                                switch (type)
-                                {
-                                case Mission.SIMPLE_POINT: {
-                                    var delay = param1
-                                    return "[" + pos.latitude.toFixed(6) + "; " + pos.longitude.toFixed(6) + "; " +
-                                            pos.altitude.toFixed(1) + "]; " + qsTr("wait:") +
-                                            " " + ((delay < 0) ? qsTr("no") : delay) + "; " +
-                                            qsTr("frame") + ": " +
-                                            getItemFrameName(frame)
-                                }
-                                case Mission.TAKEOFF:
-                                    return qsTr("Takeoff")
-                                case Mission.RTL:
-                                    return qsTr("RTL")
-                                case Mission.LAND:
-                                    return qsTr("Land")
-                                case Mission.JUMP:
-                                    return qsTr("Junmp")
-                                case Mission.DELAY:
-                                    return qsTr("Wait delay")
-                                case Mission.DISTANCE:
-                                    return qsTr("Wait distance")
-                                case Mission.SPEED:
-                                    return qsTr("Speed")
-                                case Mission.SET_SERVO:
-                                    return qsTr("Servo")
-                                case Mission.ROI:
-                                    return qsTr("ROI")
-                                case Mission.CAMERA:
-                                    return qsTr("Camera")
-                                case Mission.GIMBAL:
-                                    return qsTr("Gimbal")
-                                case Mission.GIMBAL:
-                                    return qsTr("Gimbal")
-                                case Mission.TRIGGER:
-                                    return qsTr("Trigger")
-                                case Mission.PARACHUTE:
-                                    break;
-                                }
-                                return ""
-                            }
+                            text: getAdditional(type, frame, param1, param2, param3, param4,
+                                                param5, param6, param7)
                         }
                     }
 
