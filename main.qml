@@ -24,7 +24,7 @@ ApplicationWindow {
     MapConfigureView {
         id: mapConfigureView
         onMapTypeChanged: {
-            mapRectangle.setMapType(mapConfigureView.mapProvider, mapConfigureView.mapType)
+            mapView.setMapType(mapConfigureView.mapProvider, mapConfigureView.mapType)
         }
     }
 
@@ -39,13 +39,12 @@ ApplicationWindow {
         id: missionEditView
         onConfigureAt: {
             switch (item_type) {
-                case Mission.SIMPLE_POINT: {
+                case Mission.SIMPLE_POINT:
                     missionISimplePointtemEditView.updateContent(index,
                                                                  param5, param6, param7,
                                                                  param1, frame)
                     missionEditDrawer.push(missionISimplePointtemEditView)
                     break;
-                }
             }
         }
         onAddOperationOn: {

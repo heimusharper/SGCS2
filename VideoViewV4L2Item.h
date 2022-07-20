@@ -10,6 +10,8 @@
 #include <QMediaPlayer>
 #include <QVideoSurfaceFormat>
 #include <QAbstractVideoSurface>
+#include <QtQml/qqml.h>
+
 
 class VideoFrameGrabber : public QAbstractVideoSurface {
     Q_OBJECT
@@ -72,7 +74,6 @@ private:
 class VideoViewV4L2Item : public QQuickItem
 {
     Q_OBJECT
-    QML_ELEMENT
 public:
     explicit VideoViewV4L2Item(QQuickItem *parent = nullptr);
 
