@@ -14,6 +14,12 @@ Item {
         if (simpleMode || trackUAV)
             map.center = uavPosition
     }
+    function updateTargetVectorPath()
+    {
+        targetVectopPath.replaceCoordinate(0, uavPosition)
+        targetVectopPath.replaceCoordinate(1, targetPosition)
+    }
+
 
     property variant realMapView
     property bool simpleMode: false
@@ -23,9 +29,15 @@ Item {
 
     property bool trackUAV: false
     property variant uavPosition: UAV.getPositioning().position
+    property variant targetPosition: UAV.getPositioning().targetPosition
     onUavPositionChanged: {
         centerToUAV()
+        updateTargetVectorPath()
     }
+    onTargetPositionChanged: {
+        updateTargetVectorPath()
+    }
+
     onTrackUAVChanged: {
         if (trackUAV)
             centerToUAV()
@@ -38,6 +50,12 @@ Item {
     {
         map.zoomLevel = map.zoomLevel-1
     }
+
+    //path: [
+    //    { latitude: -27, longitude: 153.0 },
+    //    { latitude: -27, longitude: 154.1 }
+    //]
+
 
     signal mapFocused;
 
@@ -68,22 +86,6 @@ Item {
             mapFocused()
         }
 
-
-        // UAV component
-        MapQuickItem  {
-            property var attitudes: UAV.getPositioning().attitude
-
-            id: mapUAVItemComponentItem
-            anchorPoint.x: mapUAVItemComponent.width / 2
-            anchorPoint.y: mapUAVItemComponent.height / 2
-            sourceItem: mapUAVItemComponent
-            coordinate: UAV.getPositioning().position
-            // rotation: UAV.getPositioning().attitude.z
-            onAttitudesChanged: {
-                console.log("set att" + attitudes)
-                mapUAVItemComponentItem.rotation = attitudes.z
-            }
-        }
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -138,6 +140,33 @@ Item {
                 text: "H"
                 onClicked: {
                 }
+            }
+        }
+
+
+        MapPolyline {
+            id: targetVectopPath
+
+            line.width: 2
+            line.color: Material.color(Material.Purple)
+
+            path: [ { latitude: -27, longitude: 153.0 },
+                        { latitude: -27, longitude: 154.1 } ]
+        }
+
+
+        // UAV component
+        MapQuickItem  {
+            property var attitudes: UAV.getPositioning().attitude
+
+            id: mapUAVItemComponentItem
+            anchorPoint.x: mapUAVItemComponent.width / 2
+            anchorPoint.y: mapUAVItemComponent.height / 2
+            sourceItem: mapUAVItemComponent
+            coordinate: UAV.getPositioning().position
+            // rotation: UAV.getPositioning().attitude.z
+            onAttitudesChanged: {
+                mapUAVItemComponentItem.rotation = attitudes.z
             }
         }
     }
