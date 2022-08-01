@@ -11,7 +11,9 @@ class PhotoPayload : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(float onTime READ onTime WRITE setOnTime NOTIFY onTimeChanged)
     Q_PROPERTY(float onDistance READ onDistance WRITE setOnDistance NOTIFY onDistanceChanged)
-     Q_PROPERTY(int fullCount READ fullCount WRITE setFullCount NOTIFY fullCountChanged)
+    Q_PROPERTY(int fullCount READ fullCount WRITE setFullCount NOTIFY fullCountChanged)
+    Q_PROPERTY(int fullCountSecond READ fullCountSecond WRITE setFullCountSecond NOTIFY fullCountSecondChanged)
+
 public:
     enum ItemRole {
         Latitude = Qt::UserRole + 1,
@@ -37,6 +39,9 @@ public:
     int fullCount() const;
     void setFullCount(int newFullCount);
 
+    int fullCountSecond() const;
+    void setFullCountSecond(int newFullCount);
+
 signals:
 
     void onTimeChanged();
@@ -44,6 +49,8 @@ signals:
     void onDistanceChanged();
 
     void fullCountChanged();
+
+    void fullCountSecondChanged();
 
 private:
 
@@ -60,6 +67,7 @@ private:
     float m_onTime = 0;
     float m_onDistance = 0;
     int m_fullCount = 0;
+    int m_fullCountSecond = 0;
 };
 
 #endif // PHOTOPAYLOAD_H

@@ -16,7 +16,7 @@ public:
     virtual void takeOneShot() = 0;
 
 signals:
-    void onTakeShot(int index, const QGeoCoordinate &pos);
+    void onTakeShot(int cam, int index, const QGeoCoordinate &pos);
 };
 
 #endif // PHOTOPAYLOADSTREAM_H

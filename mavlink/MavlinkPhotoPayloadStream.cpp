@@ -23,7 +23,8 @@ bool MavlinkPhotoPayloadStream::processMessage(const mavlink_message_t &msg)
     case MAVLINK_MSG_ID_CAMERA_FEEDBACK: {
         mavlink_camera_feedback_t feedback;
         mavlink_msg_camera_feedback_decode(&msg, &feedback);
-        emit onTakeShot(feedback.completed_captures,
+        emit onTakeShot(feedback.cam_idx,
+                        feedback.completed_captures,
                         QGeoCoordinate((double)feedback.lat / 1.e7,
                                        (double)feedback.lng / 1.e7,
                                        (double)feedback.alt_msl));

@@ -202,7 +202,12 @@ ToolBar {
              }
              ToolButton {
                  id: photos
-                 text: qsTr("Photos: ") + UAV.getPayloadPhoto().fullCount
+                 text: qsTr("Photos 1: ") + UAV.getPayloadPhoto().fullCount
+                 font.pixelSize: height / 2
+             }
+             ToolButton {
+                 id: photos2
+                 text: qsTr("2: ") + UAV.getPayloadPhoto().fullCountSecond
                  font.pixelSize: height / 2
              }
              Item {

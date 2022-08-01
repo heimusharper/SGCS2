@@ -11,9 +11,13 @@ PhotoPayload::PhotoPayload(DataStreamer *streamer, QObject *parent)
     m_streamer(streamer)
 {
     connect(m_streamer->getPhotoPayloadStream(), &PhotoPayloadStream::onTakeShot, [this]
-            (int index, const QGeoCoordinate &pos) {
-        m_photos.append(Photo(pos));
-        setFullCount(index + 1);
+            (int camera, int index, const QGeoCoordinate &pos) {
+        if (camera == 0) {
+            m_photos.append(Photo(pos));
+            setFullCount(index + 1);
+        } else {
+            setFullCountSecond(index + 1);
+        }
     });
 }
 
@@ -104,3 +108,17 @@ void PhotoPayload::setFullCount(int newFullCount)
     m_fullCount = newFullCount;
     emit fullCountChanged();
 }
+
+int PhotoPayload::fullCountSecond() const
+{
+    return m_fullCountSecond;
+}
+
+void PhotoPayload::setFullCountSecond(int newFullCount)
+{
+    if (m_fullCountSecond == newFullCount)
+        return;
+    m_fullCountSecond = newFullCount;
+    emit fullCountSecondChanged();
+}
+
