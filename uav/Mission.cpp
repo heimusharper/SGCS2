@@ -37,6 +37,8 @@ QHash<int, QByteArray> Mission::roleNames() const
 
 QVariant Mission::data(const QModelIndex &index, int role) const
 {
+    if (index.row() >= m_items.size())
+        return QVariant();
     switch (role) {
     case TypeRole:
         return (int)m_items.at(index.row()).type;
@@ -60,7 +62,7 @@ QVariant Mission::data(const QModelIndex &index, int role) const
                                                       m_items.at(index.row()).param_y,
                                                       m_items.at(index.row()).param_z));
         }else {
-            for (int i = index.row(); i > 0; i++) {
+            for (int i = index.row(); i > 0 && i < m_items.size(); i++) {
                 if (m_items.at(i).type == MissionItem::ItemType::SIMPLE_POINT) {
                     return QVariant::fromValue(QGeoCoordinate(m_items.at(i).param_x,
                                                               m_items.at(i).param_y,
@@ -78,7 +80,7 @@ QVariant Mission::data(const QModelIndex &index, int role) const
             return 0;
         else {
             int index_op = 0;
-            for (int i = index.row(); i > 0; i++) {
+            for (int i = index.row(); i > 0 && i < m_items.size(); i++) {
                 if (m_items.at(i).type != MissionItem::ItemType::SIMPLE_POINT)
                     index_op++;
                 else
@@ -325,10 +327,13 @@ void Mission::setLastError(const QString &newLastError)
 void Mission::updateTrack()
 {
     QVariantList mapPath;
-    for (const auto &pt : m_items) {
-        if (pt.type == MissionItem::ItemType::SIMPLE_POINT) {
+    for (const auto &pt : qAsConst(m_items)) {
+        if (pt.type == MissionItem::ItemType::TAKEOFF && m_home.isValid())
+            mapPath.push_back(QVariant::fromValue(m_home));
+        else if (pt.type == MissionItem::ItemType::RTL && m_home.isValid())
+            mapPath.push_back(QVariant::fromValue(m_home));
+        else if (pt.type == MissionItem::ItemType::SIMPLE_POINT)
             mapPath.push_back(QVariant::fromValue(QGeoCoordinate(pt.param_x, pt.param_y, pt.param_z)));
-        }
     }
     setMapPath(mapPath);
 }

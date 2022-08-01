@@ -34,6 +34,7 @@ void UAV::setHomePosition(const QGeoCoordinate &newHomePosition)
     if (m_homePosition == newHomePosition)
         return;
     m_homePosition = newHomePosition;
+    m_mission->setHome(m_homePosition);
     emit homePositionChanged(m_homePosition);
 }
 
