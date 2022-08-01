@@ -20,6 +20,8 @@ MavlinkStreamer::MavlinkStreamer(QObject *parent)
                     m_armRequest->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_mainDataStream)
                     m_mainDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+                if (m_errorStream)
+                    m_errorStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_positionDataStream)
                     m_positionDataStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
                 if (m_sensorsDataStream)
@@ -142,6 +144,16 @@ MainDataStream *MavlinkStreamer::getMainStream()
 
 }
 
+ErrorStreamer *MavlinkStreamer::getErrorStream()
+{
+    if (!m_errorStream) {
+        m_errorStream = new MavlinkErrorStream(this);
+        if (m_initiated)
+            m_errorStream->init(GCS_ID, GCS_COMPID, AP_ID, AP_COMPID, AP_MODE);
+    }
+    return m_errorStream;
+}
+
 void MavlinkStreamer::onDataReceived(const QByteArray &data)
 {
     mavlink_message_t msg;
@@ -154,6 +166,8 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
             //str
             if (m_mainDataStream)
                 m_mainDataStream->responce(msg);
+            if (m_errorStream)
+                m_errorStream->responce(msg);
             if (m_manualControlRequest)
                 m_manualControlRequest->responce(msg);
             if (m_positionDataStream)
@@ -175,13 +189,6 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
 
 void MavlinkStreamer::tryWriteData()
 {
-
-    /*if (m_mainDataStream)
-        m_mainDataStream->responce(msg);
-    if (m_positionDataStream)
-        m_positionDataStream->responce(msg);
-    if (m_sensorsDataStream)
-        m_sensorsDataStream->responce(msg);*/
     // rq
     if (m_pingRequest && m_pingRequest->ready())
         transmit(m_pingRequest->request());

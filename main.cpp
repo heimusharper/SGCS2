@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Sensors>("Finco", 1, 0, "Sensors");
     qmlRegisterType<Positioning>("Finco", 1, 0, "Positioning");
     qmlRegisterType<Mission>("Finco", 1, 0, "Mission");
+    qmlRegisterType<Failsafe>("Finco", 1, 0, "Failsafe");
     qmlRegisterType<VideoViewV4L2Item>("Finco", 1, 0, "VideoViewV4L2Item");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

@@ -30,6 +30,229 @@
     </message>
 </context>
 <context>
+    <name>MainToolBar</name>
+    <message>
+        <location filename="MainToolBar.qml" line="31"/>
+        <location filename="MainToolBar.qml" line="47"/>
+        <location filename="MainToolBar.qml" line="63"/>
+        <location filename="MainToolBar.qml" line="79"/>
+        <location filename="MainToolBar.qml" line="95"/>
+        <location filename="MainToolBar.qml" line="111"/>
+        <location filename="MainToolBar.qml" line="127"/>
+        <location filename="MainToolBar.qml" line="143"/>
+        <location filename="MainToolBar.qml" line="159"/>
+        <location filename="MainToolBar.qml" line="175"/>
+        <location filename="MainToolBar.qml" line="191"/>
+        <location filename="MainToolBar.qml" line="207"/>
+        <location filename="MainToolBar.qml" line="223"/>
+        <location filename="MainToolBar.qml" line="239"/>
+        <location filename="MainToolBar.qml" line="255"/>
+        <location filename="MainToolBar.qml" line="271"/>
+        <location filename="MainToolBar.qml" line="287"/>
+        <location filename="MainToolBar.qml" line="303"/>
+        <location filename="MainToolBar.qml" line="319"/>
+        <location filename="MainToolBar.qml" line="335"/>
+        <location filename="MainToolBar.qml" line="351"/>
+        <location filename="MainToolBar.qml" line="368"/>
+        <location filename="MainToolBar.qml" line="384"/>
+        <location filename="MainToolBar.qml" line="400"/>
+        <location filename="MainToolBar.qml" line="416"/>
+        <location filename="MainToolBar.qml" line="432"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="35"/>
+        <location filename="MainToolBar.qml" line="51"/>
+        <location filename="MainToolBar.qml" line="67"/>
+        <location filename="MainToolBar.qml" line="83"/>
+        <location filename="MainToolBar.qml" line="99"/>
+        <location filename="MainToolBar.qml" line="115"/>
+        <location filename="MainToolBar.qml" line="131"/>
+        <location filename="MainToolBar.qml" line="147"/>
+        <location filename="MainToolBar.qml" line="163"/>
+        <location filename="MainToolBar.qml" line="179"/>
+        <location filename="MainToolBar.qml" line="195"/>
+        <location filename="MainToolBar.qml" line="211"/>
+        <location filename="MainToolBar.qml" line="227"/>
+        <location filename="MainToolBar.qml" line="243"/>
+        <location filename="MainToolBar.qml" line="259"/>
+        <location filename="MainToolBar.qml" line="275"/>
+        <location filename="MainToolBar.qml" line="291"/>
+        <location filename="MainToolBar.qml" line="307"/>
+        <location filename="MainToolBar.qml" line="323"/>
+        <location filename="MainToolBar.qml" line="339"/>
+        <location filename="MainToolBar.qml" line="355"/>
+        <location filename="MainToolBar.qml" line="372"/>
+        <location filename="MainToolBar.qml" line="388"/>
+        <location filename="MainToolBar.qml" line="404"/>
+        <location filename="MainToolBar.qml" line="420"/>
+        <location filename="MainToolBar.qml" line="436"/>
+        <source>Not present</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="39"/>
+        <location filename="MainToolBar.qml" line="55"/>
+        <location filename="MainToolBar.qml" line="71"/>
+        <location filename="MainToolBar.qml" line="87"/>
+        <location filename="MainToolBar.qml" line="103"/>
+        <location filename="MainToolBar.qml" line="119"/>
+        <location filename="MainToolBar.qml" line="135"/>
+        <location filename="MainToolBar.qml" line="151"/>
+        <location filename="MainToolBar.qml" line="167"/>
+        <location filename="MainToolBar.qml" line="183"/>
+        <location filename="MainToolBar.qml" line="199"/>
+        <location filename="MainToolBar.qml" line="215"/>
+        <location filename="MainToolBar.qml" line="231"/>
+        <location filename="MainToolBar.qml" line="247"/>
+        <location filename="MainToolBar.qml" line="263"/>
+        <location filename="MainToolBar.qml" line="279"/>
+        <location filename="MainToolBar.qml" line="295"/>
+        <location filename="MainToolBar.qml" line="311"/>
+        <location filename="MainToolBar.qml" line="327"/>
+        <location filename="MainToolBar.qml" line="343"/>
+        <location filename="MainToolBar.qml" line="359"/>
+        <location filename="MainToolBar.qml" line="376"/>
+        <location filename="MainToolBar.qml" line="392"/>
+        <location filename="MainToolBar.qml" line="408"/>
+        <location filename="MainToolBar.qml" line="424"/>
+        <location filename="MainToolBar.qml" line="440"/>
+        <source>Ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="455"/>
+        <source>Gyroscope</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="461"/>
+        <source>Accelerometer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="467"/>
+        <source>Magnetometer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="473"/>
+        <source>Abs. Pressure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="479"/>
+        <source>Diff. Pressure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="485"/>
+        <source>GPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="491"/>
+        <source>Optical flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="497"/>
+        <source>Vision position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="503"/>
+        <source>Laser position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="509"/>
+        <source>Angular rate control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="515"/>
+        <source>Attitude stabilization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="521"/>
+        <source>Yaw control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="527"/>
+        <source>Altitude control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="533"/>
+        <source>Position control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="539"/>
+        <source>Motor out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="545"/>
+        <source>RC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="551"/>
+        <source>GeoFence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="557"/>
+        <source>AHRS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="563"/>
+        <source>Terrain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="569"/>
+        <source>Reverse motor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="575"/>
+        <source>Logging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="581"/>
+        <source>Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="587"/>
+        <source>Proximity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="593"/>
+        <source>Satellite communication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="599"/>
+        <source>Obstacle aviodance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="605"/>
+        <source>Propulsion</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MapConfigureView</name>
     <message>
         <location filename="MapConfigureView.qml" line="44"/>

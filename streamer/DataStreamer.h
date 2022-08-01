@@ -12,6 +12,7 @@
 #include "ARMRequest.h"
 #include "MissionReadRequest.h"
 #include "MissionWriteRequest.h"
+#include "ErrorStreamer.h"
 
 class DataStreamer : public QObject
 {
@@ -29,6 +30,7 @@ public:
     virtual PositionDataStream *getPositionDataStream() = 0;
     virtual SensorsDataStream *getSensorsStream() = 0;
     virtual MainDataStream *getMainStream() = 0;
+    virtual ErrorStreamer *getErrorStream() = 0;
 
     virtual HomePositionRequest *createHomePositionRequest() = 0;
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) = 0;
