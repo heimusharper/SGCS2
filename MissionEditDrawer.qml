@@ -18,6 +18,8 @@ Item {
     {
         switch (type)
         {
+        case Mission.HOME:
+            return qsTr("Home")
         case Mission.SIMPLE_POINT:
             return qsTr("Point")
         case Mission.TAKEOFF:
@@ -70,11 +72,16 @@ Item {
         {
             switch (type)
             {
+            case Mission.HOME: {
+                if (p1 === 0)
+                    return "[" + p5.toFixed(6) + "; " + p6.toFixed(6) + "]"
+                return qsTr("Auto")
+            }
             case Mission.SIMPLE_POINT: {
                 var delay = p1
                 return "[" + p5.toFixed(6) + "; " + p6.toFixed(6) + "; " +
                         p7.toFixed(1) + "]; " + qsTr("wait:") +
-                        " " + ((delay < 0) ? qsTr("no") : delay) + "; " +
+                        " " + ((delay === 0) ? qsTr("no") : delay) + "; " +
                         qsTr("frame") + ": " +
                         getItemFrameName(frame)
             }

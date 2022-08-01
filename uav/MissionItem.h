@@ -6,7 +6,8 @@
 struct MissionItem {
     enum class ItemType : int
     {
-        SIMPLE_POINT = 0,
+        HOME = 0,
+        SIMPLE_POINT,
         TAKEOFF,
         RTL,
         LAND,

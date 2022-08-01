@@ -19,13 +19,18 @@ class UAV : public QObject
 
 public:
     enum ControlMode {
+        UNSUPORTED,
         WAIT,
+        ARMED,
+        TAKEOFF,
         GUIDED,
+        GUIDED_RC,
         AUTO,
         RTL,
-        LAND
+        LAND,
+        FOLOW
     };
-    Q_ENUMS(ControlMode)
+    Q_ENUM(ControlMode)
 
     explicit UAV(DataStreamer *streamer, QObject *parent = nullptr);
 

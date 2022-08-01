@@ -4,17 +4,27 @@
 <context>
     <name>FlightModeControls</name>
     <message>
-        <location filename="FlightModeControls.qml" line="24"/>
+        <location filename="FlightModeControls.qml" line="18"/>
+        <source>ARM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FlightModeControls.qml" line="22"/>
+        <source>START</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FlightModeControls.qml" line="59"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FlightModeControls.qml" line="35"/>
+        <location filename="FlightModeControls.qml" line="79"/>
         <source>RTL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FlightModeControls.qml" line="46"/>
+        <location filename="FlightModeControls.qml" line="89"/>
         <source>Land</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40,77 +50,77 @@
 <context>
     <name>MavlinkMissionReadRequest</name>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="243"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="256"/>
         <source>Undefined error while read mission size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="245"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="258"/>
         <source>Undefined error while read mission item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="248"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="261"/>
         <source>Unsupported frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="251"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="264"/>
         <source>Mission operation is unsupported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="254"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="267"/>
         <source>Mission out of space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="257"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="270"/>
         <source>Mission item %1 has invalid parameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="260"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="273"/>
         <source>Mission item %1 has invalid parameter 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="263"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="276"/>
         <source>Mission item %1 has invalid parameter 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="266"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="279"/>
         <source>Mission item %1 has invalid parameter 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="269"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="282"/>
         <source>Mission item %1 has invalid parameter 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="272"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="285"/>
         <source>Mission item %1 has invalid parameter 5/latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="275"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="288"/>
         <source>Mission item %1 has invalid parameter 6/longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="278"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="291"/>
         <source>Mission item %1 has invalid parameter 7/altitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="281"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="294"/>
         <source>Invalid sequence while read mission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="284"/>
+        <location filename="mavlink/MavlinkMissionReadRequest.cpp" line="297"/>
         <source>Mission denied</source>
         <translation type="unfinished"></translation>
     </message>
@@ -118,77 +128,77 @@
 <context>
     <name>MavlinkMissionWriteRequest</name>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="290"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="305"/>
         <source>Undefined error while write mission size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="292"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="307"/>
         <source>Undefined error while write mission item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="295"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="310"/>
         <source>Unsupported frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="298"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="313"/>
         <source>Mission operation is unsupported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="301"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="316"/>
         <source>Mission out of space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="304"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="319"/>
         <source>Mission item %1 has invalid parameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="307"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="322"/>
         <source>Mission item %1 has invalid parameter 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="310"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="325"/>
         <source>Mission item %1 has invalid parameter 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="313"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="328"/>
         <source>Mission item %1 has invalid parameter 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="316"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="331"/>
         <source>Mission item %1 has invalid parameter 4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="319"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="334"/>
         <source>Mission item %1 has invalid parameter 5/latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="322"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="337"/>
         <source>Mission item %1 has invalid parameter 6/longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="325"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="340"/>
         <source>Mission item %1 has invalid parameter 7/altitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="328"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="343"/>
         <source>Invalid sequence while write mission</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="331"/>
+        <location filename="mavlink/MavlinkMissionWriteRequest.cpp" line="346"/>
         <source>Mission denied</source>
         <translation type="unfinished"></translation>
     </message>
@@ -197,182 +207,192 @@
     <name>MissionEditDrawer</name>
     <message>
         <location filename="MissionEditDrawer.qml" line="22"/>
-        <source>Point</source>
+        <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="24"/>
-        <source>Takeoff</source>
+        <source>Point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="26"/>
-        <source>RTL</source>
+        <source>Takeoff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="28"/>
-        <source>Land</source>
+        <source>RTL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="30"/>
-        <source>Junmp</source>
+        <source>Land</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="32"/>
-        <source>Wait delay</source>
+        <source>Junmp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="34"/>
-        <source>Wait distance</source>
+        <source>Wait delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="36"/>
-        <location filename="MissionEditDrawer.qml" line="94"/>
-        <source>Speed</source>
+        <source>Wait distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="38"/>
-        <location filename="MissionEditDrawer.qml" line="96"/>
-        <source>Servo</source>
+        <location filename="MissionEditDrawer.qml" line="101"/>
+        <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="40"/>
-        <source>ROI</source>
+        <location filename="MissionEditDrawer.qml" line="103"/>
+        <source>Servo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="42"/>
-        <source>Camera</source>
+        <source>ROI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="MissionEditDrawer.qml" line="44"/>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="MissionEditDrawer.qml" line="46"/>
+        <location filename="MissionEditDrawer.qml" line="48"/>
         <source>Gimbal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="48"/>
+        <location filename="MissionEditDrawer.qml" line="50"/>
         <source>Trigger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="50"/>
+        <location filename="MissionEditDrawer.qml" line="52"/>
         <source>Parachute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="52"/>
-        <location filename="MissionEditDrawer.qml" line="65"/>
+        <location filename="MissionEditDrawer.qml" line="54"/>
+        <location filename="MissionEditDrawer.qml" line="67"/>
         <source>Undefined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="59"/>
+        <location filename="MissionEditDrawer.qml" line="61"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="61"/>
+        <location filename="MissionEditDrawer.qml" line="63"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="63"/>
+        <location filename="MissionEditDrawer.qml" line="65"/>
         <source>Relief</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="76"/>
+        <location filename="MissionEditDrawer.qml" line="78"/>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="MissionEditDrawer.qml" line="83"/>
         <source>wait:</source>
         <oldsource>wait</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="77"/>
+        <location filename="MissionEditDrawer.qml" line="84"/>
         <source>no</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="78"/>
+        <location filename="MissionEditDrawer.qml" line="85"/>
         <source>frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="88"/>
+        <location filename="MissionEditDrawer.qml" line="95"/>
         <source>To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="90"/>
+        <location filename="MissionEditDrawer.qml" line="97"/>
         <source>Wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="90"/>
+        <location filename="MissionEditDrawer.qml" line="97"/>
         <source>sec.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="92"/>
-        <location filename="MissionEditDrawer.qml" line="104"/>
+        <location filename="MissionEditDrawer.qml" line="99"/>
+        <location filename="MissionEditDrawer.qml" line="111"/>
         <source>Distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="92"/>
+        <location filename="MissionEditDrawer.qml" line="99"/>
         <source>m</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="94"/>
+        <location filename="MissionEditDrawer.qml" line="101"/>
         <source>m/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="96"/>
+        <location filename="MissionEditDrawer.qml" line="103"/>
         <source>PWM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="102"/>
+        <location filename="MissionEditDrawer.qml" line="109"/>
         <source>Pitch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="102"/>
+        <location filename="MissionEditDrawer.qml" line="109"/>
         <source>Roll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="102"/>
+        <location filename="MissionEditDrawer.qml" line="109"/>
         <source>Yaw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="104"/>
+        <location filename="MissionEditDrawer.qml" line="111"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="166"/>
+        <location filename="MissionEditDrawer.qml" line="173"/>
         <source>RM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="186"/>
+        <location filename="MissionEditDrawer.qml" line="193"/>
         <source>ED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MissionEditDrawer.qml" line="206"/>
+        <location filename="MissionEditDrawer.qml" line="213"/>
         <source>AD</source>
         <translation type="unfinished"></translation>
     </message>

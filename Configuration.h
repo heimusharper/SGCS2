@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 #include <QSettings>
 #include <QObject>
+#include <QDebug>
 
 class Configuration : public QObject
 {
@@ -18,7 +19,7 @@ public:
     explicit Configuration(QSettings *settings, QObject *parent = nullptr);
     ~Configuration();
 
-    void flush();
+    Q_INVOKABLE void flush();
 
     const QString &mapProviderName() const;
     void setMapProviderName(const QString &newMapProviderName);

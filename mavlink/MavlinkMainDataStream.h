@@ -24,21 +24,21 @@ private:
 
     bool m_isFlight = false;
 
+    // control mode controller
+    bool m_isARMed = false;
+    int m_controlMode = 0;
+    uint8_t m_baseMode = 0;
+    uint32_t m_customMode = 0;
+
 signals:
     void onFoundAutopilot(uint8_t sysid, uint8_t compid, ModeHelper::APMode mode);
 
 protected:
 
-    enum ARM_PROCESS {
-        ARM,
-        TAKEOFF,
-        NONE
-    };
-
-    ARM_PROCESS m_armProcess = ARM_PROCESS::NONE;
-
     virtual bool processMessage(const mavlink_message_t &msg) override;
     virtual void onInit() override;
+
+    void checkMode();
 
 };
 

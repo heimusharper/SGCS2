@@ -72,7 +72,7 @@ Item {
                 id: pointWaitField
 
                 validator: IntValidator {
-                    bottom: -1
+                    bottom: 0
                     top: 360
                 }
             }

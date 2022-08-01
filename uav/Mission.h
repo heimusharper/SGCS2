@@ -37,6 +37,7 @@ public:
 
     enum class ItemType : int
     {
+        HOME = (int)MissionItem::ItemType::HOME,
         SIMPLE_POINT = (int)MissionItem::ItemType::SIMPLE_POINT,
         TAKEOFF = (int)MissionItem::ItemType::TAKEOFF,
         RTL = (int)MissionItem::ItemType::RTL,
@@ -96,6 +97,8 @@ public:
 
     const QVariantList &mapPath() const;
     void setMapPath(const QVariantList &newMapPath);
+
+    bool isEmpty() const;
 
 public slots:
     void setHome(const QGeoCoordinate &newHome);

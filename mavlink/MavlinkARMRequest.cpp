@@ -118,6 +118,8 @@ bool MavlinkARMRequest::processMessage(const mavlink_message_t &msg)
             default:
                 break;
             }
+        } else {
+            qDebug() << "Failure arm command " << ack.command << " with result " << ack.result;
         }
         break;
     }

@@ -99,14 +99,22 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
 {
     if (m_items.size() == 0)
     {
-        beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 1);
+        beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 2);
         {
-            MissionItem item;
-            item.type = MissionItem::ItemType::TAKEOFF;
-            item.param_x = 0;
-            item.param_y = 0;
-            item.param_z = pos.altitude();
-            m_items.push_back(item);
+            MissionItem itemh;
+            itemh.type = MissionItem::ItemType::HOME;
+            itemh.param_x = 0;
+            itemh.param_y = 0;
+            itemh.param_z = 0;
+            itemh.param_1 = 1;
+            m_items.push_back(itemh);
+
+            MissionItem itemt;
+            itemt.type = MissionItem::ItemType::TAKEOFF;
+            itemt.param_x = 0;
+            itemt.param_y = 0;
+            itemt.param_z = pos.altitude();
+            m_items.push_back(itemt);
         }
     } else
         beginInsertRows(QModelIndex(), m_items.size(), m_items.size());
@@ -116,7 +124,7 @@ void Mission::appendSimplePoint(const QGeoCoordinate &pos)
         item.param_x = pos.latitude();
         item.param_y = pos.longitude();
         item.param_z = pos.altitude();
-        item.param_1 = -1;
+        item.param_1 = 0;
         item.frame = (MissionItem::Frame)m_defaultFrame;
         m_items.push_back(item);
     }
@@ -213,15 +221,23 @@ void Mission::clear()
 
 void Mission::appendPoint(const MissionItem &it)
 {
-    if (m_items.size() == 0)
+    if (m_items.size() == 0 && it.type != MissionItem::ItemType::HOME)
     {
-        beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 1);
+        beginInsertRows(QModelIndex(), m_items.size(), m_items.size() + 2);
         {
+            MissionItem itemh;
+            itemh.type = MissionItem::ItemType::HOME;
+            itemh.param_x = 0;
+            itemh.param_y = 0;
+            itemh.param_z = 0;
+            itemh.param_1 = 1;
+            m_items.push_back(itemh);
+
             MissionItem item;
             item.type = MissionItem::ItemType::TAKEOFF;
             item.param_x = 0;
             item.param_y = 0;
-            item.param_z = 0;
+            item.param_z = it.param_z;
             m_items.push_back(item);
         }
     } else
@@ -349,6 +365,11 @@ void Mission::setMapPath(const QVariantList &newMapPath)
         return;
     m_mapPath = newMapPath;
     emit mapPathChanged();
+}
+
+bool Mission::isEmpty() const
+{
+    return m_items.size() == 0;
 }
 
 void Mission::setHome(const QGeoCoordinate &newHome)

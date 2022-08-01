@@ -71,7 +71,8 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
         mavlink_msg_mission_item_int_decode(&msg, &item);
         if (m_state == State::SET_ACK)
             return false;
-        qDebug() << "received point" << item.command << m_missinFull << item.param1 << item.param2 << item.param3 << item.param4;
+        qDebug() << "received point" << item.command << m_missinFull << item.seq;
+        qDebug() << "param" << item.param1 << item.param2 << item.param3 << item.param4 << item.x << item.y << item.z;
         if (item.mission_type == MAV_MISSION_TYPE_MISSION) {
             // ignore double received
             if (m_onReceived == item.seq)
@@ -85,9 +86,21 @@ bool MavlinkMissionReadRequest::processMessage(const mavlink_message_t &msg)
                 it.type = MissionItem::ItemType::SIMPLE_POINT;
                 it.param_x = (double)item.x / 1.e7;
                 it.param_y = (double)item.y / 1.e7;
-                it.param_z = (double)item.z / 1000.;
+                it.param_z = (double)item.z;
                 it.frame = getFrame(item.frame);
                 it.param_1 = item.param1;
+                emit onItem(item.seq, it);
+                break;
+            }
+            case MAV_CMD_DO_SET_HOME:
+            {
+                MissionItem it;
+                it.type = MissionItem::ItemType::HOME;
+                it.param_x = (double)item.x;
+                it.param_y = (double)item.y;
+                it.param_z = (double)item.z;
+                it.param_1 = item.param1;
+                it.frame = getFrame(item.frame);
                 emit onItem(item.seq, it);
                 break;
             }

@@ -65,7 +65,7 @@ mavlink_message_t MavlinkManualControlRequest::construct()
         break;
     }
     case StateSet::RTL: {
-        qDebug() << "Auto...";
+        qDebug() << "RTL...";
         mavlink_msg_set_mode_pack(GCSID, COMPID, &message, APID,
                                   ModeHelper::getBaseMode(APMODE),
                                   ModeHelper::getModeRTL(APMODE));

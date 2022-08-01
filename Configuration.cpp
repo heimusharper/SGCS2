@@ -22,6 +22,7 @@ Configuration::Configuration(QSettings *settings, QObject *parent)
 
 Configuration::~Configuration()
 {
+    qDebug() << "Flush settings";
     flush();
     m_settings->deleteLater();
 }
@@ -47,6 +48,7 @@ const QString &Configuration::mapProviderName() const
 
 void Configuration::setMapProviderName(const QString &newMapProviderName)
 {
+    qDebug() << "set provider" << newMapProviderName << m_mapProviderName;
     if (m_mapProviderName == newMapProviderName)
         return;
     m_mapProviderName = newMapProviderName;
