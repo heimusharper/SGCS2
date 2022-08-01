@@ -71,12 +71,18 @@ Item {
 
         // UAV component
         MapQuickItem  {
+            property var attitudes: UAV.getPositioning().attitude
+
             id: mapUAVItemComponentItem
             anchorPoint.x: mapUAVItemComponent.width / 2
             anchorPoint.y: mapUAVItemComponent.height / 2
             sourceItem: mapUAVItemComponent
             coordinate: UAV.getPositioning().position
-            rotation: UAV.getPositioning().attitude.z
+            // rotation: UAV.getPositioning().attitude.z
+            onAttitudesChanged: {
+                console.log("set att" + attitudes)
+                mapUAVItemComponentItem.rotation = attitudes.z
+            }
         }
         MouseArea {
             anchors.fill: parent
@@ -129,7 +135,6 @@ Item {
                 height: width
                 radius: width / 2
                 Material.background: Material.Yellow
-                visible: operation === 0
                 text: "H"
                 onClicked: {
                 }

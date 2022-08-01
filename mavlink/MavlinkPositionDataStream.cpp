@@ -23,7 +23,11 @@ bool MavlinkPositionDataStream::processMessage(const mavlink_message_t &msg)
         case MAVLINK_MSG_ID_ATTITUDE: {
             mavlink_attitude_t att;
             mavlink_msg_attitude_decode(&msg, &att);
-            QVector3D vec{att.roll, att.pitch, att.yaw};
+            QVector3D vec{
+                qRadiansToDegrees(att.roll),
+                qRadiansToDegrees(att.pitch),
+                qRadiansToDegrees(att.yaw)
+            };
             emit onAttitudeChanged(vec);
             return true;
         }
