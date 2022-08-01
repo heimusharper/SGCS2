@@ -118,6 +118,23 @@ Item {
                 coordinate: pos
             }
         }
+        MapQuickItem {
+            coordinate: UAV.homePosition
+            anchorPoint.x: homeMapItem.width/2
+            anchorPoint.y: homeMapItem.height/2
+
+            sourceItem: RoundButton {
+                id: homeMapItem
+                width: map.width / 20
+                height: width
+                radius: width / 2
+                Material.background: Material.Yellow
+                visible: operation === 0
+                text: "H"
+                onClicked: {
+                }
+            }
+        }
     }
 
 
