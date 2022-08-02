@@ -10,7 +10,7 @@ public:
     struct States {
         enum State {
             NOT_PRESENT,
-            ERROR,
+            ERROR2,
             READY
         };
 

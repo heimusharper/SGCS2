@@ -19,7 +19,7 @@ bool MavlinkErrorStream::processMessage(const mavlink_message_t &msg)
             if (status.onboard_control_sensors_present & key != 0 &&
                 status.onboard_control_sensors_enabled & key != 0) {
                 if (status.onboard_control_sensors_health & key == 0)
-                    target = States::State::ERROR;
+                    target = States::State::ERROR2;
                 else
                     target = States::State::READY;
             } else

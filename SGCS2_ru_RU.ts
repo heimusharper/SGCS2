@@ -14,17 +14,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FlightModeControls.qml" line="59"/>
+        <location filename="FlightModeControls.qml" line="60"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FlightModeControls.qml" line="79"/>
+        <location filename="FlightModeControls.qml" line="81"/>
         <source>RTL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FlightModeControls.qml" line="89"/>
+        <location filename="FlightModeControls.qml" line="92"/>
         <source>Land</source>
         <translation type="unfinished"></translation>
     </message>

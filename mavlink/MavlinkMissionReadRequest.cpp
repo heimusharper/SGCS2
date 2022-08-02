@@ -324,17 +324,17 @@ MissionItem::Frame MavlinkMissionReadRequest::getFrame(int f)
     switch (f) {
     case MAV_FRAME_GLOBAL:
     case MAV_FRAME_GLOBAL_INT:
-        return MissionItem::Frame::ABSOLUTE;
+        return MissionItem::Frame::FRAME_ABSOLUTE;
     case MAV_FRAME_GLOBAL_RELATIVE_ALT:
     case MAV_FRAME_GLOBAL_RELATIVE_ALT_INT:
-        return MissionItem::Frame::RELATIVE;
+        return MissionItem::Frame::FRAME_RELATIVE;
     case MAV_FRAME_GLOBAL_TERRAIN_ALT:
     case MAV_FRAME_GLOBAL_TERRAIN_ALT_INT:
-        return MissionItem::Frame::RELIEF;
+        return MissionItem::Frame::FRAME_RELIEF;
     default:
         break;
     }
-    return MissionItem::Frame::INVALID;
+    return MissionItem::Frame::FRAME_INVALID;
 }
 
 void MavlinkMissionReadRequest::resetTimers(int interval)

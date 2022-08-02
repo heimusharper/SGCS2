@@ -56,10 +56,10 @@ public:
     Q_ENUM(ItemType)
     enum class Frame : int
     {
-        RELATIVE = (int)MissionItem::Frame::RELATIVE,
-        RELIEF = (int)MissionItem::Frame::RELIEF,
-        ABSOLUTE = (int)MissionItem::Frame::ABSOLUTE,
-        INVALID = (int)MissionItem::Frame::INVALID
+        FRAME_RELATIVE = (int)MissionItem::Frame::FRAME_RELATIVE,
+        FRAME_RELIEF = (int)MissionItem::Frame::FRAME_RELIEF,
+        FRAME_ABSOLUTE = (int)MissionItem::Frame::FRAME_ABSOLUTE,
+        FRAME_INVALID = (int)MissionItem::Frame::FRAME_INVALID
     };
     Q_ENUM(Frame)
 
@@ -122,7 +122,7 @@ private:
 
     int m_defaultAltitude = 100;
 
-    int m_defaultFrame = (int)MissionItem::Frame::RELATIVE;
+    int m_defaultFrame = (int)MissionItem::Frame::FRAME_RELATIVE;
 
     bool m_writeErrorState = false;
 

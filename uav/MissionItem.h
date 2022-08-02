@@ -24,10 +24,10 @@ struct MissionItem {
     };
     enum class Frame : int
     {
-        RELATIVE,
-        RELIEF,
-        ABSOLUTE,
-        INVALID
+        FRAME_RELATIVE,
+        FRAME_RELIEF,
+        FRAME_ABSOLUTE,
+        FRAME_INVALID
     };
 
     double param_1 = qQNaN();
@@ -37,7 +37,7 @@ struct MissionItem {
     double param_x = qQNaN();
     double param_y = qQNaN();
     double param_z = qQNaN();
-    Frame frame = Frame::INVALID;
+    Frame frame = Frame::FRAME_INVALID;
     ItemType type = ItemType::SIMPLE_POINT;
 };
 

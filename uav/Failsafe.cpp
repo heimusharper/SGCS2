@@ -12,7 +12,7 @@ Failsafe::Failsafe(DataStreamer *streamer, QObject *parent)
     connect(errs, &ErrorStreamer::onStatesChenged, this, [this](const ErrorStreamer::States &state){
         auto convert = [](const ErrorStreamer::States::State s){
             switch (s) {
-                case ErrorStreamer::States::State::ERROR:
+                case ErrorStreamer::States::State::ERROR2:
                     return State::SENSOR_ERROR;
                 case ErrorStreamer::States::State::READY:
                     return State::SENSOR_READY;

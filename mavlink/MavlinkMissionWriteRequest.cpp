@@ -380,11 +380,11 @@ void MavlinkMissionWriteRequest::onInit()
 int MavlinkMissionWriteRequest::getFrame(MissionItem::Frame f)
 {
     switch (f) {
-    case MissionItem::Frame::ABSOLUTE:
+    case MissionItem::Frame::FRAME_ABSOLUTE:
         return MAV_FRAME_GLOBAL;
-    case MissionItem::Frame::RELATIVE:
+    case MissionItem::Frame::FRAME_RELATIVE:
         return MAV_FRAME_GLOBAL_RELATIVE_ALT;
-    case MissionItem::Frame::RELIEF:
+    case MissionItem::Frame::FRAME_RELIEF:
         return MAV_FRAME_GLOBAL_TERRAIN_ALT;
     default:
         break;
@@ -395,11 +395,11 @@ int MavlinkMissionWriteRequest::getFrame(MissionItem::Frame f)
 int MavlinkMissionWriteRequest::getFrameInt(MissionItem::Frame f)
 {
     switch (f) {
-    case MissionItem::Frame::ABSOLUTE:
+    case MissionItem::Frame::FRAME_ABSOLUTE:
         return MAV_FRAME_GLOBAL_INT;
-    case MissionItem::Frame::RELATIVE:
+    case MissionItem::Frame::FRAME_RELATIVE:
         return MAV_FRAME_GLOBAL_RELATIVE_ALT_INT;
-    case MissionItem::Frame::RELIEF:
+    case MissionItem::Frame::FRAME_RELIEF:
         return MAV_FRAME_GLOBAL_TERRAIN_ALT_INT;
     default:
         break;
