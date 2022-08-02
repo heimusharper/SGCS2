@@ -6,6 +6,7 @@
 #include "Positioning.h"
 #include "Sensors.h"
 #include "Mission.h"
+#include "Failsafe.h"
 
 #include "connection/Connection.h"
 
@@ -16,16 +17,22 @@ class UAV : public QObject
     Q_PROPERTY(QGeoCoordinate homePosition READ homePosition WRITE setHomePosition NOTIFY homePositionChanged)
     Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
     Q_PROPERTY(float progress READ progress WRITE setProgress NOTIFY progressChanged)
+    Q_PROPERTY(bool readyToFligh READ readyToFligh WRITE setReadyToFligh NOTIFY readyToFlighChanged)
 
 public:
     enum ControlMode {
+        UNSUPORTED,
         WAIT,
+        ARMED,
+        TAKEOFF,
         GUIDED,
+        GUIDED_RC,
         AUTO,
         RTL,
-        LAND
+        LAND,
+        FOLOW
     };
-    Q_ENUMS(ControlMode)
+    Q_ENUM(ControlMode)
 
     explicit UAV(DataStreamer *streamer, QObject *parent = nullptr);
 
@@ -37,6 +44,7 @@ public:
     Q_INVOKABLE Positioning *getPositioning() const;
     Q_INVOKABLE Sensors *getSensors() const;
     Q_INVOKABLE Mission *getMission() const;
+    Q_INVOKABLE Failsafe *getFailsafe() const;
 
     int controlMode() const;
     void setControlMode(int newControlMode);
@@ -51,6 +59,9 @@ public:
     Q_INVOKABLE void doMission() const;
 
     float progress() const;
+
+    bool readyToFligh() const;
+    void setReadyToFligh(bool newReadyToFligh);
 
 public slots:
 
@@ -74,6 +85,9 @@ private:
     // mission
     Mission *m_mission = nullptr;
 
+    // failures
+    Failsafe *m_failsafe = nullptr;
+
     // parameters
     QGeoCoordinate m_homePosition;
 
@@ -81,11 +95,18 @@ private:
 
     float m_progress;
 
+    bool m_readyToFligh;
+
+private slots:
+
+    void checkReadyToFlight();
+
 signals:
 
     void homePositionChanged(const QGeoCoordinate &pos);
     void controlModeChanged();
     void progressChanged();
+    void readyToFlighChanged();
 };
 
 #endif // UAV_H

@@ -23,6 +23,8 @@ signals:
      * \param att {roll pitch yaw} rad
      */
     void onAttitudeChanged(const QVector3D &att);
+
+    void onTargetChanged(const QGeoCoordinate &pos);
 };
 
 #endif // POSITIONDATASTREAM_H

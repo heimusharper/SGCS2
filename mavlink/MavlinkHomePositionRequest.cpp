@@ -32,11 +32,11 @@ bool MavlinkHomePositionRequest::processMessage(const mavlink_message_t &msg)
         mavlink_msg_home_position_decode(&msg, &home);
         if (m_gpsFixType >=  GPS_FIX_TYPE_3D_FIX) {
             QGeoCoordinate pos;
-            pos.setLatitude((qreal)home.latitude / 10.e7);
-            pos.setLongitude((qreal)home.longitude / 10.e7);
+            pos.setLatitude((qreal)home.latitude / 1.e7);
+            pos.setLongitude((qreal)home.longitude / 1.e7);
             pos.setAltitude((qreal)home.altitude / 1000.);
             m_empty = true;
-            qDebug() << "home position received";
+            qDebug() << "home position received " << pos;
             emit onHomePositionChanged(pos);
         }
         return true;

@@ -8,13 +8,16 @@ class MainDataStream : public QObject
     Q_OBJECT
 public:
     enum ControlMode {
+        UNSUPORTED,
         WAIT,
         ARMED,
         TAKEOFF,
         GUIDED,
+        GUIDED_RC,
         AUTO,
         RTL,
-        LAND
+        LAND,
+        FOLOW
     };
     enum UavType {
         COPTER,

@@ -16,6 +16,7 @@
 #include "MavlinkManualControlRequest.h"
 #include "MavlinkMissionReadRequest.h"
 #include "MavlinkMissionWriteRequest.h"
+#include "MavlinkErrorStream.h"
 
 class MavlinkStreamer : public DataStreamer
 {
@@ -27,6 +28,7 @@ public:
     virtual PositionDataStream *getPositionDataStream() override;
     virtual SensorsDataStream *getSensorsStream() override;
     virtual MainDataStream *getMainStream() override;
+    virtual ErrorStreamer *getErrorStream() override;
 
     virtual HomePositionRequest *createHomePositionRequest() override;
     virtual ARMRequest *createARMRequest(ARMRequest::Mode mode) override;
@@ -49,6 +51,7 @@ private:
     MavlinkMainDataStream *m_mainDataStream = nullptr;
     MavlinkPositionDataStream *m_positionDataStream = nullptr;
     MavlinkSensorsDataStream *m_sensorsDataStream = nullptr;
+    MavlinkErrorStream *m_errorStream = nullptr;
 
     MavlinkHomePositionRequest *m_homePositionRequest = nullptr;
     MavlinkARMRequest *m_armRequest = nullptr;

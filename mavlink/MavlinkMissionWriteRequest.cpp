@@ -29,16 +29,27 @@ void MavlinkMissionWriteRequest::set(const QList<MissionItem> &items)
         case MissionItem::ItemType::SIMPLE_POINT: {
             mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
                                               seq, getFrameInt(x.frame),
-                                              MAV_CMD_NAV_WAYPOINT, false, true, x.param_1, 0, 0, 0,
+                                              MAV_CMD_NAV_WAYPOINT, false, true, qIsNaN(x.param_1) ? 0 : x.param_1, 0, 0, 0,
                                               (int32_t)(x.param_x * 1.e7),
                                               (int32_t)(x.param_y * 1.e7),
-                                              (float)(x.param_z * 1000.), MAV_MISSION_TYPE_MISSION);
+                                              (float)x.param_z, MAV_MISSION_TYPE_MISSION);
             mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
                                           seq, getFrame(x.frame),
-                                          MAV_CMD_NAV_WAYPOINT, false, true, x.param_1, 0, 0, 0,
+                                          MAV_CMD_NAV_WAYPOINT, false, true, qIsNaN(x.param_1) ? 0 : x.param_1, 0, 0, 0,
                                           (float)x.param_x,
                                           (float)x.param_y,
                                           (float)x.param_z, MAV_MISSION_TYPE_MISSION);
+            break;
+        }
+        case MissionItem::ItemType::HOME: {
+            mavlink_msg_mission_item_int_pack(GCSID, COMPID, &request_int, APID, APCOMP,
+                                              seq, getFrameInt(x.frame),
+                                              MAV_CMD_DO_SET_HOME, false, true, 1, 0, 0, 0, 0, 0,
+                                              0, MAV_MISSION_TYPE_MISSION);
+            mavlink_msg_mission_item_pack(GCSID, COMPID, &request, APID, APCOMP,
+                                          seq, getFrame(x.frame),
+                                          MAV_CMD_DO_SET_HOME, false, true, 1, 0, 0, 0, 0, 0,
+                                          0, MAV_MISSION_TYPE_MISSION);
             break;
         }
         case MissionItem::ItemType::TAKEOFF: {
@@ -228,8 +239,12 @@ mavlink_message_t MavlinkMissionWriteRequest::construct()
         qDebug() << "write mission at " << m_nextPoint;
         if (m_useInt)
             request = m_mission_int.at(m_nextPoint);
-        else
+        else {
             request = m_mission.at(m_nextPoint);
+            mavlink_mission_item_t it;
+            mavlink_msg_mission_item_decode(&request, &it);
+            qDebug() << "Write item " << it.command;
+        }
         break;
     }
     default:

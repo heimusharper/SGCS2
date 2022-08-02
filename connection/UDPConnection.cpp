@@ -6,7 +6,7 @@ UDPConnection::UDPConnection(const QString &host, int port, QObject *parent)
     m_port(port)
 {
     m_socket = new QUdpSocket(this);
-    connect(m_socket, &QUdpSocket::errorOccurred, this, [this](){
+    /*connect(m_socket, &QUdpSocket::errorOccurred, this, [this](){
         QString err =  m_socket->errorString();
         qDebug() << "LAST ERR " << err;
         emit connectionFailure(err);
@@ -15,7 +15,7 @@ UDPConnection::UDPConnection(const QString &host, int port, QObject *parent)
         {
             QTimer::singleShot(500, this, &UDPConnection::connectTo);
         }
-    });
+    });*/
     connect(m_socket, &QUdpSocket::readyRead, this, [this](){
         auto s = m_socket->pendingDatagramSize();
         if (s > 0) {

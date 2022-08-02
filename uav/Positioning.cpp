@@ -13,6 +13,7 @@ Positioning::Positioning(DataStreamer *streamer, QObject *parent)
     PositionDataStream *positionStream = m_streamer->getPositionDataStream();
     connect(positionStream, &PositionDataStream::onPositionChanged, this, &Positioning::setPosition);
     connect(positionStream, &PositionDataStream::onAttitudeChanged, this, &Positioning::setAttitude);
+    connect(positionStream, &PositionDataStream::onTargetChanged, this, &Positioning::setTargetPosition);
 
 }
 
@@ -41,4 +42,17 @@ void Positioning::setAttitude(const QVector3D &newAttitude)
         return;
     m_attitude = newAttitude;
     emit attitudeChanged();
+}
+
+const QGeoCoordinate &Positioning::targetPosition() const
+{
+    return m_targetPosition;
+}
+
+void Positioning::setTargetPosition(const QGeoCoordinate &newTargetPosition)
+{
+    if (m_targetPosition == newTargetPosition)
+        return;
+    m_targetPosition = newTargetPosition;
+    emit targetPositionChanged();
 }

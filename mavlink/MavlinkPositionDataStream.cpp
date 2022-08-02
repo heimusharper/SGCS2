@@ -10,7 +10,7 @@ bool MavlinkPositionDataStream::processMessage(const mavlink_message_t &msg)
 {
     switch (msg.msgid)
     {
-    case MAVLINK_MSG_ID_GLOBAL_POSITION_INT: {
+        case MAVLINK_MSG_ID_GLOBAL_POSITION_INT: {
             mavlink_global_position_int_t pos;
             mavlink_msg_global_position_int_decode(&msg, &pos);
             QGeoCoordinate gps;
@@ -20,10 +20,24 @@ bool MavlinkPositionDataStream::processMessage(const mavlink_message_t &msg)
             emit onPositionChanged(gps);
             return true;
         }
+        case MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT:{
+            mavlink_position_target_global_int_t pos;
+            mavlink_msg_position_target_global_int_decode(&msg, &pos);
+            QGeoCoordinate gps;
+            gps.setLatitude((qreal)pos.lat_int / 1.e7);
+            gps.setLongitude((qreal)pos.lon_int / 1.e7);
+            gps.setAltitude((qreal)pos.alt / 1000.);
+            emit onTargetChanged(gps);
+            return true;
+        }
         case MAVLINK_MSG_ID_ATTITUDE: {
             mavlink_attitude_t att;
             mavlink_msg_attitude_decode(&msg, &att);
-            QVector3D vec{att.roll, att.pitch, att.yaw};
+            QVector3D vec{
+                qRadiansToDegrees(att.roll),
+                qRadiansToDegrees(att.pitch),
+                qRadiansToDegrees(att.yaw)
+            };
             emit onAttitudeChanged(vec);
             return true;
         }

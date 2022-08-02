@@ -63,11 +63,13 @@ set(PROJECT_SOURCES
         uav/Sensors.h
         uav/Mission.h
         uav/MissionItem.h
+        uav/Failsafe.h
 
         uav/UAV.cpp
         uav/Positioning.cpp
         uav/Sensors.cpp
         uav/Mission.cpp
+        uav/Failsafe.cpp
 
 
         connection/Connection.h
@@ -94,6 +96,7 @@ set(PROJECT_SOURCES
         streamer/ManualControlRequest.h
         streamer/MissionReadRequest.h
         streamer/MissionWriteRequest.h
+        streamer/ErrorStreamer.h
 
 
         streamer/DataStreamer.cpp
@@ -113,6 +116,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkManualControlRequest.h
         mavlink/MavlinkMissionReadRequest.h
         mavlink/MavlinkMissionWriteRequest.h
+        mavlink/MavlinkErrorStream.h
 
         mavlink/MavlinkStreamer.cpp
         mavlink/MavlinkMainDataStream.cpp
@@ -124,7 +128,7 @@ set(PROJECT_SOURCES
         mavlink/MavlinkManualControlRequest.cpp
         mavlink/MavlinkMissionReadRequest.cpp
         mavlink/MavlinkMissionWriteRequest.cpp
-
+        mavlink/MavlinkErrorStream.cpp
 
         #qml
         Configuration.h Configuration.cpp

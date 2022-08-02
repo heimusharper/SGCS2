@@ -3,7 +3,7 @@
 #include "../streamer/PositionDataStream.h"
 #include "MavlinkStream.h"
 #include <QDebug>
-
+#include <QtMath>
 class MavlinkPositionDataStream : public PositionDataStream, public MavlinkStream
 {
     Q_OBJECT
