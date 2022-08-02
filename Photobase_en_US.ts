@@ -29,7 +29,7 @@
     </message>
     <message>
         <location filename="MainToolBar.qml" line="114"/>
-        <location filename="MainToolBar.qml" line="214"/>
+        <location filename="MainToolBar.qml" line="219"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
@@ -85,8 +85,14 @@
     </message>
     <message>
         <location filename="MainToolBar.qml" line="205"/>
-        <source>Photos: </source>
-        <translation>Photos: </translation>
+        <source>Photos 1: </source>
+        <oldsource>Photos: </oldsource>
+        <translation>Photos 1: </translation>
+    </message>
+    <message>
+        <location filename="MainToolBar.qml" line="210"/>
+        <source>2: </source>
+        <translation></translation>
     </message>
 </context>
 <context>

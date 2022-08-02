@@ -15,11 +15,11 @@ mavlink_message_t MavlinkPhotoModeRequest::construct()
 {
     mavlink_message_t message;
     mavlink_msg_command_long_pack(GCSID, COMPID, &message,
-                                  APID, APCOMP, MAV_CMD_DO_SET_CAM_TRIGG_DIST,
-                                  m_distance, m_time * 10., 0, 0, 0, 0, 0, 0);
+                                  APID, APCOMP, MAV_CMD_DO_SET_CAM_TRIGG_DIST, 0,
+                                  (int)(m_distance * 10.), (int)(m_time * 10.), 0, 0, 0, 0, 0);
     qDebug() << "Set photo mode  d " << m_distance << " t " << m_time;
 
-    emit onSet(m_time, m_distance);
+    // emit onSet(m_time, m_distance);
     return message;
 }
 
