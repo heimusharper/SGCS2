@@ -1,4 +1,4 @@
-QT += core network positioning quick multimedia quickcontrols2 serialport
+QT += core network positioning location quick multimedia quickcontrols2 serialport
 TARGET = SGCS2  
 TEMPLATE = app
 
@@ -13,6 +13,7 @@ HEADERS += \
         uav/Sensors.h \
         uav/Mission.h \
         uav/MissionItem.h \
+        uav/Failsafe.h \
         connection/Connection.h \
         connection/ConnectionType.h \
         connection/UDPConnection.h \
@@ -26,9 +27,11 @@ HEADERS += \
         streamer/ManualControlRequest.h \
         streamer/MissionReadRequest.h \
         streamer/MissionWriteRequest.h \
+        streamer/ErrorStreamer.h \
         mavlink/ModeHelper.h \
         mavlink/MavlinkRequest.h \
         mavlink/MavlinkStream.h \
+        mavlink/MavlinkErrorStream.h \
         mavlink/MavlinkStreamer.h \
         mavlink/MavlinkMainDataStream.h \
         mavlink/MavlinkPositionDataStream.h \
@@ -48,12 +51,14 @@ SOURCES += \
         uav/Positioning.cpp \
         uav/Sensors.cpp \
         uav/Mission.cpp \
+        uav/Failsafe.cpp \
         connection/Connection.cpp \
         connection/ConnectionType.cpp \
         connection/UDPConnection.cpp \
         connection/SerialConnection.cpp \
         streamer/DataStreamer.cpp \
         mavlink/MavlinkStreamer.cpp \
+        mavlink/MavlinkErrorStream.cpp \
         mavlink/MavlinkMainDataStream.cpp \
         mavlink/MavlinkPositionDataStream.cpp \
         mavlink/MavlinkHomePositionRequest.cpp \
@@ -65,6 +70,12 @@ SOURCES += \
         mavlink/MavlinkMissionWriteRequest.cpp \
 		Configuration.cpp \
 		VideoViewV4L2Item.cpp
+
+
+android: include(c:/git/android_openssl/openssl.pri)
+ANDROID_EXTRA_LIBS += \
+    c:/git/android_openssl/Qt-5.12.4_5.13.0/arm64/libcrypto.so \
+    c:/git/android_openssl/Qt-5.12.4_5.13.0/arm64/libssl.so
 
 
 RESOURCES += \

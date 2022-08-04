@@ -11,8 +11,8 @@ import QtGraphicalEffects 1.13
 
 ApplicationWindow {
     id: window
-    width: 1024
-    height: width * (9 / 16)
+    //width: 1024
+    //height: width * (9 / 16)
     visible: true
     title: qsTr("SGCS")
     property bool missionMode : false
