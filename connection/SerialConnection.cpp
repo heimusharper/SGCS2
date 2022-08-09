@@ -98,7 +98,7 @@ void SerialConnectionWorker::onReadyData()
     outBuffer.append(data);
     if (outBuffer.size() > 32)
     {
-        qDebug() << "buffer " << outBuffer.toHex();
+        // qDebug() << "buffer " << outBuffer.toHex();
         emit onRead(outBuffer);
         outBuffer.clear();
     }

@@ -157,6 +157,7 @@ void MavlinkStreamer::onDataReceived(const QByteArray &data)
     for (int i = 0; i < data.size(); i++) {
         if (mavlink_parse_char(MAVLINK_CHANEL, data.at(i), &msg, &status) != 0)
         {
+            // qDebug() << "message  " << msg.msgid;
             if (m_pingRequest)
                 m_pingRequest->responce(msg);
             //str

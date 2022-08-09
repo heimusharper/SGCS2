@@ -76,6 +76,7 @@ float PhotoPayload::onTime() const
 
 void PhotoPayload::setOnTime(float newOnTime)
 {
+    qDebug() << "SET ON TIME" << newOnTime;
     if (qFuzzyCompare(m_onTime, newOnTime))
         return;
     m_onTime = newOnTime;

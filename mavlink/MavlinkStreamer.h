@@ -4,6 +4,7 @@
 #include <QObject>
 #include "../streamer/DataStreamer.h"
 #include <QTimer>
+#include <QDebug>
 
 // streamers
 #include "MavlinkRequest.h"
