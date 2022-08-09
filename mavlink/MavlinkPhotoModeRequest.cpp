@@ -18,7 +18,6 @@ mavlink_message_t MavlinkPhotoModeRequest::construct()
                                   APID, APCOMP, MAV_CMD_DO_SET_CAM_TRIGG_DIST, 0,
                                   (int)(m_distance * 10.), (int)(m_time * 10.), 0, 0, 0, 0, 0);
     qDebug() << "Set photo mode  d " << m_distance << " t " << m_time;
-
     // emit onSet(m_time, m_distance);
     return message;
 }
@@ -31,11 +30,18 @@ bool MavlinkPhotoModeRequest::processMessage(const mavlink_message_t &msg)
             mavlink_msg_command_ack_decode(&msg, &ack);
             if (ack.command == MAV_CMD_DO_SET_CAM_TRIGG_DIST) {
                 if (ack.result == MAV_RESULT_ACCEPTED) {
+                    qDebug() << "on ready trigger";
                     m_empty = true;
                     emit onSet(m_time, m_distance);
                 }
                 return true;
             }
+            break;
+        }
+        case MAVLINK_MSG_ID_STATUSTEXT: {
+            mavlink_statustext_t ack;
+            mavlink_msg_statustext_decode(&msg, &ack);
+            qDebug() << "Status" << QString(ack.text);
             break;
         }
     }
