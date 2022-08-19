@@ -129,24 +129,23 @@
         <translation>По времени</translation>
     </message>
     <message>
-        <location filename="main.qml" line="120"/>
+        <location filename="main.qml" line="139"/>
         <source>On distance</source>
         <translation>По дистанции</translation>
     </message>
     <message>
-        <location filename="main.qml" line="136"/>
+        <location filename="main.qml" line="173"/>
         <source>Apply</source>
         <translation>Принять</translation>
     </message>
     <message>
-        <location filename="main.qml" line="159"/>
+        <location filename="main.qml" line="195"/>
         <source>Map</source>
         <translation>Карты</translation>
     </message>
     <message>
-        <location filename="main.qml" line="171"/>
         <source>Configure</source>
-        <translation>Настройки</translation>
+        <translation type="vanished">Настройки</translation>
     </message>
 </context>
 </TS>

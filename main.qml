@@ -104,6 +104,25 @@ ApplicationWindow {
                 }
                 SpinBox {
                     id: onTimeBox
+                    from: 1
+                    value: 1
+                    to: 60 * 60
+                    editable: true
+                    stepSize: 1
+                    property int decimals: 2
+                    property real realValue: value / 10
+
+                    validator: DoubleValidator {
+                        bottom: Math.min(onTimeBox.from, onTimeBox.to)
+                        top: Math.max(onTimeBox.from, onTimeBox.to)
+                    }
+                    textFromValue: function(value, locale) {
+                        return Number(value / 10).toLocaleString(locale, 'f', onTimeBox.decimals)
+                    }
+                    valueFromText: function(text, locale) {
+                        return Number.fromLocaleString(locale, text) * 10
+                    }
+
                     onValueChanged: {
                         onTimeBg.color = "lightblue"
                     }
@@ -124,6 +143,24 @@ ApplicationWindow {
                     onValueChanged: {
                         onDistBg.color = "lightblue"
                     }
+                    from: 1
+                    value: 1
+                    editable: true
+                    to: 1024
+                    stepSize: 1
+                    property int decimals: 2
+                    property real realValue: value / 10
+
+                    validator: DoubleValidator {
+                        bottom: Math.min(onDistanceBox.from, onDistanceBox.to)
+                        top: Math.max(onDistanceBox.from, onDistanceBox.to)
+                    }
+                    textFromValue: function(value, locale) {
+                        return Number(value / 10).toLocaleString(locale, 'f', onDistanceBox.decimals)
+                    }
+                    valueFromText: function(text, locale) {
+                        return Number.fromLocaleString(locale, text) * 10
+                    }
 
                     background: Rectangle {
                         id: onDistBg
@@ -135,9 +172,8 @@ ApplicationWindow {
                 Button {
                     text: qsTr("Apply")
                     onClicked: {
-
-                        UAV.getPayloadPhoto().commit((onTimeCheck.checked) ? onTimeBox.value : 0,
-                                                     (onTimeCheck.checked) ? onDistanceBox.value : 0)
+                        UAV.getPayloadPhoto().commit((onTimeCheck.checked) ? onTimeBox.value / 10 : 0,
+                                                     (onDistanceCheck.checked) ? onDistanceBox.value / 10 : 0)
                     }
                 }
                 Text {
@@ -154,7 +190,7 @@ ApplicationWindow {
                 anchors.fill: parent
                 Button {
                     id: mapBtn
-                    width: drawer.width / 2
+                    width: drawer.width
                     icon.name: "map"
                     text: qsTr("Map");
                     onClicked: {
@@ -164,7 +200,7 @@ ApplicationWindow {
                         drawer.close()
                     }
                 }
-                Button {
+                /*Button {
                     id: appConfBtn
                     width: drawer.width / 2
                     icon.name: "configure"
@@ -175,7 +211,7 @@ ApplicationWindow {
                         stackView.push(appConfigureView)
                         drawer.close()
                     }
-                }
+                }*/
                 /*Button {
                     id: helpBtn
                     width: drawer.width / 3

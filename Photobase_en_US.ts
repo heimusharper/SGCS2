@@ -129,24 +129,23 @@
         <translation>On time</translation>
     </message>
     <message>
-        <location filename="main.qml" line="120"/>
+        <location filename="main.qml" line="139"/>
         <source>On distance</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="main.qml" line="136"/>
+        <location filename="main.qml" line="173"/>
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="main.qml" line="159"/>
+        <location filename="main.qml" line="195"/>
         <source>Map</source>
         <translation>Map</translation>
     </message>
     <message>
-        <location filename="main.qml" line="171"/>
         <source>Configure</source>
-        <translation>Configure</translation>
+        <translation type="vanished">Configure</translation>
     </message>
 </context>
 </TS>
